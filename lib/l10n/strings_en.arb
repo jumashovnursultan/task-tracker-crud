@@ -1,0 +1,17 @@
+{
+  "welcomeTo": "Welcome to",
+  "loginToStart": "Login to start",
+  "getCode": "Get code",
+  
+  "enterYourEmail": "Enter your email",
+  "enterPhoneNumber": "Enter phone number",
+  "enterValidEmailAddress": "Please enter a valid email address",
+  "numberIsNotLong": "The number is not long enough",
+  "youCanEnterOnlyRussianOrKyrgyzNumbers": "You can enter only Russian (+7) or Kyrgyz (+996) numbers",
+  "somethingWentWrong": "Something went wrong",
+  "loginIn": "Login in",
+  "enterPassword": "Enter password"
+
+
+
+}
