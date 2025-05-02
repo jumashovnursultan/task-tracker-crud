@@ -10,7 +10,13 @@
   "youCanEnterOnlyRussianOrKyrgyzNumbers": "You can enter only Russian (+7) or Kyrgyz (+996) numbers",
   "somethingWentWrong": "Something went wrong",
   "loginIn": "Login in",
-  "enterPassword": "Enter password"
+  "enterPassword": "Enter password",
+  "myTask": "Enter password",
+  "enterCode": "Enter code",
+  "weSentCode": "We have sent a confirmation code to the {email}",
+  "resendCode": "Resend the code",
+  "weWillSendCode": "We will send the code again in",
+  "help": "Help"
 
 
 

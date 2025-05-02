@@ -4,7 +4,6 @@ import 'package:adhdo_it_mob/config/router/app_route.dart';
 import 'package:adhdo_it_mob/helpers/toast_helper.dart';
 import 'package:adhdo_it_mob/l10n/strings.dart';
 import 'package:adhdo_it_mob/providers/login_providers.dart';
-import 'package:adhdo_it_mob/providers/user_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -15,8 +14,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:pinput/pinput.dart';
 
-class VerificationCodePage extends HookConsumerWidget {
-  const VerificationCodePage(this.email, {super.key});
+class VerificationCodeScreen extends HookConsumerWidget {
+  const VerificationCodeScreen(this.email, {super.key});
 
   final String email;
 
@@ -90,10 +89,13 @@ class VerificationCodePage extends HookConsumerWidget {
                       ),
                     ),
                     Spacer(),
-                    Text('Enter code', style: TextStyle(fontSize: 26)),
+                    Text(
+                      Strings.of(context).enterCode,
+                      style: TextStyle(fontSize: 26),
+                    ),
                     Gap(16),
                     Text(
-                      'We have sent a confirmation code to the number $email',
+                      Strings.of(context).weSentCode(email),
                       style: TextStyle(fontSize: 16, color: Color(0xFF92918A)),
                       textAlign: TextAlign.center,
                     ),
@@ -186,8 +188,8 @@ class VerificationCodePage extends HookConsumerWidget {
                       },
                       child: Text(
                         timeMinutes.value == 0 && timeSeconds.value == 0
-                            ? 'Resend the code'
-                            : '${'We will send the code again in'}'
+                            ? Strings.of(context).resendCode
+                            : '${Strings.of(context).weWillSendCode}'
                                 ' ${timeMinutes.value < 10 ? '0' : ''}${timeMinutes.value.toString()}:'
                                 '${timeSeconds.value < 10 ? '0' : ''}${timeSeconds.value.toString()}'
                                 '.',
@@ -202,7 +204,10 @@ class VerificationCodePage extends HookConsumerWidget {
                     ),
 
                     Gap(16),
-                    Text('Help?', style: TextStyle(fontSize: 16)),
+                    Text(
+                      '${Strings.of(context).help}?',
+                      style: TextStyle(fontSize: 16),
+                    ),
                     Gap(32),
                   ],
                 ),

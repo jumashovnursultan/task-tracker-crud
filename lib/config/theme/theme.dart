@@ -92,7 +92,12 @@ class AppTheme {
           ),
         ),
       ),
-
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: Color(0xFF92918A),
+          textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+        ),
+      ),
       inputDecorationTheme: InputDecorationTheme(
         contentPadding: EdgeInsets.only(
           left: 24,

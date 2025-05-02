@@ -1,7 +1,7 @@
-import 'package:adhdo_it_mob/ui/screens/auth/login_page.dart';
-import 'package:adhdo_it_mob/ui/screens/auth/verification_code_page.dart';
-import 'package:adhdo_it_mob/ui/screens/home/home_page.dart';
-import 'package:adhdo_it_mob/ui/screens/intro/intro_page.dart';
+import 'package:adhdo_it_mob/ui/screens/auth/login_screen.dart';
+import 'package:adhdo_it_mob/ui/screens/auth/verification_code_screen.dart';
+import 'package:adhdo_it_mob/ui/screens/home/home_screen.dart';
+import 'package:adhdo_it_mob/ui/screens/intro/intro_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -14,17 +14,17 @@ GoRouter buildRouter(BuildContext context, String initialLocation) {
       GoRoute(
         path: Routes.login.path,
         builder: (context, state) {
-          return LoginPage();
+          return LoginScreen();
         },
       ),
       GoRoute(
         path: Routes.verificationCode.path,
         builder:
-            (context, state) => VerificationCodePage(state.extra as String),
+            (context, state) => VerificationCodeScreen(state.extra as String),
       ),
       GoRoute(
         path: Routes.home.path,
-        builder: (context, state) => const HomePage(),
+        builder: (context, state) => const HomeScreen(),
       ),
       GoRoute(
         path: Routes.intro.path,
