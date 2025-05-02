@@ -6,7 +6,7 @@ part of 'login_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$loginHash() => r'b0a58b5d88a2fcccd3bbd22728da47c83177a6b1';
+String _$loginHash() => r'b7aec64a7271ebe3bb676720542e100ac365ccc0';
 
 /// See also [Login].
 @ProviderFor(Login)
@@ -20,5 +20,22 @@ final loginProvider = AutoDisposeNotifierProvider<Login, LoginState>.internal(
 );
 
 typedef _$Login = AutoDisposeNotifier<LoginState>;
+String _$verifyCodeHash() => r'2228f58d471c6b6a0b3fb9f3024ed830eeb01452';
+
+/// See also [VerifyCode].
+@ProviderFor(VerifyCode)
+final verifyCodeProvider =
+    AutoDisposeNotifierProvider<VerifyCode, VerifyCodeState>.internal(
+      VerifyCode.new,
+      name: r'verifyCodeProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$verifyCodeHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
+
+typedef _$VerifyCode = AutoDisposeNotifier<VerifyCodeState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

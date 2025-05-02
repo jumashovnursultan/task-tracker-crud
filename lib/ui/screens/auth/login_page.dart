@@ -3,8 +3,6 @@ import 'package:adhdo_it_mob/helpers/toast_helper.dart';
 import 'package:adhdo_it_mob/l10n/strings.dart';
 import 'package:adhdo_it_mob/providers/login_providers.dart';
 import 'package:adhdo_it_mob/ui/widgets/email_form_field.dart';
-import 'package:adhdo_it_mob/ui/widgets/password_form_field.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
@@ -35,7 +33,7 @@ class LoginPage extends HookConsumerWidget {
           type: ToastificationType.error,
         );
       } else if (nextState.status.isSuccess) {
-        context.push(Routes.home());
+        context.push(Routes.verificationCode(), extra: emailController.text);
       }
     });
 
@@ -66,9 +64,9 @@ class LoginPage extends HookConsumerWidget {
                           height: 1.1,
                         ),
                       ),
-
+                      Gap(20),
                       Image.asset('assets/images/logo.png'),
-
+                      Gap(20),
                       Text(
                         Strings.of(context).loginToStart,
                         style: TextStyle(
@@ -78,36 +76,7 @@ class LoginPage extends HookConsumerWidget {
                       ),
                       Gap(32),
                       EmailFormField(controller: emailController),
-                      Gap(10),
-                      PasswordFormField(
-                        hintText: Strings.of(context).enterPassword,
-                        controller: passwordController,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return Strings.of(context).enterPassword;
-                          }
-                          return null;
-                        },
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed:
-                              () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Scaffold(),
-                                ),
-                              ),
-                          child: Text(
-                            'Забыли пароль?',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                      ),
+
                       Gap(16),
 
                       Bounceable(
@@ -148,28 +117,6 @@ class LoginPage extends HookConsumerWidget {
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
-                        ),
-                      ),
-                      Gap(25),
-                      RichText(
-                        text: TextSpan(
-                          recognizer: TapGestureRecognizer()..onTap = () {},
-                          text: 'Нет аккаунта?',
-                          style: TextStyle(
-                            color: Color(0xFF626262),
-                            fontWeight: FontWeight.w700,
-                          ),
-                          children: [
-                            TextSpan(text: ' '),
-                            TextSpan(
-                              recognizer: TapGestureRecognizer()..onTap = () {},
-                              text: 'Зарегистрироваться',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ],
                         ),
                       ),
                       Gap(30),

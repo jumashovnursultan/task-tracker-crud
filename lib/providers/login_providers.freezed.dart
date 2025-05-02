@@ -145,4 +145,137 @@ as String?,
 
 }
 
+/// @nodoc
+mixin _$VerifyCodeState {
+
+ VerifyCodeStatus get status; String? get error; String? get googleAccessToken;
+/// Create a copy of VerifyCodeState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$VerifyCodeStateCopyWith<VerifyCodeState> get copyWith => _$VerifyCodeStateCopyWithImpl<VerifyCodeState>(this as VerifyCodeState, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is VerifyCodeState&&(identical(other.status, status) || other.status == status)&&(identical(other.error, error) || other.error == error)&&(identical(other.googleAccessToken, googleAccessToken) || other.googleAccessToken == googleAccessToken));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,status,error,googleAccessToken);
+
+@override
+String toString() {
+  return 'VerifyCodeState(status: $status, error: $error, googleAccessToken: $googleAccessToken)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $VerifyCodeStateCopyWith<$Res>  {
+  factory $VerifyCodeStateCopyWith(VerifyCodeState value, $Res Function(VerifyCodeState) _then) = _$VerifyCodeStateCopyWithImpl;
+@useResult
+$Res call({
+ VerifyCodeStatus status, String? error, String? googleAccessToken
+});
+
+
+
+
+}
+/// @nodoc
+class _$VerifyCodeStateCopyWithImpl<$Res>
+    implements $VerifyCodeStateCopyWith<$Res> {
+  _$VerifyCodeStateCopyWithImpl(this._self, this._then);
+
+  final VerifyCodeState _self;
+  final $Res Function(VerifyCodeState) _then;
+
+/// Create a copy of VerifyCodeState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? error = freezed,Object? googleAccessToken = freezed,}) {
+  return _then(_self.copyWith(
+status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as VerifyCodeStatus,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as String?,googleAccessToken: freezed == googleAccessToken ? _self.googleAccessToken : googleAccessToken // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+}
+
+
+/// @nodoc
+
+
+class _VerifyCodeState implements VerifyCodeState {
+  const _VerifyCodeState({this.status = VerifyCodeStatus.initial, this.error, this.googleAccessToken});
+  
+
+@override@JsonKey() final  VerifyCodeStatus status;
+@override final  String? error;
+@override final  String? googleAccessToken;
+
+/// Create a copy of VerifyCodeState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$VerifyCodeStateCopyWith<_VerifyCodeState> get copyWith => __$VerifyCodeStateCopyWithImpl<_VerifyCodeState>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _VerifyCodeState&&(identical(other.status, status) || other.status == status)&&(identical(other.error, error) || other.error == error)&&(identical(other.googleAccessToken, googleAccessToken) || other.googleAccessToken == googleAccessToken));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,status,error,googleAccessToken);
+
+@override
+String toString() {
+  return 'VerifyCodeState(status: $status, error: $error, googleAccessToken: $googleAccessToken)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$VerifyCodeStateCopyWith<$Res> implements $VerifyCodeStateCopyWith<$Res> {
+  factory _$VerifyCodeStateCopyWith(_VerifyCodeState value, $Res Function(_VerifyCodeState) _then) = __$VerifyCodeStateCopyWithImpl;
+@override @useResult
+$Res call({
+ VerifyCodeStatus status, String? error, String? googleAccessToken
+});
+
+
+
+
+}
+/// @nodoc
+class __$VerifyCodeStateCopyWithImpl<$Res>
+    implements _$VerifyCodeStateCopyWith<$Res> {
+  __$VerifyCodeStateCopyWithImpl(this._self, this._then);
+
+  final _VerifyCodeState _self;
+  final $Res Function(_VerifyCodeState) _then;
+
+/// Create a copy of VerifyCodeState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? error = freezed,Object? googleAccessToken = freezed,}) {
+  return _then(_VerifyCodeState(
+status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as VerifyCodeStatus,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as String?,googleAccessToken: freezed == googleAccessToken ? _self.googleAccessToken : googleAccessToken // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
 // dart format on

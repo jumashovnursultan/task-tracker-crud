@@ -7,7 +7,7 @@ abstract final class UserRepo {
   Future<ApiResponse<Token>> login(String email, String password);
   Future<ApiResponse> register(String email, String password);
 
-  Future<ApiResponse> codeVerify(String? code);
+  Future<ApiResponse<Token>> codeVerify(String email, String? code);
 }
 
 base class UserAPIRepo implements UserRepo {
@@ -28,7 +28,7 @@ base class UserAPIRepo implements UserRepo {
   }
 
   @override
-  Future<ApiResponse<bool>> codeVerify(String? code) async {
+  Future<ApiResponse<Token>> codeVerify(String email, String? code) async {
     // return _client.post(
     //   'accounts/verify_code/',
     //   data: {

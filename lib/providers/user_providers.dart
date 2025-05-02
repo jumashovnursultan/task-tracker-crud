@@ -35,7 +35,7 @@ class User extends _$User {
   @override
   UserState build() {
     if (localStorage.token != null) {
-      fetchUserProfile();
+      // fetchUserProfile();
     }
 
     return UserState(

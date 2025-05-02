@@ -1,19 +1,66 @@
+import 'dart:async';
+
+import 'package:adhdo_it_mob/config/router/app_route.dart';
+import 'package:adhdo_it_mob/helpers/toast_helper.dart';
 import 'package:adhdo_it_mob/l10n/strings.dart';
+import 'package:adhdo_it_mob/providers/login_providers.dart';
+import 'package:adhdo_it_mob/providers/user_providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:loading_indicator/loading_indicator.dart';
+import 'package:pinput/pinput.dart';
 
 class VerificationCodePage extends HookConsumerWidget {
-  const VerificationCodePage(this.phone, {super.key});
+  const VerificationCodePage(this.email, {super.key});
 
-  final String phone;
+  final String email;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final verifyCodeState = ref.watch(verifyCodeProvider);
     final formKey = useMemoized(() => GlobalKey<FormState>());
+    final timeMinutes = useState(1);
+    final timeSeconds = useState(00);
+    final timer = useState<Timer?>(null);
+
+    useEffect(() {
+      if (timer.value?.isActive == true) return;
+      timer.value = Timer.periodic(const Duration(seconds: 1), (timer) {
+        if (timeSeconds.value > 0) {
+          timeSeconds.value--;
+        } else {
+          if (timeMinutes.value == 0) {
+            timer.cancel();
+            return;
+          } else {
+            timeSeconds.value = 59;
+          }
+
+          timeMinutes.value--;
+        }
+      });
+      return;
+    }, [timeMinutes.value, timeSeconds.value]);
+
+    ref.listen(verifyCodeProvider, (prevState, nextState) async {
+      if (nextState.status.isError) {
+        showToast(
+          context,
+          msg:
+              nextState.error?.toString() ??
+              Strings.of(context).somethingWentWrong,
+          type: ToastificationType.error,
+        );
+      } else if (nextState.status.isSuccess) {
+        context.push(Routes.home());
+      }
+    });
+
     return SafeArea(
       child: Scaffold(
         body: Form(
@@ -25,35 +72,138 @@ class VerificationCodePage extends HookConsumerWidget {
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 430),
                 child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Gap(30),
-                    // Row(
-                    //   children: [
-                    //     SvgPicture.asset('assets/svg/arrow_back.svg'),
-                    //     Text(
-                    //       Strings.of(context).loginIn,
-                    //       style: TextStyle(fontSize: 16),
-                    //     ),
-                    //   ],
-                    // ),
+                    Gap(30),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Row(
+                        children: [
+                          SvgPicture.asset('assets/svg/arrow_back.svg'),
+                          Text(
+                            Strings.of(context).loginIn,
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
+                    ),
                     Spacer(),
-                    // Text('Enter code', style: TextStyle(fontSize: 26)),
-                    // Gap(16),
-                    // Text(
-                    //   'We have sent a confirmation code to the number $phone',
-                    //   style: TextStyle(fontSize: 16, color: Color(0xFF92918A)),
-                    //   textAlign: TextAlign.center,
-                    // ),
-                    OtpFields(),
+                    Text('Enter code', style: TextStyle(fontSize: 26)),
+                    Gap(16),
+                    Text(
+                      'We have sent a confirmation code to the number $email',
+                      style: TextStyle(fontSize: 16, color: Color(0xFF92918A)),
+                      textAlign: TextAlign.center,
+                    ),
+                    Gap(20),
+                    if (!verifyCodeState.status.isLoading)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 11),
+                        child: Directionality(
+                          textDirection: TextDirection.ltr,
+                          child: Pinput(
+                            length: 4,
+                            autofocus: true,
+
+                            keyboardType: TextInputType.phone,
+                            hapticFeedbackType: HapticFeedbackType.lightImpact,
+
+                            onCompleted: (pin) {
+                              ref
+                                  .read(verifyCodeProvider.notifier)
+                                  .codeVerify(email, pin);
+                            },
+                            separatorBuilder:
+                                (index) => const SizedBox(width: 10),
+
+                            pinputAutovalidateMode:
+                                PinputAutovalidateMode.onSubmit,
+
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(
+                                RegExp(r'[0-9]'),
+                              ),
+                            ],
+                            cursor: Container(
+                              width: 1.5,
+                              height: 22,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            submittedPinTheme: PinTheme(
+                              width: 56,
+                              height: 56,
+                              textStyle: TextStyle(
+                                fontSize: 20,
+                                color: Color.fromRGBO(30, 60, 87, 1),
+                                fontWeight: FontWeight.w600,
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 2,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            defaultPinTheme: PinTheme(
+                              width: 56,
+                              height: 56,
+                              textStyle: TextStyle(
+                                fontSize: 20,
+                                color: Color.fromRGBO(30, 60, 87, 1),
+                                fontWeight: FontWeight.w600,
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: Theme.of(context).primaryColor,
+                                    width: 2,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    else
+                      SizedBox(
+                        height: 30,
+                        child: LoadingIndicator(
+                          indicatorType: Indicator.ballPulseSync,
+                          colors: [Colors.black],
+                        ),
+                      ),
                     Spacer(),
-                    // Text(
-                    //   'We will send the code again in 43 seconds.',
-                    //   style: TextStyle(fontSize: 16, color: Color(0xFF92918A)),
-                    // ),
-                    // Gap(16),
-                    // Text('Help?', style: TextStyle(fontSize: 16)),
-                    // Gap(32),
+                    GestureDetector(
+                      onTap: () {
+                        if (timeMinutes.value == 0 && timeSeconds.value == 0) {
+                          timeMinutes.value = 2;
+                          timeSeconds.value = 00;
+                        } else {}
+                      },
+                      child: Text(
+                        timeMinutes.value == 0 && timeSeconds.value == 0
+                            ? 'Resend the code'
+                            : '${'We will send the code again in'}'
+                                ' ${timeMinutes.value < 10 ? '0' : ''}${timeMinutes.value.toString()}:'
+                                '${timeSeconds.value < 10 ? '0' : ''}${timeSeconds.value.toString()}'
+                                '.',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color:
+                              timeMinutes.value == 0 && timeSeconds.value == 0
+                                  ? Color(0xFF9605AC)
+                                  : Color(0xFF92918A),
+                        ),
+                      ),
+                    ),
+
+                    Gap(16),
+                    Text('Help?', style: TextStyle(fontSize: 16)),
+                    Gap(32),
                   ],
                 ),
               ),
