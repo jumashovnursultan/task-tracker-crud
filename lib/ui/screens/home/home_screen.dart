@@ -22,6 +22,7 @@ class HomeScreen extends HookConsumerWidget {
     final swipeHistory = useState([]);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -137,6 +138,7 @@ class HomeScreen extends HookConsumerWidget {
                         showModalBottomSheet(
                           context: context,
                           isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                               top: Radius.circular(30),
