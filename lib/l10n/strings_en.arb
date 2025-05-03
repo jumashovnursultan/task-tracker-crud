@@ -11,12 +11,14 @@
   "somethingWentWrong": "Something went wrong",
   "loginIn": "Login in",
   "enterPassword": "Enter password",
-  "myTask": "Enter password",
+  "myTask": "My task",
   "enterCode": "Enter code",
   "weSentCode": "We have sent a confirmation code to the {email}",
   "resendCode": "Resend the code",
   "weWillSendCode": "We will send the code again in",
-  "help": "Help"
+  "help": "Help",
+  "allTask": "All task",
+  "addTask": "Add task"
 
 
 

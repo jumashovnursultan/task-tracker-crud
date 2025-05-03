@@ -5,67 +5,80 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class IntroModel {
   final String image;
-  final double leftPadding;
-  final double rightPadding;
-  final String title;
+  final EdgeInsets imagePadding;
+  final List<TextSpan> titleSpans; // Изменено здесь
   final String subTitle;
   final Color backgroundColor;
 
   IntroModel({
     required this.image,
-    required this.leftPadding,
-    required this.rightPadding,
-    required this.title,
+    required this.imagePadding,
+    required this.titleSpans,
     required this.subTitle,
     required this.backgroundColor,
   });
 }
 
-List<IntroModel> _pages() => [
+final List<IntroModel> introPages = [
   IntroModel(
-    backgroundColor: Color(0xFFFFFACD),
-    title: 'How to create a task',
+    backgroundColor: const Color(0xFFFFFACD),
+    titleSpans: [
+      const TextSpan(text: 'How to create\na '),
+      const TextSpan(
+        text: 'task',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+    ],
     subTitle: 'Tap the plus button to add a new task',
     image: 'assets/images/into_image1.png',
-    leftPadding: 16,
-    rightPadding: 15,
+    imagePadding: const EdgeInsets.symmetric(horizontal: 16),
   ),
   IntroModel(
-    backgroundColor: Color(0xFFB5DAF6),
-    title: 'Swit tasks',
+    backgroundColor: const Color(0xFFB5DAF6),
+    titleSpans: [
+      const TextSpan(
+        text: 'Swit ',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      const TextSpan(text: 'tasks'),
+    ],
     subTitle: 'Swipe left to view the next task',
     image: 'assets/images/into_image2.png',
-    leftPadding: 12,
-    rightPadding: 34,
+    imagePadding: const EdgeInsets.only(left: 12, right: 34),
   ),
   IntroModel(
-    backgroundColor: Color(0xFFFCCF9C),
-    title: 'Start a task',
+    backgroundColor: const Color(0xFFFCCF9C),
+    titleSpans: [
+      const TextSpan(
+        text: 'Start ',
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      const TextSpan(text: 'a task'),
+    ],
     subTitle: 'Swipe right to start focusing on a task',
     image: 'assets/images/into_image3.png',
-    leftPadding: 33,
-    rightPadding: 7,
+    imagePadding: const EdgeInsets.only(left: 33, right: 7),
   ),
 ];
 
-class IntroPage extends HookWidget {
-  const IntroPage({super.key});
+class IntroScreen extends HookWidget {
+  const IntroScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final pageController = usePageController();
+
     return Scaffold(
       body: PageView.builder(
         controller: pageController,
-        itemCount: _pages().length,
+        itemCount: introPages.length,
         itemBuilder: (context, index) {
-          final page = _pages()[index];
-          print(index);
-          print(_pages().length);
+          final page = introPages[index];
+          final isLastPage = index == introPages.length - 1;
+
           return ColoredBox(
             color: page.backgroundColor,
             child: SafeArea(
@@ -73,11 +86,11 @@ class IntroPage extends HookWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
-                    Gap(32),
+                    const Gap(32),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           'ADHDo.it',
                           style: TextStyle(
                             fontSize: 32,
@@ -86,22 +99,17 @@ class IntroPage extends HookWidget {
                           ),
                         ),
                         TextButton(
-                          child: Text('Skip'),
-                          onPressed: () {
-                            context.go(Routes.home());
-                          },
+                          onPressed: () => context.go(Routes.home()),
+                          child: const Text('Skip'),
                         ),
                       ],
                     ),
-                    Spacer(flex: 2),
+                    const Spacer(flex: 2),
                     Padding(
-                      padding: EdgeInsets.only(
-                        left: page.leftPadding,
-                        right: page.rightPadding,
-                      ),
+                      padding: page.imagePadding,
                       child: Image.asset(page.image),
                     ),
-                    Spacer(flex: 3),
+                    const Spacer(flex: 3),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -110,18 +118,22 @@ class IntroPage extends HookWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                page.title,
-                                style: TextStyle(
-                                  fontSize: 40,
-                                  fontWeight: FontWeight.w500,
-                                  height: 1,
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 40,
+                                    height: 1,
+                                    color:
+                                        Colors
+                                            .black, // Не забудь указать цвет текста!
+                                  ),
+                                  children: page.titleSpans,
                                 ),
                               ),
-                              Gap(10),
+                              const Gap(10),
                               Text(
                                 page.subTitle,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Color(0xFF92918A),
                                   fontSize: 16,
                                 ),
@@ -130,25 +142,23 @@ class IntroPage extends HookWidget {
                           ),
                         ),
                         Bounceable(
-                          onTap: () {
-                            if (_pages().length == index + 1) {
-                              context.go(Routes.home());
-                            } else {
-                              pageController.animateToPage(
-                                index + 1,
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeInOut,
-                              );
-                            }
-                          },
+                          onTap:
+                              () =>
+                                  isLastPage
+                                      ? context.go(Routes.home())
+                                      : pageController.nextPage(
+                                        duration: const Duration(
+                                          milliseconds: 300,
+                                        ),
+                                        curve: Curves.easeInOut,
+                                      ),
                           child: Container(
                             height: 40,
                             width: 40,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               shape: BoxShape.circle,
-                              color: Color(0xFFFFFFFF),
+                              color: Colors.white,
                             ),
-                            padding: EdgeInsets.only(left: 3),
                             alignment: Alignment.center,
                             child: SvgPicture.asset(
                               'assets/svg/arrow_right.svg',
@@ -157,7 +167,7 @@ class IntroPage extends HookWidget {
                         ),
                       ],
                     ),
-                    Gap(32),
+                    const Gap(32),
                   ],
                 ),
               ),

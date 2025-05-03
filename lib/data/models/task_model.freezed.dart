@@ -1,0 +1,305 @@
+// dart format width=80
+// coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+
+part of 'task_model.dart';
+
+// **************************************************************************
+// FreezedGenerator
+// **************************************************************************
+
+// dart format off
+T _$identity<T>(T value) => value;
+
+/// @nodoc
+mixin _$TaskModel {
+
+ int get id; String get title;@JsonKey(name: 'image') String? get backgroundImage; DateTime get date;@JsonKey(name: 'duration_in_seconds') int get durationInSeconds; int get priority;
+/// Create a copy of TaskModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$TaskModelCopyWith<TaskModel> get copyWith => _$TaskModelCopyWithImpl<TaskModel>(this as TaskModel, _$identity);
+
+  /// Serializes this TaskModel to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TaskModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.backgroundImage, backgroundImage) || other.backgroundImage == backgroundImage)&&(identical(other.date, date) || other.date == date)&&(identical(other.durationInSeconds, durationInSeconds) || other.durationInSeconds == durationInSeconds)&&(identical(other.priority, priority) || other.priority == priority));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,title,backgroundImage,date,durationInSeconds,priority);
+
+@override
+String toString() {
+  return 'TaskModel(id: $id, title: $title, backgroundImage: $backgroundImage, date: $date, durationInSeconds: $durationInSeconds, priority: $priority)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $TaskModelCopyWith<$Res>  {
+  factory $TaskModelCopyWith(TaskModel value, $Res Function(TaskModel) _then) = _$TaskModelCopyWithImpl;
+@useResult
+$Res call({
+ int id, String title,@JsonKey(name: 'image') String? backgroundImage, DateTime date,@JsonKey(name: 'duration_in_seconds') int durationInSeconds, int priority
+});
+
+
+
+
+}
+/// @nodoc
+class _$TaskModelCopyWithImpl<$Res>
+    implements $TaskModelCopyWith<$Res> {
+  _$TaskModelCopyWithImpl(this._self, this._then);
+
+  final TaskModel _self;
+  final $Res Function(TaskModel) _then;
+
+/// Create a copy of TaskModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? backgroundImage = freezed,Object? date = null,Object? durationInSeconds = null,Object? priority = null,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String,backgroundImage: freezed == backgroundImage ? _self.backgroundImage : backgroundImage // ignore: cast_nullable_to_non_nullable
+as String?,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
+as DateTime,durationInSeconds: null == durationInSeconds ? _self.durationInSeconds : durationInSeconds // ignore: cast_nullable_to_non_nullable
+as int,priority: null == priority ? _self.priority : priority // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+}
+
+
+/// @nodoc
+@JsonSerializable()
+
+class _TaskModel implements TaskModel {
+  const _TaskModel({required this.id, required this.title, @JsonKey(name: 'image') this.backgroundImage, required this.date, @JsonKey(name: 'duration_in_seconds') required this.durationInSeconds, required this.priority});
+  factory _TaskModel.fromJson(Map<String, dynamic> json) => _$TaskModelFromJson(json);
+
+@override final  int id;
+@override final  String title;
+@override@JsonKey(name: 'image') final  String? backgroundImage;
+@override final  DateTime date;
+@override@JsonKey(name: 'duration_in_seconds') final  int durationInSeconds;
+@override final  int priority;
+
+/// Create a copy of TaskModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$TaskModelCopyWith<_TaskModel> get copyWith => __$TaskModelCopyWithImpl<_TaskModel>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$TaskModelToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TaskModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.backgroundImage, backgroundImage) || other.backgroundImage == backgroundImage)&&(identical(other.date, date) || other.date == date)&&(identical(other.durationInSeconds, durationInSeconds) || other.durationInSeconds == durationInSeconds)&&(identical(other.priority, priority) || other.priority == priority));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,title,backgroundImage,date,durationInSeconds,priority);
+
+@override
+String toString() {
+  return 'TaskModel(id: $id, title: $title, backgroundImage: $backgroundImage, date: $date, durationInSeconds: $durationInSeconds, priority: $priority)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$TaskModelCopyWith<$Res> implements $TaskModelCopyWith<$Res> {
+  factory _$TaskModelCopyWith(_TaskModel value, $Res Function(_TaskModel) _then) = __$TaskModelCopyWithImpl;
+@override @useResult
+$Res call({
+ int id, String title,@JsonKey(name: 'image') String? backgroundImage, DateTime date,@JsonKey(name: 'duration_in_seconds') int durationInSeconds, int priority
+});
+
+
+
+
+}
+/// @nodoc
+class __$TaskModelCopyWithImpl<$Res>
+    implements _$TaskModelCopyWith<$Res> {
+  __$TaskModelCopyWithImpl(this._self, this._then);
+
+  final _TaskModel _self;
+  final $Res Function(_TaskModel) _then;
+
+/// Create a copy of TaskModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? backgroundImage = freezed,Object? date = null,Object? durationInSeconds = null,Object? priority = null,}) {
+  return _then(_TaskModel(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String,backgroundImage: freezed == backgroundImage ? _self.backgroundImage : backgroundImage // ignore: cast_nullable_to_non_nullable
+as String?,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
+as DateTime,durationInSeconds: null == durationInSeconds ? _self.durationInSeconds : durationInSeconds // ignore: cast_nullable_to_non_nullable
+as int,priority: null == priority ? _self.priority : priority // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$TaskParamsModel {
+
+ int get page; bool? get byPriority; DateTime? get byDate; int? get byTime;
+/// Create a copy of TaskParamsModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$TaskParamsModelCopyWith<TaskParamsModel> get copyWith => _$TaskParamsModelCopyWithImpl<TaskParamsModel>(this as TaskParamsModel, _$identity);
+
+  /// Serializes this TaskParamsModel to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TaskParamsModel&&(identical(other.page, page) || other.page == page)&&(identical(other.byPriority, byPriority) || other.byPriority == byPriority)&&(identical(other.byDate, byDate) || other.byDate == byDate)&&(identical(other.byTime, byTime) || other.byTime == byTime));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,page,byPriority,byDate,byTime);
+
+@override
+String toString() {
+  return 'TaskParamsModel(page: $page, byPriority: $byPriority, byDate: $byDate, byTime: $byTime)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $TaskParamsModelCopyWith<$Res>  {
+  factory $TaskParamsModelCopyWith(TaskParamsModel value, $Res Function(TaskParamsModel) _then) = _$TaskParamsModelCopyWithImpl;
+@useResult
+$Res call({
+ int page, bool? byPriority, DateTime? byDate, int? byTime
+});
+
+
+
+
+}
+/// @nodoc
+class _$TaskParamsModelCopyWithImpl<$Res>
+    implements $TaskParamsModelCopyWith<$Res> {
+  _$TaskParamsModelCopyWithImpl(this._self, this._then);
+
+  final TaskParamsModel _self;
+  final $Res Function(TaskParamsModel) _then;
+
+/// Create a copy of TaskParamsModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? page = null,Object? byPriority = freezed,Object? byDate = freezed,Object? byTime = freezed,}) {
+  return _then(_self.copyWith(
+page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as int,byPriority: freezed == byPriority ? _self.byPriority : byPriority // ignore: cast_nullable_to_non_nullable
+as bool?,byDate: freezed == byDate ? _self.byDate : byDate // ignore: cast_nullable_to_non_nullable
+as DateTime?,byTime: freezed == byTime ? _self.byTime : byTime // ignore: cast_nullable_to_non_nullable
+as int?,
+  ));
+}
+
+}
+
+
+/// @nodoc
+@JsonSerializable()
+
+class _TaskParamsModel extends TaskParamsModel {
+  const _TaskParamsModel({this.page = 0, this.byPriority, this.byDate, this.byTime}): super._();
+  factory _TaskParamsModel.fromJson(Map<String, dynamic> json) => _$TaskParamsModelFromJson(json);
+
+@override@JsonKey() final  int page;
+@override final  bool? byPriority;
+@override final  DateTime? byDate;
+@override final  int? byTime;
+
+/// Create a copy of TaskParamsModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$TaskParamsModelCopyWith<_TaskParamsModel> get copyWith => __$TaskParamsModelCopyWithImpl<_TaskParamsModel>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$TaskParamsModelToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TaskParamsModel&&(identical(other.page, page) || other.page == page)&&(identical(other.byPriority, byPriority) || other.byPriority == byPriority)&&(identical(other.byDate, byDate) || other.byDate == byDate)&&(identical(other.byTime, byTime) || other.byTime == byTime));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,page,byPriority,byDate,byTime);
+
+@override
+String toString() {
+  return 'TaskParamsModel(page: $page, byPriority: $byPriority, byDate: $byDate, byTime: $byTime)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$TaskParamsModelCopyWith<$Res> implements $TaskParamsModelCopyWith<$Res> {
+  factory _$TaskParamsModelCopyWith(_TaskParamsModel value, $Res Function(_TaskParamsModel) _then) = __$TaskParamsModelCopyWithImpl;
+@override @useResult
+$Res call({
+ int page, bool? byPriority, DateTime? byDate, int? byTime
+});
+
+
+
+
+}
+/// @nodoc
+class __$TaskParamsModelCopyWithImpl<$Res>
+    implements _$TaskParamsModelCopyWith<$Res> {
+  __$TaskParamsModelCopyWithImpl(this._self, this._then);
+
+  final _TaskParamsModel _self;
+  final $Res Function(_TaskParamsModel) _then;
+
+/// Create a copy of TaskParamsModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? page = null,Object? byPriority = freezed,Object? byDate = freezed,Object? byTime = freezed,}) {
+  return _then(_TaskParamsModel(
+page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as int,byPriority: freezed == byPriority ? _self.byPriority : byPriority // ignore: cast_nullable_to_non_nullable
+as bool?,byDate: freezed == byDate ? _self.byDate : byDate // ignore: cast_nullable_to_non_nullable
+as DateTime?,byTime: freezed == byTime ? _self.byTime : byTime // ignore: cast_nullable_to_non_nullable
+as int?,
+  ));
+}
+
+
+}
+
+// dart format on
