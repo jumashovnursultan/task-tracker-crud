@@ -9,7 +9,7 @@ import 'app_route.dart';
 
 GoRouter buildRouter(BuildContext context, String initialLocation) {
   return GoRouter(
-    initialLocation: Routes.home(), //initialLocation,
+    initialLocation: initialLocation,
     routes: [
       GoRoute(
         path: Routes.login.path,

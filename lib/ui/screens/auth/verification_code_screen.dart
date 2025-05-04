@@ -56,7 +56,7 @@ class VerificationCodeScreen extends HookConsumerWidget {
           type: ToastificationType.error,
         );
       } else if (nextState.status.isSuccess) {
-        context.push(Routes.home());
+        context.go(Routes.intro());
       }
     });
 
@@ -184,7 +184,10 @@ class VerificationCodeScreen extends HookConsumerWidget {
                         if (timeMinutes.value == 0 && timeSeconds.value == 0) {
                           timeMinutes.value = 2;
                           timeSeconds.value = 00;
-                        } else {}
+                          ref
+                              .read(verifyCodeProvider.notifier)
+                              .resendCode(email);
+                        }
                       },
                       child: Text(
                         timeMinutes.value == 0 && timeSeconds.value == 0

@@ -6,7 +6,7 @@ part of 'login_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$loginHash() => r'b7aec64a7271ebe3bb676720542e100ac365ccc0';
+String _$loginHash() => r'870314680af7c55b79d98bc19ac073569fede927';
 
 /// See also [Login].
 @ProviderFor(Login)
@@ -20,7 +20,7 @@ final loginProvider = AutoDisposeNotifierProvider<Login, LoginState>.internal(
 );
 
 typedef _$Login = AutoDisposeNotifier<LoginState>;
-String _$verifyCodeHash() => r'2228f58d471c6b6a0b3fb9f3024ed830eeb01452';
+String _$verifyCodeHash() => r'1fd5a95f4180737d2423d310476f89163ca0a929';
 
 /// See also [VerifyCode].
 @ProviderFor(VerifyCode)

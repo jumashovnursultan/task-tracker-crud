@@ -1,7 +1,9 @@
+import 'package:adhdo_it_mob/data/models/api_response.dart';
 import 'package:adhdo_it_mob/data/models/task_model.dart';
 import 'package:adhdo_it_mob/data/storage/local_storage.dart';
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'dependencies.dart';
 
@@ -123,4 +125,17 @@ class TaskList extends _$TaskList {
       );
     }
   }
+
+  void addTask(TaskModel model) {
+    state = state.copyWith(
+      list: AsyncValue.data([...?state.list.value, model]),
+    );
+  }
+}
+
+@riverpod
+Future<ApiResponse<TaskModel>> createTask(Ref ref, TaskModel model) async {
+  final response = await ref.read(taskRepoProvider).createTask(model);
+
+  return response;
 }

@@ -37,9 +37,9 @@ class Login extends _$Login {
     return LoginState.initial();
   }
 
-  Future<void> login(String email, String password) async {
+  Future<void> login(String email) async {
     state = state.copyWith(status: LoginStatus.loading);
-    final response = await ref.read(userRepoProvider).login(email, password);
+    final response = await ref.read(userRepoProvider).login(email);
     if (response.isSuccessful) {
       state = state.copyWith(status: LoginStatus.success);
     } else {
@@ -95,5 +95,9 @@ class VerifyCode extends _$VerifyCode {
         error: response.errorData,
       );
     }
+  }
+
+  Future<void> resendCode(String email) async {
+    await ref.read(userRepoProvider).login(email);
   }
 }

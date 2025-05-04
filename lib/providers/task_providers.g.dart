@@ -6,7 +6,7 @@ part of 'task_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$taskListHash() => r'1d1a89a1bf1f7b8a5141506b989667b7b2ce16e3';
+String _$createTaskHash() => r'fd768a4dcb06bf33eea1a9844d9feac7eb95ffb4';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -28,6 +28,127 @@ class _SystemHash {
     return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
   }
 }
+
+/// See also [createTask].
+@ProviderFor(createTask)
+const createTaskProvider = CreateTaskFamily();
+
+/// See also [createTask].
+class CreateTaskFamily extends Family<AsyncValue<ApiResponse<TaskModel>>> {
+  /// See also [createTask].
+  const CreateTaskFamily();
+
+  /// See also [createTask].
+  CreateTaskProvider call(TaskModel model) {
+    return CreateTaskProvider(model);
+  }
+
+  @override
+  CreateTaskProvider getProviderOverride(
+    covariant CreateTaskProvider provider,
+  ) {
+    return call(provider.model);
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'createTaskProvider';
+}
+
+/// See also [createTask].
+class CreateTaskProvider
+    extends AutoDisposeFutureProvider<ApiResponse<TaskModel>> {
+  /// See also [createTask].
+  CreateTaskProvider(TaskModel model)
+    : this._internal(
+        (ref) => createTask(ref as CreateTaskRef, model),
+        from: createTaskProvider,
+        name: r'createTaskProvider',
+        debugGetCreateSourceHash:
+            const bool.fromEnvironment('dart.vm.product')
+                ? null
+                : _$createTaskHash,
+        dependencies: CreateTaskFamily._dependencies,
+        allTransitiveDependencies: CreateTaskFamily._allTransitiveDependencies,
+        model: model,
+      );
+
+  CreateTaskProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.model,
+  }) : super.internal();
+
+  final TaskModel model;
+
+  @override
+  Override overrideWith(
+    FutureOr<ApiResponse<TaskModel>> Function(CreateTaskRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: CreateTaskProvider._internal(
+        (ref) => create(ref as CreateTaskRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        model: model,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<ApiResponse<TaskModel>> createElement() {
+    return _CreateTaskProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is CreateTaskProvider && other.model == model;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, model.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin CreateTaskRef on AutoDisposeFutureProviderRef<ApiResponse<TaskModel>> {
+  /// The parameter `model` of this provider.
+  TaskModel get model;
+}
+
+class _CreateTaskProviderElement
+    extends AutoDisposeFutureProviderElement<ApiResponse<TaskModel>>
+    with CreateTaskRef {
+  _CreateTaskProviderElement(super.provider);
+
+  @override
+  TaskModel get model => (origin as CreateTaskProvider).model;
+}
+
+String _$taskListHash() => r'd77be7d2760b7587fb1dfefad178b8110ae5f828';
 
 abstract class _$TaskList extends BuildlessAutoDisposeNotifier<TaskListState> {
   late final TaskParamsModel? initialParams;

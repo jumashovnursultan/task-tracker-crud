@@ -4,10 +4,9 @@ import 'package:adhdo_it_mob/data/models/token.dart';
 import '../client/client.dart';
 
 abstract final class UserRepo {
-  Future<ApiResponse<Token>> login(String email, String password);
-  Future<ApiResponse> register(String email, String password);
+  Future<ApiResponse> login(String email);
 
-  Future<ApiResponse<Token>> codeVerify(String email, String? code);
+  Future<ApiResponse<Token>> codeVerify(String email, String code);
 }
 
 base class UserAPIRepo implements UserRepo {
@@ -15,33 +14,16 @@ base class UserAPIRepo implements UserRepo {
   final ApiClient _client;
 
   @override
-  Future<ApiResponse<Token>> login(String email, String password) async {
-    await Future.delayed(Duration(seconds: 2));
-    return ApiResponse(statusCode: 200);
-    // _client.post(
-    //   'api/fdsa',
-    //   data: {'phone': phone},
-    //   decoder: (data) {
-    //     return Token(access: data, refresh: data);
-    //   },
-    // );
+  Future<ApiResponse> login(String email) async {
+    return _client.post('/auth/register/', data: {'email': email});
   }
 
   @override
-  Future<ApiResponse<Token>> codeVerify(String email, String? code) async {
-    // return _client.post(
-    //   'accounts/verify_code/',
-    //   data: {
-    //     if (code != null) 'code': code,
-    //   },
-    // );
-    await Future.delayed(Duration(seconds: 2));
-    return Future.value(ApiResponse(statusCode: 200));
-  }
-
-  @override
-  Future<ApiResponse> register(String email, String password) async {
-    await Future.delayed(Duration(seconds: 2));
-    return Future.value(ApiResponse(statusCode: 200));
+  Future<ApiResponse<Token>> codeVerify(String email, String code) async {
+    return _client.post(
+      '/auth/email_verify/',
+      data: {'code': code, 'email': email},
+      decoder: (data) => Token.fromMap(data),
+    );
   }
 }

@@ -18,7 +18,6 @@ class LoginScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final emailController = useTextEditingController();
 
-    final passwordController = useTextEditingController();
     final loginState = ref.watch(loginProvider);
 
     final formKey = useMemoized(() => GlobalKey<FormState>());
@@ -85,10 +84,7 @@ class LoginScreen extends HookConsumerWidget {
                               !loginState.status.isLoading) {
                             ref
                                 .read(loginProvider.notifier)
-                                .login(
-                                  emailController.text,
-                                  passwordController.text,
-                                );
+                                .login(emailController.text);
                           }
                         },
                         child: Container(

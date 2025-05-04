@@ -1,27 +1,31 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:adhdo_it_mob/data/models/task_model.dart';
 import 'package:adhdo_it_mob/helpers/date_helpers.dart';
+import 'package:adhdo_it_mob/providers/task_providers.dart';
 import 'package:adhdo_it_mob/ui/dialogs/attach_file_bottom_sheet.dart';
 import 'package:adhdo_it_mob/ui/dialogs/date_picker_bottom_sheet.dart';
 import 'package:adhdo_it_mob/ui/dialogs/duration_time_bottom_sheet.dart';
+import 'package:adhdo_it_mob/ui/dialogs/loading.dart';
 import 'package:adhdo_it_mob/ui/dialogs/reminder_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class AddTaskBottomSheet extends HookWidget {
+class AddTaskBottomSheet extends HookConsumerWidget {
   const AddTaskBottomSheet({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textController = useTextEditingController();
-    final priority = useState(0);
     final focusNode = useFocusNode();
 
+    final priority = useState(0);
     final selectedDate = useState<DateTime?>(null);
     final selectedDuration = useState<Duration?>(null);
     final selectedReminderTime = useState<DateTime?>(null);
@@ -33,6 +37,7 @@ class AddTaskBottomSheet extends HookWidget {
       });
       return null;
     }, []);
+
     return SafeArea(
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 4.0),
@@ -53,8 +58,40 @@ class AddTaskBottomSheet extends HookWidget {
                       TextFormField(
                         focusNode: focusNode,
                         controller: textController,
+
                         maxLines: null,
                         minLines: 1,
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.done,
+                        onFieldSubmitted: (v) async {
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return const Loading();
+                            },
+                          );
+                          final response = await ref.read(
+                            createTaskProvider(
+                              TaskModel(
+                                id: -1,
+                                title: v,
+                                date: selectedDate.value!,
+                                durationInSeconds:
+                                    selectedDuration.value!.inSeconds,
+                                priority: priority.value,
+                                imageFile: selectedImage.value,
+                              ),
+                            ).future,
+                          );
+                          if (response.isSuccessful) {
+                            Navigator.of(context)
+                              ..pop()
+                              ..pop(response.result);
+                          } else {
+                            Navigator.of(context).pop();
+                          }
+                        },
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.zero,
                           filled: true,
@@ -102,7 +139,6 @@ class AddTaskBottomSheet extends HookWidget {
                     ],
                   ),
                 ),
-
                 SizedBox(
                   height: 44,
                   child: ListView(

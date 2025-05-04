@@ -60,51 +60,48 @@ class _AppState extends ConsumerState<App> {
       }
     });
     return ScaffoldMessenger(
-      child: GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: MaterialApp.router(
-          title: 'ADHDo.it',
-          debugShowCheckedModeBanner: false,
-          locale: _locale,
-          localizationsDelegates: Strings.localizationsDelegates,
-          supportedLocales: Strings.supportedLocales,
-          routerDelegate: _router.routerDelegate,
-          routeInformationParser: _router.routeInformationParser,
-          routeInformationProvider: _router.routeInformationProvider,
-          theme: _appTheme.themeData,
-          builder: (context, child) {
-            final bottomSafeArea = MediaQuery.of(context).padding.bottom;
-            final isDarkMode =
-                MediaQuery.of(context).platformBrightness == Brightness.dark;
-            return AnnotatedRegion<SystemUiOverlayStyle>(
-              value: SystemUiOverlayStyle(
-                systemNavigationBarColor:
-                    isDarkMode ? Colors.black : Colors.white,
-                systemNavigationBarIconBrightness:
-                    isDarkMode ? Brightness.light : Brightness.dark,
-              ),
-              child: Column(
-                children: [
-                  Expanded(child: child!),
-                  AnimatedCrossFade(
-                    duration: const Duration(milliseconds: 300),
-                    crossFadeState:
-                        connectionStatus.isConnected
-                            ? CrossFadeState.showFirst
-                            : CrossFadeState.showSecond,
-                    firstChild: const SizedBox.shrink(),
-                    secondChild: Padding(
-                      padding: EdgeInsets.only(bottom: bottomSafeArea),
-                      child: ConnectionIndicator(
-                        isBackOnline: connectionStatus.isBackOnline,
-                      ),
+      child: MaterialApp.router(
+        title: 'ADHDo.it',
+        debugShowCheckedModeBanner: false,
+        locale: _locale,
+        localizationsDelegates: Strings.localizationsDelegates,
+        supportedLocales: Strings.supportedLocales,
+        routerDelegate: _router.routerDelegate,
+        routeInformationParser: _router.routeInformationParser,
+        routeInformationProvider: _router.routeInformationProvider,
+        theme: _appTheme.themeData,
+        builder: (context, child) {
+          final bottomSafeArea = MediaQuery.of(context).padding.bottom;
+          final isDarkMode =
+              MediaQuery.of(context).platformBrightness == Brightness.dark;
+          return AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle(
+              systemNavigationBarColor:
+                  isDarkMode ? Colors.black : Colors.white,
+              systemNavigationBarIconBrightness:
+                  isDarkMode ? Brightness.light : Brightness.dark,
+            ),
+            child: Column(
+              children: [
+                Expanded(child: child!),
+                AnimatedCrossFade(
+                  duration: const Duration(milliseconds: 300),
+                  crossFadeState:
+                      connectionStatus.isConnected
+                          ? CrossFadeState.showFirst
+                          : CrossFadeState.showSecond,
+                  firstChild: const SizedBox.shrink(),
+                  secondChild: Padding(
+                    padding: EdgeInsets.only(bottom: bottomSafeArea),
+                    child: ConnectionIndicator(
+                      isBackOnline: connectionStatus.isBackOnline,
                     ),
                   ),
-                ],
-              ),
-            );
-          },
-        ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

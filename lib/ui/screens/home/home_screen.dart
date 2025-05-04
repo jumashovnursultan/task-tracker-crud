@@ -83,19 +83,25 @@ class HomeScreen extends HookConsumerWidget {
                 child: taskState.list.when(
                   data: (data) {
                     if (data.isEmpty) {
-                      return const Center(child: EmptyTaskView());
+                      return const Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 70),
+                          child: EmptyTaskView(),
+                        ),
+                      );
                     }
 
                     return CardSwiper(
                       controller: controller,
                       cardsCount: data.length,
-                      numberOfCardsDisplayed: 3,
+                      backCardOffset: const Offset(0, -40),
+                      numberOfCardsDisplayed: data.length < 3 ? data.length : 3,
                       onSwipe: (index, value, direction) {
                         swipeHistory.value.add(index);
 
                         return true;
                       },
-                      backCardOffset: const Offset(0, -40),
+
                       allowedSwipeDirection: AllowedSwipeDirection.symmetric(
                         horizontal: true,
                       ),
@@ -122,7 +128,13 @@ class HomeScreen extends HookConsumerWidget {
                       },
                     );
                   },
-                  error: (error, _) => Center(child: ServerErrorView()),
+                  error:
+                      (error, _) => Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 70),
+                          child: ServerErrorView(),
+                        ),
+                      ),
                   loading:
                       () => Center(
                         child: const CircularProgressIndicator.adaptive(),
@@ -135,8 +147,8 @@ class HomeScreen extends HookConsumerWidget {
                 children: [
                   Flexible(
                     child: Bounceable(
-                      onTap: () {
-                        showModalBottomSheet(
+                      onTap: () async {
+                        final taskModel = await showModalBottomSheet(
                           context: context,
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,
@@ -147,6 +159,11 @@ class HomeScreen extends HookConsumerWidget {
                           ),
                           builder: (_) => const AddTaskBottomSheet(),
                         );
+                        if (taskModel != null) {
+                          ref
+                              .read(taskListProvider().notifier)
+                              .addTask(taskModel);
+                        }
                       },
                       child: Container(
                         width: 309,
