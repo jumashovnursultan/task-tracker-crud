@@ -98,6 +98,16 @@ class AppTheme {
           textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
         ),
       ),
+      listTileTheme: ListTileThemeData(
+        titleTextStyle: TextStyle(color: Colors.black, fontSize: 16),
+        leadingAndTrailingTextStyle: TextStyle(
+          fontSize: 16,
+          color: Color(0xFF92918A),
+        ),
+
+        selectedColor: Colors.black,
+      ),
+
       inputDecorationTheme: InputDecorationTheme(
         contentPadding: EdgeInsets.only(
           left: 24,

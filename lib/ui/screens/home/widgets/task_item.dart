@@ -1,4 +1,5 @@
 import 'package:adhdo_it_mob/data/models/task_model.dart';
+import 'package:adhdo_it_mob/helpers/date_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -188,24 +189,6 @@ class TaskItem extends StatelessWidget {
       return '$minutes minute${minutes > 1 ? 's' : ''}';
     } else {
       return '$remainingSeconds second${remainingSeconds > 1 ? 's' : ''}';
-    }
-  }
-
-  String formatDate(DateTime date) {
-    final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
-    final target = DateTime(date.year, date.month, date.day);
-
-    final diff = target.difference(today).inDays;
-
-    if (diff == 0) {
-      return 'Today';
-    } else if (diff == 1) {
-      return 'Tomorrow';
-    } else if (diff == 2) {
-      return 'Day after tomorrow';
-    } else {
-      return DateFormat('d MMMM yyyy', 'en').format(date);
     }
   }
 }

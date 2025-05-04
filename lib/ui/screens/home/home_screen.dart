@@ -11,6 +11,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends HookConsumerWidget {
   const HomeScreen({super.key});
@@ -43,8 +44,8 @@ class HomeScreen extends HookConsumerWidget {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        const Text(
-                          'Monday, April 12',
+                        Text(
+                          DateFormat('EEEE, MMMM d').format(DateTime.now()),
                           style: TextStyle(
                             color: Color(0xFF92918A),
                             fontSize: 16,
