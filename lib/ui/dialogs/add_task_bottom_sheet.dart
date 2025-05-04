@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:adhdo_it_mob/helpers/date_helpers.dart';
@@ -19,11 +20,19 @@ class AddTaskBottomSheet extends HookWidget {
   Widget build(BuildContext context) {
     final textController = useTextEditingController();
     final priority = useState(0);
+    final focusNode = useFocusNode();
 
     final selectedDate = useState<DateTime?>(null);
     final selectedDuration = useState<Duration?>(null);
     final selectedReminderTime = useState<DateTime?>(null);
+    final selectedImage = useState<File?>(null);
 
+    useEffect(() {
+      Future.delayed(Duration(milliseconds: 200), () {
+        focusNode.requestFocus();
+      });
+      return null;
+    }, []);
     return SafeArea(
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 4.0),
@@ -42,6 +51,7 @@ class AddTaskBottomSheet extends HookWidget {
                   child: Column(
                     children: [
                       TextFormField(
+                        focusNode: focusNode,
                         controller: textController,
                         maxLines: null,
                         minLines: 1,
@@ -99,8 +109,7 @@ class AddTaskBottomSheet extends HookWidget {
                     padding: EdgeInsets.symmetric(horizontal: 6),
                     scrollDirection: Axis.horizontal,
                     children: [
-                      Gap(10),
-
+                      Gap(13),
                       Bounceable(
                         onTap: () async {
                           final date = await showModalBottomSheet(
@@ -307,7 +316,7 @@ class AddTaskBottomSheet extends HookWidget {
                       Gap(8),
                       Bounceable(
                         onTap: () async {
-                          await showModalBottomSheet(
+                          final image = await showModalBottomSheet(
                             context: context,
                             isScrollControlled: true,
                             barrierColor: Colors.transparent,
@@ -319,24 +328,82 @@ class AddTaskBottomSheet extends HookWidget {
                             ),
                             builder: (_) => AttachFileBottomSheet(),
                           );
+                          if (image is File) {
+                            selectedImage.value = image;
+                          }
                         },
-                        child: SvgPicture.asset('assets/svg/attach.svg'),
-                      ),
-                      Spacer(),
-                      Container(
-                        height: 44,
-                        width: 44,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color(0xFFF5F5F5),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color:
+                                selectedImage.value != null
+                                    ? Color(0xFFF5F5F5)
+                                    : null,
+                          ),
+                          child: Row(
+                            children: [
+                              if (selectedImage.value != null) ...[
+                                Gap(12),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: Image.file(
+                                    selectedImage.value!,
+
+                                    height: 24,
+                                    width: 24,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Gap(6),
+                              ] else
+                                SvgPicture.asset('assets/svg/attach.svg'),
+                              if (selectedImage.value != null) ...[
+                                Text(
+                                  'Foto',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                Gap(12),
+                                Bounceable(
+                                  onTap: () {
+                                    selectedReminderTime.value = null;
+                                  },
+                                  child: Container(
+                                    height: 24,
+                                    width: 24,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white,
+                                    ),
+                                    child: SvgPicture.asset(
+                                      'assets/svg/cancel.svg',
+                                    ),
+                                  ),
+                                ),
+                                Gap(12),
+                              ],
+                            ],
+                          ),
                         ),
-                        alignment: Alignment.center,
-                        child: SizedBox(
-                          height: 23,
-                          width: 24,
-                          child: SvgPicture.asset('assets/svg/microphone.svg'),
-                        ),
                       ),
+                      // Gap(20),
+                      // Container(
+                      //   height: 44,
+                      //   width: 44,
+                      //   decoration: BoxDecoration(
+                      //     shape: BoxShape.circle,
+                      //     color: Color(0xFFF5F5F5),
+                      //   ),
+                      //   alignment: Alignment.center,
+                      //   child: SizedBox(
+                      //     height: 23,
+                      //     width: 24,
+                      //     child: SvgPicture.asset('assets/svg/microphone.svg'),
+                      //   ),
+                      // ),
                       Gap(10),
                     ],
                   ),
