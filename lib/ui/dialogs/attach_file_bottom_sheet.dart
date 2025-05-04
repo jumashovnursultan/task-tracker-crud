@@ -1,8 +1,10 @@
 import 'dart:ui';
+import 'package:adhdo_it_mob/helpers/image_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AttachFileBottomSheet extends StatelessWidget {
   const AttachFileBottomSheet({super.key});
@@ -30,31 +32,40 @@ class AttachFileBottomSheet extends StatelessWidget {
                 ),
               ),
               const Gap(10),
-              const Text(
-                "Add file",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-              ),
+              const Text("Add file", style: TextStyle(fontSize: 20)),
               const Gap(16),
               _buildItem(
                 context,
                 icon: 'assets/svg/image.svg',
                 title: 'Image',
-                onTap: () => Navigator.pop(context, 'image'),
+                onTap: () async {
+                  final image = await ImageHelper.pickImage(
+                    ImageSource.gallery,
+                  );
+                  if (image != null) {
+                    Navigator.pop(context, image);
+                  }
+                },
               ),
               const Gap(4),
               _buildItem(
                 context,
                 icon: 'assets/svg/camera.svg',
                 title: 'Camera',
-                onTap: () => Navigator.pop(context, 'camera'),
+                onTap: () async {
+                  final image = await ImageHelper.pickImage(ImageSource.camera);
+                  if (image != null) {
+                    Navigator.pop(context, image);
+                  }
+                },
               ),
-              const Gap(4),
-              _buildItem(
-                context,
-                icon: 'assets/svg/attach.svg',
-                title: 'File',
-                onTap: () => Navigator.pop(context, 'file'),
-              ),
+              // const Gap(4),
+              // _buildItem(
+              //   context,
+              //   icon: 'assets/svg/attach.svg',
+              //   title: 'File',
+              //   onTap: () => Navigator.pop(context, 'file'),
+              // ),
             ],
           ),
         ),
@@ -79,7 +90,7 @@ class AttachFileBottomSheet extends StatelessWidget {
             title,
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ),
-          trailing: const Icon(Icons.chevron_right),
+          trailing: SvgPicture.asset('assets/svg/arrow_forward.svg'),
         ),
       ),
     );

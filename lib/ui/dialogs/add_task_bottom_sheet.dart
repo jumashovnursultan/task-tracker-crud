@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:adhdo_it_mob/helpers/date_helpers.dart';
+import 'package:adhdo_it_mob/ui/dialogs/attach_file_bottom_sheet.dart';
 import 'package:adhdo_it_mob/ui/dialogs/date_picker_bottom_sheet.dart';
 import 'package:adhdo_it_mob/ui/dialogs/duration_time_bottom_sheet.dart';
 import 'package:adhdo_it_mob/ui/dialogs/reminder_bottom_sheet.dart';
@@ -305,7 +306,20 @@ class AddTaskBottomSheet extends HookWidget {
                       ),
                       Gap(8),
                       Bounceable(
-                        onTap: () {},
+                        onTap: () async {
+                          await showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            barrierColor: Colors.transparent,
+                            backgroundColor: Colors.transparent,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(30),
+                              ),
+                            ),
+                            builder: (_) => AttachFileBottomSheet(),
+                          );
+                        },
                         child: SvgPicture.asset('assets/svg/attach.svg'),
                       ),
                       Spacer(),
