@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:adhdo_it_mob/l10n/strings.dart';
 import 'package:adhdo_it_mob/providers/task_providers.dart';
 import 'package:adhdo_it_mob/ui/dialogs/add_task_bottom_sheet.dart';
@@ -94,8 +96,8 @@ class HomeScreen extends HookConsumerWidget {
                     return CardSwiper(
                       controller: controller,
                       cardsCount: data.length,
-                      backCardOffset: const Offset(0, -40),
                       numberOfCardsDisplayed: data.length < 3 ? data.length : 3,
+                      backCardOffset: Offset(0, -40),
                       onSwipe: (index, value, direction) {
                         swipeHistory.value.add(index);
 

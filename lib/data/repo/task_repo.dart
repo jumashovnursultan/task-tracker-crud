@@ -84,22 +84,18 @@ base class TaskAPIRepo implements TaskRepo {
 
   @override
   Future<ApiResponse<TaskModel>> createTask(TaskModel model) async {
-    dynamic data = model.toMap();
-    // final logo = model.imageFile;
-    // Map<String, dynamic> formDataMap = {...?data};
-    // if (logo != null) {
-    //   formDataMap['image'] = await MultipartFile.fromFile(
-    //     logo.path,
-    //     filename: logo.path.split('/').last,
-    //   );
-    // }
-    // final formData = FormData.fromMap({});
+    final data = {
+      ...model.toMap(),
+      if (model.imageFile != null)
+        'image': await MultipartFile.fromFile(
+          model.imageFile!.path,
+          filename: model.imageFile!.path.split('/').last,
+        ),
+    };
     return await _client.post(
       '/tasks/task_create/',
-      data: model.toJson(),
+      data: FormData.fromMap(data),
       decoder: (data) {
-        print('object');
-        print(data);
         return TaskModel.fromJson(data);
       },
     );
