@@ -1,8 +1,8 @@
-import 'dart:math';
-
+import 'package:adhdo_it_mob/config/router/app_route.dart';
 import 'package:adhdo_it_mob/l10n/strings.dart';
 import 'package:adhdo_it_mob/providers/task_providers.dart';
 import 'package:adhdo_it_mob/ui/dialogs/add_task_bottom_sheet.dart';
+
 import 'package:adhdo_it_mob/ui/screens/home/widgets/task_item.dart';
 import 'package:adhdo_it_mob/ui/widgets/empty_task_view.dart';
 import 'package:adhdo_it_mob/ui/widgets/server_error_view.dart';
@@ -12,6 +12,7 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -56,26 +57,37 @@ class HomeScreen extends HookConsumerWidget {
                       ],
                     ),
                   ),
-                  Container(
-                    height: 44,
-                    width: 129,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF5F5F5),
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SvgPicture.asset('assets/svg/all_tasks_icon.svg'),
-                        Text(
-                          Strings.of(context).allTask,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
+
+                  Bounceable(
+                    onTap: () {
+                      // showDialog(
+                      //   context: context,
+                      //   barrierColor: Colors.transparent,
+                      //   builder: (_) => FilterDialog(),
+                      // );
+                      context.push(Routes.filter());
+                    },
+                    child: Container(
+                      height: 44,
+                      width: 129,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF5F5F5),
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SvgPicture.asset('assets/svg/all_tasks_icon.svg'),
+                          Text(
+                            Strings.of(context).allTask,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -213,120 +225,5 @@ class HomeScreen extends HookConsumerWidget {
         ),
       ),
     );
-  }
-}
-
-class Example extends StatefulWidget {
-  const Example({super.key});
-
-  @override
-  State<Example> createState() => _ExamplePageState();
-}
-
-class _ExamplePageState extends State<Example> {
-  final CardSwiperController controller = CardSwiperController();
-
-  List<Container> cards = [
-    Container(
-      alignment: Alignment.center,
-      child: const Text('1'),
-      color: Colors.blue,
-    ),
-    Container(
-      alignment: Alignment.center,
-      child: const Text('2'),
-      color: Colors.red,
-    ),
-    Container(
-      alignment: Alignment.center,
-      child: const Text('3'),
-      color: Colors.purple,
-    ),
-  ];
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Flexible(
-              child: CardSwiper(
-                controller: controller,
-                cardsCount: cards.length,
-                onSwipe: _onSwipe,
-                onUndo: _onUndo,
-                numberOfCardsDisplayed: 3,
-                backCardOffset: const Offset(40, 40),
-                padding: const EdgeInsets.all(24.0),
-                cardBuilder:
-                    (
-                      context,
-                      index,
-                      horizontalThresholdPercentage,
-                      verticalThresholdPercentage,
-                    ) => cards[index],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  FloatingActionButton(
-                    onPressed: controller.undo,
-                    child: const Icon(Icons.rotate_left),
-                  ),
-                  FloatingActionButton(
-                    onPressed: () => controller.swipe(CardSwiperDirection.left),
-                    child: const Icon(Icons.keyboard_arrow_left),
-                  ),
-                  FloatingActionButton(
-                    onPressed:
-                        () => controller.swipe(CardSwiperDirection.right),
-                    child: const Icon(Icons.keyboard_arrow_right),
-                  ),
-                  FloatingActionButton(
-                    onPressed: () => controller.swipe(CardSwiperDirection.top),
-                    child: const Icon(Icons.keyboard_arrow_up),
-                  ),
-                  FloatingActionButton(
-                    onPressed:
-                        () => controller.swipe(CardSwiperDirection.bottom),
-                    child: const Icon(Icons.keyboard_arrow_down),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  bool _onSwipe(
-    int previousIndex,
-    int? currentIndex,
-    CardSwiperDirection direction,
-  ) {
-    debugPrint(
-      'The card $previousIndex was swiped to the ${direction.name}. Now the card $currentIndex is on top',
-    );
-    return true;
-  }
-
-  bool _onUndo(
-    int? previousIndex,
-    int currentIndex,
-    CardSwiperDirection direction,
-  ) {
-    debugPrint('The card $currentIndex was undod from the ${direction.name}');
-    return true;
   }
 }

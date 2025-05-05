@@ -32,7 +32,7 @@ class ImageHelper {
 
     final croppedImage = await ImageCropper().cropImage(
       sourcePath: imageFile.path,
-      compressQuality: 100,
+      compressQuality: 70,
       uiSettings: [
         AndroidUiSettings(
           lockAspectRatio: false,

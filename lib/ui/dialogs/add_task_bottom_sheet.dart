@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:adhdo_it_mob/data/models/task_model.dart';
 import 'package:adhdo_it_mob/helpers/date_helpers.dart';
+import 'package:adhdo_it_mob/helpers/toast_helper.dart';
 import 'package:adhdo_it_mob/providers/task_providers.dart';
 import 'package:adhdo_it_mob/ui/dialogs/attach_file_bottom_sheet.dart';
 import 'package:adhdo_it_mob/ui/dialogs/date_picker_bottom_sheet.dart';
@@ -35,6 +36,9 @@ class AddTaskBottomSheet extends HookConsumerWidget {
       Future.delayed(Duration(milliseconds: 200), () {
         focusNode.requestFocus();
       });
+      focusNode.addListener(() {
+        // if (focusNode.)
+      });
       return null;
     }, []);
 
@@ -58,12 +62,24 @@ class AddTaskBottomSheet extends HookConsumerWidget {
                       TextFormField(
                         focusNode: focusNode,
                         controller: textController,
-
                         maxLines: null,
                         minLines: 1,
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.done,
                         onFieldSubmitted: (v) async {
+                          if (selectedDate.value == null ||
+                              selectedDuration.value == null ||
+                              selectedReminderTime.value == null) {
+                            showToast(
+                              context,
+                              type: ToastificationType.warning,
+                              alignment: Alignment.topCenter,
+                              msg:
+                                  'Please fill in all required fields: title, date, duration, and reminder.',
+                            );
+                            focusNode.requestFocus();
+                            return;
+                          }
                           showDialog(
                             context: context,
                             barrierDismissible: false,
@@ -89,6 +105,20 @@ class AddTaskBottomSheet extends HookConsumerWidget {
                               ..pop()
                               ..pop(response.result);
                           } else {
+                            if (response.statusCode == 413) {
+                              showToast(
+                                context,
+                                type: ToastificationType.error,
+                                msg:
+                                    'Image is too large. Please choose a smaller one.',
+                              );
+                            } else {
+                              showToast(
+                                context,
+                                type: ToastificationType.error,
+                                msg: response.errorData.toString(),
+                              );
+                            }
                             Navigator.of(context).pop();
                           }
                         },
@@ -120,7 +150,11 @@ class AddTaskBottomSheet extends HookConsumerWidget {
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
-                                priority.value = index + 1;
+                                if (priority.value == index + 1) {
+                                  priority.value = 0;
+                                } else {
+                                  priority.value = index + 1;
+                                }
                               },
                               child:
                                   index < priority.value
@@ -364,6 +398,7 @@ class AddTaskBottomSheet extends HookConsumerWidget {
                             ),
                             builder: (_) => AttachFileBottomSheet(),
                           );
+                          focusNode.requestFocus();
                           if (image is File) {
                             selectedImage.value = image;
                           }

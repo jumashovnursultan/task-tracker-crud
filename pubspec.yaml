@@ -21,7 +21,7 @@ dependencies:
   flutter_bounceable: ^1.2.0
   cached_network_image: ^3.4.1
   image_picker: ^1.1.2
-  image_cropper: ^9.1.0
+  image_cropper: ^8.0.2
   connectivity_plus: ^6.1.4
   gap: ^3.0.1
   google_fonts: ^6.2.1

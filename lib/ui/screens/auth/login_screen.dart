@@ -65,7 +65,7 @@ class LoginScreen extends HookConsumerWidget {
                       ),
                       Gap(20),
                       Image.asset('assets/images/logo.png'),
-                      Gap(20),
+                      Gap(120),
                       Text(
                         Strings.of(context).loginToStart,
                         style: TextStyle(

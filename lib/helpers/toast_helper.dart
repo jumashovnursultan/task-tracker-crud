@@ -9,6 +9,7 @@ Future<void> showToast(
   int duration = 5,
   bool showProgressBar = false,
   ToastificationType? type,
+  Alignment alignment = Alignment.bottomCenter,
 }) async {
   Color? bgColor;
 
@@ -46,7 +47,7 @@ Future<void> showToast(
         textAlign: TextAlign.left,
         overflow: TextOverflow.visible,
       ),
-      alignment: Alignment.bottomCenter,
+      alignment: alignment,
       showIcon: false,
       dragToClose: true,
       showProgressBar: showProgressBar,

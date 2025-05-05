@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:intl/intl.dart';
 
 class TaskItem extends StatelessWidget {
   const TaskItem(this.model, {super.key, this.onUndoTap, this.canUndo = false});
@@ -28,7 +27,7 @@ class TaskItem extends StatelessWidget {
         color:
             model.backgroundImage == null
                 ? getColorByPriority(model.priority)
-                : null,
+                : Colors.white,
         borderRadius: BorderRadius.circular(20),
       ),
       alignment: Alignment.center,

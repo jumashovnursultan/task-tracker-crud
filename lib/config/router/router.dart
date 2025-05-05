@@ -1,5 +1,6 @@
 import 'package:adhdo_it_mob/ui/screens/auth/login_screen.dart';
 import 'package:adhdo_it_mob/ui/screens/auth/verification_code_screen.dart';
+import 'package:adhdo_it_mob/ui/screens/filter/filter_screen.dart';
 import 'package:adhdo_it_mob/ui/screens/home/home_screen.dart';
 import 'package:adhdo_it_mob/ui/screens/intro/intro_screen.dart';
 import 'package:flutter/material.dart';
@@ -23,12 +24,16 @@ GoRouter buildRouter(BuildContext context, String initialLocation) {
             (context, state) => VerificationCodeScreen(state.extra as String),
       ),
       GoRoute(
+        path: Routes.intro.path,
+        builder: (context, state) => const IntroScreen(),
+      ),
+      GoRoute(
         path: Routes.home.path,
         builder: (context, state) => const HomeScreen(),
       ),
       GoRoute(
-        path: Routes.intro.path,
-        builder: (context, state) => const IntroScreen(),
+        path: Routes.filter.path,
+        builder: (context, state) => const FilterScreen(),
       ),
     ],
     errorBuilder: (context, state) {

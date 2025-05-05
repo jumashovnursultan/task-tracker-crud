@@ -99,6 +99,7 @@ class VerificationCodeScreen extends HookConsumerWidget {
                       style: TextStyle(fontSize: 16, color: Color(0xFF92918A)),
                       textAlign: TextAlign.center,
                     ),
+
                     Gap(20),
                     if (!verifyCodeState.status.isLoading)
                       Padding(
@@ -210,6 +211,12 @@ class VerificationCodeScreen extends HookConsumerWidget {
                     Text(
                       '${Strings.of(context).help}?',
                       style: TextStyle(fontSize: 16),
+                    ),
+                    Gap(16),
+                    Text(
+                      'If you don’t see the email, check your Spam folder.',
+                      style: TextStyle(fontSize: 14, color: Color(0xFFB0AFAB)),
+                      textAlign: TextAlign.center,
                     ),
                     Gap(32),
                   ],

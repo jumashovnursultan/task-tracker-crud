@@ -19,6 +19,7 @@ class AppRoute {
 final class Routes {
   static const login = AppRoute('/login');
   static const verificationCode = AppRoute('/verificationCode');
-  static const home = AppRoute('/home');
   static const intro = AppRoute('/intro');
+  static const home = AppRoute('/home');
+  static const filter = AppRoute('/filter');
 }
