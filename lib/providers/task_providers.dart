@@ -51,15 +51,18 @@ class TaskList extends _$TaskList {
     }
   }
 
-  void filter(TaskParamsModel? params) async {
-    if (params == null) {
-      state = state.copyWith(params: TaskParamsModel(page: 1));
-    } else {
-      state = state.copyWith(
-        params: state.params.copyWith(page: 1),
-        list: AsyncValue.loading(),
-      );
-    }
+  void filter(TaskParamsModel params) async {
+    state = state.copyWith(
+      params: TaskParamsModel(
+        page: 1,
+        byPriority: params.byPriority,
+        byDate: params.byDate,
+        byTime: params.byTime,
+        filterType: params.filterType,
+      ),
+      list: AsyncValue.loading(),
+    );
+
     final response = await ref
         .read(taskRepoProvider)
         .fetchTasks(params: state.params);

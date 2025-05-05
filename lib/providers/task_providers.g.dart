@@ -148,7 +148,7 @@ class _CreateTaskProviderElement
   TaskModel get model => (origin as CreateTaskProvider).model;
 }
 
-String _$taskListHash() => r'd77be7d2760b7587fb1dfefad178b8110ae5f828';
+String _$taskListHash() => r'e3e1bdbe7f2463a997477d946c805baa7a19265b';
 
 abstract class _$TaskList extends BuildlessAutoDisposeNotifier<TaskListState> {
   late final TaskParamsModel? initialParams;

@@ -3,7 +3,7 @@ import 'package:adhdo_it_mob/l10n/strings.dart';
 import 'package:adhdo_it_mob/providers/task_providers.dart';
 import 'package:adhdo_it_mob/ui/dialogs/add_task_bottom_sheet.dart';
 
-import 'package:adhdo_it_mob/ui/screens/home/widgets/task_item.dart';
+import 'package:adhdo_it_mob/ui/screens/home/widgets/task_card.dart';
 import 'package:adhdo_it_mob/ui/widgets/empty_task_view.dart';
 import 'package:adhdo_it_mob/ui/widgets/server_error_view.dart';
 import 'package:flutter/material.dart';
@@ -128,7 +128,7 @@ class HomeScreen extends HookConsumerWidget {
                         verticalThresholdPercentage,
                       ) {
                         final task = data[index];
-                        return TaskItem(
+                        return TaskCard(
                           key: ValueKey(task.id),
                           task,
                           onUndoTap: () {

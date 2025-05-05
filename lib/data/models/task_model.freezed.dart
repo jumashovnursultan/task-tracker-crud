@@ -167,7 +167,7 @@ as int,
 /// @nodoc
 mixin _$TaskParamsModel {
 
- int get page; bool? get byPriority; DateTime? get byDate; int? get byTime;
+ int get page; bool? get byPriority; DateTime? get byDate; int? get byTime; TaskFilter get filterType;
 /// Create a copy of TaskParamsModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -180,16 +180,16 @@ $TaskParamsModelCopyWith<TaskParamsModel> get copyWith => _$TaskParamsModelCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TaskParamsModel&&(identical(other.page, page) || other.page == page)&&(identical(other.byPriority, byPriority) || other.byPriority == byPriority)&&(identical(other.byDate, byDate) || other.byDate == byDate)&&(identical(other.byTime, byTime) || other.byTime == byTime));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TaskParamsModel&&(identical(other.page, page) || other.page == page)&&(identical(other.byPriority, byPriority) || other.byPriority == byPriority)&&(identical(other.byDate, byDate) || other.byDate == byDate)&&(identical(other.byTime, byTime) || other.byTime == byTime)&&(identical(other.filterType, filterType) || other.filterType == filterType));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,page,byPriority,byDate,byTime);
+int get hashCode => Object.hash(runtimeType,page,byPriority,byDate,byTime,filterType);
 
 @override
 String toString() {
-  return 'TaskParamsModel(page: $page, byPriority: $byPriority, byDate: $byDate, byTime: $byTime)';
+  return 'TaskParamsModel(page: $page, byPriority: $byPriority, byDate: $byDate, byTime: $byTime, filterType: $filterType)';
 }
 
 
@@ -200,7 +200,7 @@ abstract mixin class $TaskParamsModelCopyWith<$Res>  {
   factory $TaskParamsModelCopyWith(TaskParamsModel value, $Res Function(TaskParamsModel) _then) = _$TaskParamsModelCopyWithImpl;
 @useResult
 $Res call({
- int page, bool? byPriority, DateTime? byDate, int? byTime
+ int page, bool? byPriority, DateTime? byDate, int? byTime, TaskFilter filterType
 });
 
 
@@ -217,13 +217,14 @@ class _$TaskParamsModelCopyWithImpl<$Res>
 
 /// Create a copy of TaskParamsModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? page = null,Object? byPriority = freezed,Object? byDate = freezed,Object? byTime = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? page = null,Object? byPriority = freezed,Object? byDate = freezed,Object? byTime = freezed,Object? filterType = null,}) {
   return _then(_self.copyWith(
 page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as int,byPriority: freezed == byPriority ? _self.byPriority : byPriority // ignore: cast_nullable_to_non_nullable
 as bool?,byDate: freezed == byDate ? _self.byDate : byDate // ignore: cast_nullable_to_non_nullable
 as DateTime?,byTime: freezed == byTime ? _self.byTime : byTime // ignore: cast_nullable_to_non_nullable
-as int?,
+as int?,filterType: null == filterType ? _self.filterType : filterType // ignore: cast_nullable_to_non_nullable
+as TaskFilter,
   ));
 }
 
@@ -234,13 +235,14 @@ as int?,
 @JsonSerializable()
 
 class _TaskParamsModel extends TaskParamsModel {
-  const _TaskParamsModel({this.page = 0, this.byPriority, this.byDate, this.byTime}): super._();
+  const _TaskParamsModel({this.page = 0, this.byPriority, this.byDate, this.byTime, this.filterType = TaskFilter.all}): super._();
   factory _TaskParamsModel.fromJson(Map<String, dynamic> json) => _$TaskParamsModelFromJson(json);
 
 @override@JsonKey() final  int page;
 @override final  bool? byPriority;
 @override final  DateTime? byDate;
 @override final  int? byTime;
+@override@JsonKey() final  TaskFilter filterType;
 
 /// Create a copy of TaskParamsModel
 /// with the given fields replaced by the non-null parameter values.
@@ -255,16 +257,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TaskParamsModel&&(identical(other.page, page) || other.page == page)&&(identical(other.byPriority, byPriority) || other.byPriority == byPriority)&&(identical(other.byDate, byDate) || other.byDate == byDate)&&(identical(other.byTime, byTime) || other.byTime == byTime));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TaskParamsModel&&(identical(other.page, page) || other.page == page)&&(identical(other.byPriority, byPriority) || other.byPriority == byPriority)&&(identical(other.byDate, byDate) || other.byDate == byDate)&&(identical(other.byTime, byTime) || other.byTime == byTime)&&(identical(other.filterType, filterType) || other.filterType == filterType));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,page,byPriority,byDate,byTime);
+int get hashCode => Object.hash(runtimeType,page,byPriority,byDate,byTime,filterType);
 
 @override
 String toString() {
-  return 'TaskParamsModel(page: $page, byPriority: $byPriority, byDate: $byDate, byTime: $byTime)';
+  return 'TaskParamsModel(page: $page, byPriority: $byPriority, byDate: $byDate, byTime: $byTime, filterType: $filterType)';
 }
 
 
@@ -275,7 +277,7 @@ abstract mixin class _$TaskParamsModelCopyWith<$Res> implements $TaskParamsModel
   factory _$TaskParamsModelCopyWith(_TaskParamsModel value, $Res Function(_TaskParamsModel) _then) = __$TaskParamsModelCopyWithImpl;
 @override @useResult
 $Res call({
- int page, bool? byPriority, DateTime? byDate, int? byTime
+ int page, bool? byPriority, DateTime? byDate, int? byTime, TaskFilter filterType
 });
 
 
@@ -292,13 +294,14 @@ class __$TaskParamsModelCopyWithImpl<$Res>
 
 /// Create a copy of TaskParamsModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? page = null,Object? byPriority = freezed,Object? byDate = freezed,Object? byTime = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? page = null,Object? byPriority = freezed,Object? byDate = freezed,Object? byTime = freezed,Object? filterType = null,}) {
   return _then(_TaskParamsModel(
 page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as int,byPriority: freezed == byPriority ? _self.byPriority : byPriority // ignore: cast_nullable_to_non_nullable
 as bool?,byDate: freezed == byDate ? _self.byDate : byDate // ignore: cast_nullable_to_non_nullable
 as DateTime?,byTime: freezed == byTime ? _self.byTime : byTime // ignore: cast_nullable_to_non_nullable
-as int?,
+as int?,filterType: null == filterType ? _self.filterType : filterType // ignore: cast_nullable_to_non_nullable
+as TaskFilter,
   ));
 }
 

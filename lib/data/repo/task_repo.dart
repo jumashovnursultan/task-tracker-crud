@@ -17,69 +17,68 @@ base class TaskAPIRepo implements TaskRepo {
   Future<ApiResponse<List<TaskModel>>> fetchTasks({
     TaskParamsModel? params,
   }) async {
-    // await Future.delayed(Duration(seconds: 2));
-    // return ApiResponse(
-    //   statusCode: 200,
-    //   errorData: 'error data',
-    //   result: [
-    //     TaskModel(
-    //       id: 1,
-    //       title: 'Write a post for Instagram',
-    //       date: DateTime.now(),
-    //       durationInSeconds: 900,
-    //       priority: 5,
-    //     ),
-    //     TaskModel(
-    //       id: 1,
-    //       title: 'Write a post for Instagram',
-    //       date: DateTime.now(),
-    //       durationInSeconds: 900,
-    //       priority: 4,
-    //     ),
-    //     TaskModel(
-    //       id: 1,
-    //       title: 'Write a post for Instagram',
-    //       date: DateTime.now(),
-    //       durationInSeconds: 900,
-    //       priority: 3,
-    //     ),
-    //     TaskModel(
-    //       id: 1,
-    //       title: 'Write a post for Instagram',
-    //       date: DateTime.now(),
-    //       durationInSeconds: 900,
-    //       priority: 2,
-    //     ),
-    //     TaskModel(
-    //       id: 1,
-    //       title: 'Write a post for Instagram',
-    //       date: DateTime.now(),
-    //       durationInSeconds: 900,
-    //       priority: 1,
-    //     ),
-    //     TaskModel(
-    //       id: 1,
-    //       title: 'Write a post for Instagram',
-    //       date: DateTime.now(),
-    //       durationInSeconds: 900,
-    //       priority: 0,
-    //     ),
-    //     TaskModel(
-    //       id: 1,
-    //       title: 'Write a post for Instagram',
-    //       date: DateTime.now(),
-    //       durationInSeconds: 900,
-    //       priority: 0,
-    //       backgroundImage:
-    //           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXj7QjMMoCdapfYvSvcJB0uMFg9j1av0zTdQ&s',
-    //     ),
-    //   ],
-    // );
-    return _client.get(
-      '/tasks/task_list/',
-
-      decoder: (data) => List.from(data.map((e) => TaskModel.fromJson(e))),
+    return ApiResponse(
+      statusCode: 200,
+      errorData: 'error data',
+      result: [
+        TaskModel(
+          id: 1,
+          title: 'Write a post for Instagram',
+          date: DateTime.now(),
+          durationInSeconds: 900,
+          priority: 5,
+        ),
+        TaskModel(
+          id: 1,
+          title: 'Write a post for Instagram',
+          date: DateTime.now(),
+          durationInSeconds: 900,
+          priority: 4,
+        ),
+        TaskModel(
+          id: 1,
+          title: 'Write a post for Instagram',
+          date: DateTime.now(),
+          durationInSeconds: 900,
+          priority: 3,
+        ),
+        TaskModel(
+          id: 1,
+          title: 'Write a post for Instagram',
+          date: DateTime.now(),
+          durationInSeconds: 900,
+          priority: 2,
+        ),
+        TaskModel(
+          id: 1,
+          title: 'Write a post for Instagram',
+          date: DateTime.now(),
+          durationInSeconds: 900,
+          priority: 1,
+        ),
+        TaskModel(
+          id: 1,
+          title: 'Write a post for Instagram',
+          date: DateTime.now(),
+          durationInSeconds: 900,
+          priority: 0,
+        ),
+        TaskModel(
+          id: 1,
+          title: 'Write a post for Instagram',
+          date: DateTime.now(),
+          durationInSeconds: 900,
+          priority: 0,
+          backgroundImage:
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXj7QjMMoCdapfYvSvcJB0uMFg9j1av0zTdQ&s',
+        ),
+      ],
     );
+    // return _client.get(
+    //   '/tasks/task_list/',
+
+    //   decoder: (data) => List.from(data.map((e) => TaskModel.fromJson(e))),
+    // );
   }
 
   @override

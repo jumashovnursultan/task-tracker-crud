@@ -1,9 +1,20 @@
 import 'package:adhdo_it_mob/l10n/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-enum TaskFilter { all, byPriority, byDate, byTime }
+enum TaskFilter {
+  all,
+  byPriority,
+  byDate,
+  byTime;
+
+  bool get isAll => this == TaskFilter.all;
+  bool get isByPriority => this == TaskFilter.byPriority;
+  bool get isByDate => this == TaskFilter.byDate;
+  bool get isByTime => this == TaskFilter.byTime;
+}
 
 extension TaskFilterExtension on TaskFilter {
   String get title {
@@ -29,35 +40,50 @@ class FilterDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.topRight,
-      child: Material(
-        borderRadius: BorderRadius.circular(20),
-        child: AnimatedContainer(
-          alignment: Alignment.center,
-          duration: Duration(seconds: 200),
+      child: AnimatedContainer(
+        alignment: Alignment.center,
+        duration: Duration(seconds: 200),
 
-          height: 237,
-          width: 215,
-          padding: EdgeInsets.only(top: 10, bottom: 8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.white,
-          ),
+        height: 237,
+        width: 215,
+        margin: EdgeInsets.only(top: 31, right: 24),
+        padding: EdgeInsets.only(top: 10, bottom: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Material(
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.transparent,
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      taskFilter.title,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+              Bounceable(
+                hitTestBehavior: HitTestBehavior.opaque,
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 16, right: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        taskFilter.title,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                    SvgPicture.asset('assets/svg/arrow_dropdown.svg'),
-                  ],
+                      SvgPicture.asset('assets/svg/arrow_dropdown.svg'),
+                    ],
+                  ),
                 ),
               ),
               Gap(10),
@@ -67,96 +93,131 @@ class FilterDialog extends StatelessWidget {
                 color: Color(0xFFEEEEEE),
               ),
               Gap(8),
-              Container(
-                height: 44,
-                margin: const EdgeInsets.only(left: 16, right: 16),
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: Color(0xFFF5F5F5),
-                ),
-                child: Row(
-                  children: [
-                    SvgPicture.asset('assets/svg/all_tasks_icon.svg'),
-                    Gap(8),
-                    Text(
-                      Strings.of(context).allTask,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
+              Bounceable(
+                onTap: () {
+                  Navigator.pop(context, TaskFilter.all);
+                },
+                child: Container(
+                  height: 44,
+                  margin: const EdgeInsets.only(left: 16, right: 16),
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color:
+                        taskFilter.isAll
+                            ? Color(0xFFF5F5F5)
+                            : Colors.transparent,
+                  ),
+                  child: Row(
+                    children: [
+                      SvgPicture.asset('assets/svg/all_tasks_icon.svg'),
+                      Gap(8),
+                      Text(
+                        Strings.of(context).allTask,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-              Container(
-                height: 44,
-                margin: const EdgeInsets.only(left: 16, right: 16),
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: Color(0xFFF5F5F5),
-                ),
-                child: Row(
-                  children: [
-                    SvgPicture.asset('assets/svg/all_tasks_icon.svg'),
-                    Gap(8),
-                    Text(
-                      Strings.of(context).allTask,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
+              Bounceable(
+                onTap: () {
+                  Navigator.pop(context, TaskFilter.byPriority);
+                },
+                child: Container(
+                  height: 44,
+                  margin: const EdgeInsets.only(left: 16, right: 16),
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color:
+                        taskFilter.isByPriority
+                            ? Color(0xFFF5F5F5)
+                            : Colors.transparent,
+                  ),
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(
+                        'assets/svg/star_filled.svg',
+                        color: Colors.black,
                       ),
-                    ),
-                  ],
+                      Gap(8),
+                      Text(
+                        'By priority',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              Container(
-                height: 44,
-                margin: const EdgeInsets.only(left: 16, right: 16),
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: Color(0xFFF5F5F5),
-                ),
-                child: Row(
-                  children: [
-                    SvgPicture.asset('assets/svg/all_tasks_icon.svg'),
-                    Gap(8),
-                    Text(
-                      Strings.of(context).allTask,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
+              Bounceable(
+                onTap: () {
+                  Navigator.pop(context, TaskFilter.byDate);
+                },
+                child: Container(
+                  height: 44,
+                  margin: const EdgeInsets.only(left: 16, right: 16),
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color:
+                        taskFilter.isByDate
+                            ? Color(0xFFF5F5F5)
+                            : Colors.transparent,
+                  ),
+                  child: Row(
+                    children: [
+                      SvgPicture.asset('assets/svg/calendar.svg'),
+                      Gap(8),
+                      Text(
+                        'By date',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-              Container(
-                height: 44,
-                margin: const EdgeInsets.only(left: 16, right: 16),
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: Color(0xFFF5F5F5),
-                ),
-                child: Row(
-                  children: [
-                    SvgPicture.asset('assets/svg/all_tasks_icon.svg'),
-                    Gap(8),
-                    Text(
-                      Strings.of(context).allTask,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
+              Bounceable(
+                onTap: () {
+                  Navigator.pop(context, TaskFilter.byTime);
+                },
+                child: Container(
+                  height: 44,
+                  margin: const EdgeInsets.only(left: 16, right: 16),
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color:
+                        taskFilter.isByTime
+                            ? Color(0xFFF5F5F5)
+                            : Colors.transparent,
+                  ),
+                  child: Row(
+                    children: [
+                      SvgPicture.asset('assets/svg/watch.svg'),
+                      Gap(8),
+                      Text(
+                        'By time',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],

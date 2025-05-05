@@ -5,8 +5,8 @@ import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
-class TaskItem extends StatelessWidget {
-  const TaskItem(this.model, {super.key, this.onUndoTap, this.canUndo = false});
+class TaskCard extends StatelessWidget {
+  const TaskCard(this.model, {super.key, this.onUndoTap, this.canUndo = false});
 
   final TaskModel model;
   final VoidCallback? onUndoTap;

@@ -34,6 +34,9 @@ _TaskParamsModel _$TaskParamsModelFromJson(Map<String, dynamic> json) =>
               ? null
               : DateTime.parse(json['byDate'] as String),
       byTime: (json['byTime'] as num?)?.toInt(),
+      filterType:
+          $enumDecodeNullable(_$TaskFilterEnumMap, json['filterType']) ??
+          TaskFilter.all,
     );
 
 Map<String, dynamic> _$TaskParamsModelToJson(_TaskParamsModel instance) =>
@@ -42,4 +45,12 @@ Map<String, dynamic> _$TaskParamsModelToJson(_TaskParamsModel instance) =>
       'byPriority': instance.byPriority,
       'byDate': instance.byDate?.toIso8601String(),
       'byTime': instance.byTime,
+      'filterType': _$TaskFilterEnumMap[instance.filterType]!,
     };
+
+const _$TaskFilterEnumMap = {
+  TaskFilter.all: 'all',
+  TaskFilter.byPriority: 'byPriority',
+  TaskFilter.byDate: 'byDate',
+  TaskFilter.byTime: 'byTime',
+};

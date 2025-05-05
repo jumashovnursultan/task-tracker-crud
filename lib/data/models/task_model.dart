@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:adhdo_it_mob/ui/dialogs/filter_dialog.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'task_model.freezed.dart';
@@ -41,6 +42,7 @@ abstract class TaskParamsModel with _$TaskParamsModel {
     final bool? byPriority,
     final DateTime? byDate,
     final int? byTime,
+    @Default(TaskFilter.all) final TaskFilter filterType,
   }) = _TaskParamsModel;
 
   factory TaskParamsModel.fromJson(Map<String, dynamic> json) =>
