@@ -6,10 +6,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 class TaskCard extends StatelessWidget {
-  const TaskCard(this.model, {super.key, this.onUndoTap, this.canUndo = false});
+  const TaskCard(
+    this.model, {
+    super.key,
+    this.onUndoTap,
+    this.canUndo = false,
+    this.onDeleteTap,
+    this.onEditTap,
+  });
 
   final TaskModel model;
   final VoidCallback? onUndoTap;
+  final VoidCallback? onDeleteTap;
+  final VoidCallback? onEditTap;
   final bool canUndo;
 
   @override
@@ -126,26 +135,32 @@ class TaskCard extends StatelessWidget {
                 ),
               ),
               Gap(16),
-              Container(
-                height: 56,
-                width: 56,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
+              Bounceable(
+                onTap: onEditTap,
+                child: Container(
+                  height: 56,
+                  width: 56,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                  ),
+                  alignment: Alignment.center,
+                  child: SvgPicture.asset('assets/svg/pencil.svg'),
                 ),
-                alignment: Alignment.center,
-                child: SvgPicture.asset('assets/svg/pencil.svg'),
               ),
               Gap(16),
-              Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
+              Bounceable(
+                onTap: onDeleteTap,
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                  ),
+                  alignment: Alignment.center,
+                  child: SvgPicture.asset('assets/svg/delete.svg'),
                 ),
-                alignment: Alignment.center,
-                child: SvgPicture.asset('assets/svg/delete.svg'),
               ),
             ],
           ),

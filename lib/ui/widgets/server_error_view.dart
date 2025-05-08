@@ -14,7 +14,7 @@ class ServerErrorView extends StatelessWidget {
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 24),
           child: Text(
-            'Ошибка сервера. Попробуйте позже.',
+            'Server error. Try again later.',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,

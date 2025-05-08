@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:adhdo_it_mob/config/router/app_route.dart';
 import 'package:adhdo_it_mob/config/theme/theme.dart';
 import 'package:adhdo_it_mob/core/push_notifications_manager.dart';
@@ -84,20 +85,21 @@ class _AppState extends ConsumerState<App> {
             child: Column(
               children: [
                 Expanded(child: child!),
-                AnimatedCrossFade(
-                  duration: const Duration(milliseconds: 300),
-                  crossFadeState:
-                      connectionStatus.isConnected
-                          ? CrossFadeState.showFirst
-                          : CrossFadeState.showSecond,
-                  firstChild: const SizedBox.shrink(),
-                  secondChild: Padding(
-                    padding: EdgeInsets.only(bottom: bottomSafeArea),
-                    child: ConnectionIndicator(
-                      isBackOnline: connectionStatus.isBackOnline,
+                if (Platform.isAndroid)
+                  AnimatedCrossFade(
+                    duration: const Duration(milliseconds: 300),
+                    crossFadeState:
+                        connectionStatus.isConnected
+                            ? CrossFadeState.showFirst
+                            : CrossFadeState.showSecond,
+                    firstChild: const SizedBox.shrink(),
+                    secondChild: Padding(
+                      padding: EdgeInsets.only(bottom: bottomSafeArea),
+                      child: ConnectionIndicator(
+                        isBackOnline: connectionStatus.isBackOnline,
+                      ),
                     ),
                   ),
-                ),
               ],
             ),
           );

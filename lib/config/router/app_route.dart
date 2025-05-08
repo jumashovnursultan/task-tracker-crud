@@ -22,4 +22,6 @@ final class Routes {
   static const intro = AppRoute('/intro');
   static const home = AppRoute('/home');
   static const filter = AppRoute('/filter');
+  static const taskInProgress = AppRoute('/taskInProgress');
+  static const editTask = AppRoute('/editTask');
 }

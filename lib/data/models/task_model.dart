@@ -17,8 +17,11 @@ abstract class TaskModel with _$TaskModel {
     @JsonKey(includeToJson: false, includeFromJson: false)
     final File? imageFile,
     required DateTime date,
-    @JsonKey(name: 'duration_in_seconds') required int durationInSeconds,
     required int priority,
+    //
+    @JsonKey(name: 'duration_in_seconds') required int durationInSeconds,
+    @JsonKey(name: 'started_at') final DateTime? startedAt,
+    @JsonKey(name: 'paused_at') final DateTime? pausedAt,
   }) = _TaskModel;
   factory TaskModel.fromJson(Map<String, dynamic> json) =>
       _$TaskModelFromJson(json);
@@ -39,7 +42,7 @@ abstract class TaskParamsModel with _$TaskParamsModel {
 
   const factory TaskParamsModel({
     @Default(0) final int page,
-    final bool? byPriority,
+
     final DateTime? byDate,
     final int? byTime,
     @Default(TaskFilter.all) final TaskFilter filterType,
@@ -51,7 +54,7 @@ abstract class TaskParamsModel with _$TaskParamsModel {
   Map<String, dynamic> toMap() {
     return {
       'page': page,
-      if (byPriority != null) 'by_priority': byPriority,
+      if (filterType.isByPriority) 'by_priority': true,
       if (byDate != null) 'by_date': byDate,
       if (byTime != null) 'by_time': byTime,
     };

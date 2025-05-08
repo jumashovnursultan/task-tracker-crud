@@ -4,8 +4,10 @@ import 'package:adhdo_it_mob/providers/task_providers.dart';
 import 'package:adhdo_it_mob/ui/dialogs/add_task_bottom_sheet.dart';
 
 import 'package:adhdo_it_mob/ui/screens/home/widgets/task_card.dart';
+import 'package:adhdo_it_mob/ui/screens/task_in_progress/task_in_progress_screen.dart';
 import 'package:adhdo_it_mob/ui/widgets/empty_task_view.dart';
 import 'package:adhdo_it_mob/ui/widgets/server_error_view.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
@@ -23,7 +25,7 @@ class HomeScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = useState(CardSwiperController()).value;
     final taskState = ref.watch(taskListProvider());
-    final swipeHistory = useState([]);
+    final swipeHistory = useState<List<int>>([]);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -60,11 +62,6 @@ class HomeScreen extends HookConsumerWidget {
 
                   Bounceable(
                     onTap: () {
-                      // showDialog(
-                      //   context: context,
-                      //   barrierColor: Colors.transparent,
-                      //   builder: (_) => FilterDialog(),
-                      // );
                       context.push(Routes.filter());
                     },
                     child: Container(
@@ -110,9 +107,33 @@ class HomeScreen extends HookConsumerWidget {
                       cardsCount: data.length,
                       numberOfCardsDisplayed: data.length < 3 ? data.length : 3,
                       backCardOffset: Offset(0, -40),
-                      onSwipe: (index, value, direction) {
+
+                      onSwipe: (index, value, direction) async {
                         swipeHistory.value.add(index);
 
+                        if (direction.name == 'left') {
+                          final result = await context.push(
+                            Routes.taskInProgress(),
+                            extra: data[index],
+                          );
+                          if (result is ResultOnTaskInProgressModel &&
+                              !result.isPaused) {
+                            ref
+                                .read(taskListProvider().notifier)
+                                .deleteTask(result.model.id);
+                            final index = swipeHistory.value.firstWhereOrNull(
+                              (e) => e == result.model.id,
+                            );
+                            if (index != -1 && index != null) {
+                              swipeHistory.value.removeAt(index);
+                            }
+                          } else if (result is ResultOnTaskInProgressModel &&
+                              result.isPaused) {
+                            ref
+                                .read(taskListProvider().notifier)
+                                .updateTask(result.model);
+                          }
+                        }
                         return true;
                       },
 
@@ -136,6 +157,14 @@ class HomeScreen extends HookConsumerWidget {
                             final lastIndex = swipeHistory.value.lastOrNull;
                             if (lastIndex == null) return;
                             swipeHistory.value.removeAt(lastIndex);
+                          },
+                          onDeleteTap: () {
+                            ref
+                                .read(taskListProvider().notifier)
+                                .deleteTask(task.id);
+                          },
+                          onEditTap: () {
+                            context.push(Routes.editTask(), extra: task);
                           },
                           canUndo: swipeHistory.value.isNotEmpty,
                         );

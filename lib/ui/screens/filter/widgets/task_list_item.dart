@@ -7,9 +7,10 @@ import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 
 class TaskListItem extends StatelessWidget {
-  const TaskListItem({super.key, required this.model});
+  const TaskListItem({super.key, required this.model, this.onDelete});
 
   final TaskModel model;
+  final Function(int)? onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +21,17 @@ class TaskListItem extends StatelessWidget {
             children: [
               Expanded(
                 child: Container(
+                  margin: EdgeInsets.only(bottom: 0.3),
                   decoration: BoxDecoration(
                     color: Color(0xFFDD4D41),
+
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 10,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
@@ -41,7 +51,10 @@ class TaskListItem extends StatelessWidget {
               CustomSlidableAction(
                 backgroundColor: Color(0xFFDD4D41),
                 autoClose: false,
-                onPressed: (BuildContext context) {},
+
+                onPressed: (BuildContext context) {
+                  onDelete?.call(model.id);
+                },
                 borderRadius: BorderRadius.circular(20),
                 child: SvgPicture.asset(
                   'assets/svg/delete.svg',
@@ -66,13 +79,7 @@ class TaskListItem extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 10,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
+
                       borderRadius: _borderRadius,
                     ),
                     padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),

@@ -55,7 +55,6 @@ class TaskList extends _$TaskList {
     state = state.copyWith(
       params: TaskParamsModel(
         page: 1,
-        byPriority: params.byPriority,
         byDate: params.byDate,
         byTime: params.byTime,
         filterType: params.filterType,
@@ -132,6 +131,31 @@ class TaskList extends _$TaskList {
   void addTask(TaskModel model) {
     state = state.copyWith(
       list: AsyncValue.data([...?state.list.value, model]),
+    );
+  }
+
+  Future<ApiResponse> deleteTask(int id) async {
+    state = state.copyWith(
+      list: AsyncValue.data(
+        state.list.value!.where((element) => element.id != id).toList(),
+      ),
+    );
+    final resopnse = await ref.read(taskRepoProvider).deleteTask(id);
+
+    return resopnse;
+  }
+
+  void updateTask(TaskModel model) {
+    state = state.copyWith(
+      list: AsyncValue.data(
+        state.list.value!.map((e) {
+          if (e.id == model.id) {
+            return model;
+          } else {
+            return e;
+          }
+        }).toList(),
+      ),
     );
   }
 }

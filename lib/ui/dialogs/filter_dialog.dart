@@ -1,4 +1,7 @@
 import 'package:adhdo_it_mob/l10n/strings.dart';
+import 'package:adhdo_it_mob/ui/dialogs/calendar_bottom_sheet.dart';
+import 'package:adhdo_it_mob/ui/dialogs/date_picker_bottom_sheet.dart';
+import 'package:adhdo_it_mob/ui/dialogs/reminder_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -159,8 +162,22 @@ class FilterDialog extends StatelessWidget {
                 ),
               ),
               Bounceable(
-                onTap: () {
-                  Navigator.pop(context, TaskFilter.byDate);
+                onTap: () async {
+                  final date = await showModalBottomSheet(
+                    context: context,
+                    backgroundColor: Colors.transparent,
+                    barrierColor: Colors.transparent,
+
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(30),
+                      ),
+                    ),
+                    builder: (_) => const CalendarBottomSheet(),
+                  );
+                  if (date is DateTime) {
+                    Navigator.pop(context, MapEntry(TaskFilter.byDate, date));
+                  }
                 },
                 child: Container(
                   height: 44,
@@ -190,8 +207,23 @@ class FilterDialog extends StatelessWidget {
                 ),
               ),
               Bounceable(
-                onTap: () {
-                  Navigator.pop(context, TaskFilter.byTime);
+                onTap: () async {
+                  final time = await showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    barrierColor: Colors.transparent,
+                    backgroundColor: Colors.transparent,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(30),
+                      ),
+                    ),
+                    builder: (_) => ReminderBottomSheet(null),
+                  );
+
+                  if (time is DateTime) {
+                    Navigator.pop(context, MapEntry(TaskFilter.byTime, time));
+                  }
                 },
                 child: Container(
                   height: 44,
