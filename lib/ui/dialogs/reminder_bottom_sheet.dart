@@ -5,9 +5,14 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 
 class ReminderBottomSheet extends HookWidget {
-  const ReminderBottomSheet(this.initialTime, {super.key});
+  const ReminderBottomSheet(
+    this.initialTime, {
+    super.key,
+    this.backgroundColor = Colors.white,
+  });
 
   final DateTime? initialTime;
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +30,8 @@ class ReminderBottomSheet extends HookWidget {
     );
     return SafeArea(
       child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
+        decoration: BoxDecoration(
+          color: backgroundColor,
           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         ),
         padding: const EdgeInsets.symmetric(vertical: 16),

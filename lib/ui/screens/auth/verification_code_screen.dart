@@ -56,7 +56,7 @@ class VerificationCodeScreen extends HookConsumerWidget {
           type: ToastificationType.error,
         );
       } else if (nextState.status.isSuccess) {
-        context.go(Routes.intro());
+        context.go(Routes.tariffSelection());
       }
     });
 

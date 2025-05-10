@@ -9,7 +9,6 @@ part 'task_model.g.dart';
 @freezed
 abstract class TaskModel with _$TaskModel {
   const TaskModel._();
-
   const factory TaskModel({
     required int id,
     required String title,
@@ -17,6 +16,7 @@ abstract class TaskModel with _$TaskModel {
     @JsonKey(includeToJson: false, includeFromJson: false)
     final File? imageFile,
     required DateTime date,
+    @JsonKey(name: 'created_at') final DateTime? createdAt,
     required int priority,
     //
     @JsonKey(name: 'duration_in_seconds') required int durationInSeconds,

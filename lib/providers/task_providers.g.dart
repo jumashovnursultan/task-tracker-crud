@@ -148,6 +148,125 @@ class _CreateTaskProviderElement
   TaskModel get model => (origin as CreateTaskProvider).model;
 }
 
+String _$editTaskHash() => r'2f564afb22147ee00e6f17c07a09faae63d04125';
+
+/// See also [editTask].
+@ProviderFor(editTask)
+const editTaskProvider = EditTaskFamily();
+
+/// See also [editTask].
+class EditTaskFamily extends Family<AsyncValue<ApiResponse<TaskModel>>> {
+  /// See also [editTask].
+  const EditTaskFamily();
+
+  /// See also [editTask].
+  EditTaskProvider call(TaskModel model) {
+    return EditTaskProvider(model);
+  }
+
+  @override
+  EditTaskProvider getProviderOverride(covariant EditTaskProvider provider) {
+    return call(provider.model);
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'editTaskProvider';
+}
+
+/// See also [editTask].
+class EditTaskProvider
+    extends AutoDisposeFutureProvider<ApiResponse<TaskModel>> {
+  /// See also [editTask].
+  EditTaskProvider(TaskModel model)
+    : this._internal(
+        (ref) => editTask(ref as EditTaskRef, model),
+        from: editTaskProvider,
+        name: r'editTaskProvider',
+        debugGetCreateSourceHash:
+            const bool.fromEnvironment('dart.vm.product')
+                ? null
+                : _$editTaskHash,
+        dependencies: EditTaskFamily._dependencies,
+        allTransitiveDependencies: EditTaskFamily._allTransitiveDependencies,
+        model: model,
+      );
+
+  EditTaskProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.model,
+  }) : super.internal();
+
+  final TaskModel model;
+
+  @override
+  Override overrideWith(
+    FutureOr<ApiResponse<TaskModel>> Function(EditTaskRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: EditTaskProvider._internal(
+        (ref) => create(ref as EditTaskRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        model: model,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<ApiResponse<TaskModel>> createElement() {
+    return _EditTaskProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is EditTaskProvider && other.model == model;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, model.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin EditTaskRef on AutoDisposeFutureProviderRef<ApiResponse<TaskModel>> {
+  /// The parameter `model` of this provider.
+  TaskModel get model;
+}
+
+class _EditTaskProviderElement
+    extends AutoDisposeFutureProviderElement<ApiResponse<TaskModel>>
+    with EditTaskRef {
+  _EditTaskProviderElement(super.provider);
+
+  @override
+  TaskModel get model => (origin as EditTaskProvider).model;
+}
+
 String _$taskListHash() => r'2576507e2eb0b64b54b70afe6e9ba639de634a90';
 
 abstract class _$TaskList extends BuildlessAutoDisposeNotifier<TaskListState> {

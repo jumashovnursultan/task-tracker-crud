@@ -18,7 +18,15 @@
   "weWillSendCode": "We will send the code again in",
   "help": "Help",
   "allTask": "All task",
-  "addTask": "Add task"
+  "addTask": "Add task",
+  "now": "now",
+  "secondsAgo": "{t, plural, one{{t} second ago} few{{t} seconds ago} many{{t} seconds ago} other{{t} seconds ago}}",
+  "minutesAgo": "{t, plural, one{{t} minute ago} few{{t} minutes ago} many{{t} minutes ago} other{{t} minutes ago}}",
+  "hoursAgo": "{t, plural, one{{t} hour ago} few{{t} hours ago} many{{t} hours ago} other{{t} hours ago}}",
+  "daysAgo": "{t, plural, one{{t} day ago} few{{t} days ago} many{{t} days ago} other{{t} days ago}}",
+  "weeksAgo": "{t, plural, one{{t} week ago} few{{t} weeks ago} many{{t} weeks ago} other{{t} weeks ago}}",
+  "monthsAgo": "{t, plural, one{{t} month ago} few{{t} months ago} many{{t} months ago} other{{t} months ago}}",
+  "yearsAgo": "{t, plural, one{{t} year ago} few{{t} years ago} many{{t} years ago} other{{t} years ago}}"
 
 
 

@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-class CompleteTaskConfirmSheet extends StatelessWidget {
-  const CompleteTaskConfirmSheet({super.key});
+class DeleteTaskConfirmSheet extends StatelessWidget {
+  const DeleteTaskConfirmSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class CompleteTaskConfirmSheet extends StatelessWidget {
                   children: [
                     Gap(26),
                     Text(
-                      'Are you sure you want to complete the task?\nIt will be deleted once completed.',
+                      'This task will be deleted permanently.',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16, color: Colors.black87),
                     ),
@@ -47,7 +47,7 @@ class CompleteTaskConfirmSheet extends StatelessWidget {
                         width: double.infinity,
                         child: Center(
                           child: Text(
-                            'Complete the task',
+                            'Delete task',
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.red,

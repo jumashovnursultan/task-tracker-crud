@@ -166,3 +166,9 @@ Future<ApiResponse<TaskModel>> createTask(Ref ref, TaskModel model) async {
 
   return response;
 }
+
+@riverpod
+Future<ApiResponse<TaskModel>> editTask(Ref ref, TaskModel model) async {
+  final response = await ref.read(taskRepoProvider).editTask(model);
+  return response;
+}

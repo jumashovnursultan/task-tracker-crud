@@ -5,6 +5,7 @@ import 'package:adhdo_it_mob/ui/screens/edit_task/edit_task_screen.dart';
 import 'package:adhdo_it_mob/ui/screens/filter/filter_screen.dart';
 import 'package:adhdo_it_mob/ui/screens/home/home_screen.dart';
 import 'package:adhdo_it_mob/ui/screens/intro/intro_screen.dart';
+import 'package:adhdo_it_mob/ui/screens/tariff_selection/tariff_selection_screen.dart';
 import 'package:adhdo_it_mob/ui/screens/task_in_progress/task_in_progress_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -29,6 +30,10 @@ GoRouter buildRouter(BuildContext context, String initialLocation) {
       GoRoute(
         path: Routes.intro.path,
         builder: (context, state) => const IntroScreen(),
+      ),
+      GoRoute(
+        path: Routes.tariffSelection.path,
+        builder: (context, state) => const TariffSelectionScreen(),
       ),
       GoRoute(
         path: Routes.home.path,

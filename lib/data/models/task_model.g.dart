@@ -11,6 +11,10 @@ _TaskModel _$TaskModelFromJson(Map<String, dynamic> json) => _TaskModel(
   title: json['title'] as String,
   backgroundImage: json['image'] as String?,
   date: DateTime.parse(json['date'] as String),
+  createdAt:
+      json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
   priority: (json['priority'] as num).toInt(),
   durationInSeconds: (json['duration_in_seconds'] as num).toInt(),
   startedAt:
@@ -29,6 +33,7 @@ Map<String, dynamic> _$TaskModelToJson(_TaskModel instance) =>
       'title': instance.title,
       'image': instance.backgroundImage,
       'date': instance.date.toIso8601String(),
+      'created_at': instance.createdAt?.toIso8601String(),
       'priority': instance.priority,
       'duration_in_seconds': instance.durationInSeconds,
       'started_at': instance.startedAt?.toIso8601String(),

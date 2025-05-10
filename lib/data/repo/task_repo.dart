@@ -6,6 +6,7 @@ import '../client/client.dart';
 
 abstract final class TaskRepo {
   Future<ApiResponse<TaskModel>> createTask(TaskModel model);
+  Future<ApiResponse<TaskModel>> editTask(TaskModel model);
   Future<ApiResponse<List<TaskModel>>> fetchTasks({TaskParamsModel? params});
   Future<ApiResponse> deleteTask(int id);
   Future<ApiResponse> startTask(int id);
@@ -98,6 +99,28 @@ base class TaskAPIRepo implements TaskRepo {
     };
     return await _client.post(
       '/tasks/task_create/',
+      data: FormData.fromMap(data),
+      decoder: (data) {
+        return TaskModel.fromJson(data);
+      },
+    );
+  }
+
+  @override
+  Future<ApiResponse<TaskModel>> editTask(TaskModel model) async {
+    final data = {
+      ...model.toMap(),
+
+      'image':
+          model.imageFile != null
+              ? await MultipartFile.fromFile(
+                model.imageFile!.path,
+                filename: model.imageFile!.path.split('/').last,
+              )
+              : null,
+    };
+    return await _client.patch(
+      '/tasks/task_update/${model.id}/',
       data: FormData.fromMap(data),
       decoder: (data) {
         return TaskModel.fromJson(data);
