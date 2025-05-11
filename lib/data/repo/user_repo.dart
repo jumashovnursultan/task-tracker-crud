@@ -5,7 +5,6 @@ import '../client/client.dart';
 
 abstract final class UserRepo {
   Future<ApiResponse> login(String email);
-
   Future<ApiResponse<Token>> codeVerify(String email, String code);
 }
 

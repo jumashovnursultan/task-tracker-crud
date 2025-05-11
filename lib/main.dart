@@ -7,9 +7,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
   await LocalStorage.init();
-
+  print(LocalStorage().token?.access);
   initLoggerListener();
 
   SystemChrome.setSystemUIOverlayStyle(

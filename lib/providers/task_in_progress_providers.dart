@@ -34,7 +34,6 @@ abstract class TaskInProgressState with _$TaskInProgressState {
     // @Default(CompleteTaskStatus.initial)
     // final CompleteTaskStatus completeTaskStatus,
     // @Default(PauseTaskStatus.initial) final PauseTaskStatus pauseTaskStatus,
-    final DateTime? startedAt,
     @Default('Something went wrong') final String errorText,
   }) = _TaskInProgressState;
 
@@ -47,7 +46,7 @@ class TaskInProgress extends _$TaskInProgress {
 
   @override
   TaskInProgressState build() {
-    return TaskInProgressState(startedAt: DateTime.now());
+    return TaskInProgressState();
   }
 
   Future<void> startTask(int id) async {
@@ -55,13 +54,14 @@ class TaskInProgress extends _$TaskInProgress {
     await ref.read(taskRepoProvider).startTask(id);
   }
 
-  Future<void> completeTask(int id) async {
+  Future<void> completeTask(int id, int updatedDurationInSeconds) async {
     // state = state.copyWith(completeTaskStatus: CompleteTaskStatus.complete);
-    await ref.read(taskRepoProvider).completeTask(id);
+    await ref.read(taskRepoProvider).completeTask(id, updatedDurationInSeconds);
   }
 
-  Future<void> pauseTask(int id) async {
+  Future<void> pauseTask(int id, int updatedDurationInSeconds) async {
     // state = state.copyWith(pauseTaskStatus: PauseTaskStatus.pause);
-    await ref.read(taskRepoProvider).pauseTask(id);
+
+    await ref.read(taskRepoProvider).pauseTask(id, updatedDurationInSeconds);
   }
 }

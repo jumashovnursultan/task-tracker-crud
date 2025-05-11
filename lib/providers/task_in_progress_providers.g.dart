@@ -6,7 +6,7 @@ part of 'task_in_progress_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$taskInProgressHash() => r'56c6a62afa65173155d41c27da6154ee15baf383';
+String _$taskInProgressHash() => r'ebe623a236997c9e9cfb1edcc18824fa07f1b02d';
 
 /// See also [TaskInProgress].
 @ProviderFor(TaskInProgress)

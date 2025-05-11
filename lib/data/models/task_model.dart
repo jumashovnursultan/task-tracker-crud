@@ -18,10 +18,7 @@ abstract class TaskModel with _$TaskModel {
     required DateTime date,
     @JsonKey(name: 'created_at') final DateTime? createdAt,
     required int priority,
-    //
     @JsonKey(name: 'duration_in_seconds') required int durationInSeconds,
-    @JsonKey(name: 'started_at') final DateTime? startedAt,
-    @JsonKey(name: 'paused_at') final DateTime? pausedAt,
   }) = _TaskModel;
   factory TaskModel.fromJson(Map<String, dynamic> json) =>
       _$TaskModelFromJson(json);

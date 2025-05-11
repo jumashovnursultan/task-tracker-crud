@@ -18,7 +18,7 @@ mixin _$TaskInProgressState {
 // @Default(CompleteTaskStatus.initial)
 // final CompleteTaskStatus completeTaskStatus,
 // @Default(PauseTaskStatus.initial) final PauseTaskStatus pauseTaskStatus,
- DateTime? get startedAt; String get errorText;
+ String get errorText;
 /// Create a copy of TaskInProgressState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $TaskInProgressStateCopyWith<TaskInProgressState> get copyWith => _$TaskInProgre
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TaskInProgressState&&(identical(other.startedAt, startedAt) || other.startedAt == startedAt)&&(identical(other.errorText, errorText) || other.errorText == errorText));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TaskInProgressState&&(identical(other.errorText, errorText) || other.errorText == errorText));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,startedAt,errorText);
+int get hashCode => Object.hash(runtimeType,errorText);
 
 @override
 String toString() {
-  return 'TaskInProgressState(startedAt: $startedAt, errorText: $errorText)';
+  return 'TaskInProgressState(errorText: $errorText)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $TaskInProgressStateCopyWith<$Res>  {
   factory $TaskInProgressStateCopyWith(TaskInProgressState value, $Res Function(TaskInProgressState) _then) = _$TaskInProgressStateCopyWithImpl;
 @useResult
 $Res call({
- DateTime? startedAt, String errorText
+ String errorText
 });
 
 
@@ -66,10 +66,9 @@ class _$TaskInProgressStateCopyWithImpl<$Res>
 
 /// Create a copy of TaskInProgressState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? startedAt = freezed,Object? errorText = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? errorText = null,}) {
   return _then(_self.copyWith(
-startedAt: freezed == startedAt ? _self.startedAt : startedAt // ignore: cast_nullable_to_non_nullable
-as DateTime?,errorText: null == errorText ? _self.errorText : errorText // ignore: cast_nullable_to_non_nullable
+errorText: null == errorText ? _self.errorText : errorText // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -81,13 +80,12 @@ as String,
 
 
 class _TaskInProgressState implements TaskInProgressState {
-   _TaskInProgressState({this.startedAt, this.errorText = 'Something went wrong'});
+   _TaskInProgressState({this.errorText = 'Something went wrong'});
   
 
 // @Default(CompleteTaskStatus.initial)
 // final CompleteTaskStatus completeTaskStatus,
 // @Default(PauseTaskStatus.initial) final PauseTaskStatus pauseTaskStatus,
-@override final  DateTime? startedAt;
 @override@JsonKey() final  String errorText;
 
 /// Create a copy of TaskInProgressState
@@ -100,16 +98,16 @@ _$TaskInProgressStateCopyWith<_TaskInProgressState> get copyWith => __$TaskInPro
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TaskInProgressState&&(identical(other.startedAt, startedAt) || other.startedAt == startedAt)&&(identical(other.errorText, errorText) || other.errorText == errorText));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TaskInProgressState&&(identical(other.errorText, errorText) || other.errorText == errorText));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,startedAt,errorText);
+int get hashCode => Object.hash(runtimeType,errorText);
 
 @override
 String toString() {
-  return 'TaskInProgressState(startedAt: $startedAt, errorText: $errorText)';
+  return 'TaskInProgressState(errorText: $errorText)';
 }
 
 
@@ -120,7 +118,7 @@ abstract mixin class _$TaskInProgressStateCopyWith<$Res> implements $TaskInProgr
   factory _$TaskInProgressStateCopyWith(_TaskInProgressState value, $Res Function(_TaskInProgressState) _then) = __$TaskInProgressStateCopyWithImpl;
 @override @useResult
 $Res call({
- DateTime? startedAt, String errorText
+ String errorText
 });
 
 
@@ -137,10 +135,9 @@ class __$TaskInProgressStateCopyWithImpl<$Res>
 
 /// Create a copy of TaskInProgressState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? startedAt = freezed,Object? errorText = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? errorText = null,}) {
   return _then(_TaskInProgressState(
-startedAt: freezed == startedAt ? _self.startedAt : startedAt // ignore: cast_nullable_to_non_nullable
-as DateTime?,errorText: null == errorText ? _self.errorText : errorText // ignore: cast_nullable_to_non_nullable
+errorText: null == errorText ? _self.errorText : errorText // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

@@ -9,6 +9,7 @@ class PausePlayButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(isPause);
     return Bounceable(
       onTap: onTap,
       child: Container(

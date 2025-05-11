@@ -17,14 +17,6 @@ _TaskModel _$TaskModelFromJson(Map<String, dynamic> json) => _TaskModel(
           : DateTime.parse(json['created_at'] as String),
   priority: (json['priority'] as num).toInt(),
   durationInSeconds: (json['duration_in_seconds'] as num).toInt(),
-  startedAt:
-      json['started_at'] == null
-          ? null
-          : DateTime.parse(json['started_at'] as String),
-  pausedAt:
-      json['paused_at'] == null
-          ? null
-          : DateTime.parse(json['paused_at'] as String),
 );
 
 Map<String, dynamic> _$TaskModelToJson(_TaskModel instance) =>
@@ -36,8 +28,6 @@ Map<String, dynamic> _$TaskModelToJson(_TaskModel instance) =>
       'created_at': instance.createdAt?.toIso8601String(),
       'priority': instance.priority,
       'duration_in_seconds': instance.durationInSeconds,
-      'started_at': instance.startedAt?.toIso8601String(),
-      'paused_at': instance.pausedAt?.toIso8601String(),
     };
 
 _TaskParamsModel _$TaskParamsModelFromJson(Map<String, dynamic> json) =>

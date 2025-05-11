@@ -11,7 +11,6 @@ import 'package:adhdo_it_mob/ui/screens/task_in_progress/widgets/expandable_blur
 import 'package:adhdo_it_mob/ui/screens/task_in_progress/widgets/notification_toggle.dart';
 import 'package:adhdo_it_mob/ui/screens/task_in_progress/widgets/pause_play_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -41,84 +40,59 @@ class _TaskInProgressScreenState extends ConsumerState<TaskInProgressScreen>
     with WidgetsBindingObserver {
   late TaskModel model = widget.model;
 
+  bool isPaused = false;
+  final remaining = ValueNotifier<Duration>(Duration.zero);
+  Timer? timer;
+
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
+
+    remaining.value = Duration(seconds: model.durationInSeconds);
+
+    timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (!isPaused && remaining.value.inSeconds > 0) {
+        remaining.value = remaining.value - const Duration(seconds: 1);
+      }
+      if (remaining.value.inSeconds <= 0) {
+        timer?.cancel();
+      }
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(taskInProgressProvider.notifier).startTask(model.id);
+    });
     super.initState();
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    timer?.cancel();
+
+    remaining.dispose();
     super.dispose();
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async {
+  void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.detached) {
-      // ref.read(taskInProgressProvider.notifier).pauseTask(model.id);
-    } else if (state == AppLifecycleState.resumed) {}
+      // Можно здесь тоже паузить задачу, если нужно
+    }
+  }
+
+  String formatDuration(Duration duration) {
+    final minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
+    final seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return "$minutes:$seconds";
   }
 
   @override
   Widget build(BuildContext context) {
-    final taskInProgressState = ref.watch(taskInProgressProvider);
-    final isPaused = useState(false);
-    final remaining = useState<Duration>(Duration.zero);
-    final timer = useRef<Timer?>(null);
-
-    useEffect(() {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        ref.read(taskInProgressProvider.notifier).startTask(model.id);
-      });
-      Duration calculateRemainingDuration(TaskModel model) {
-        final now = DateTime.now();
-
-        if (model.startedAt == null) {
-          return Duration(seconds: model.durationInSeconds);
-        }
-
-        final start = model.startedAt!;
-        final passed =
-            model.pausedAt != null
-                ? model.pausedAt!.difference(start).inSeconds
-                : now.difference(start).inSeconds;
-
-        final left = model.durationInSeconds - passed;
-        return Duration(seconds: left > 0 ? left : 0);
-      }
-
-      remaining.value = calculateRemainingDuration(model);
-
-      timer.value?.cancel();
-      timer.value = Timer.periodic(const Duration(seconds: 1), (_) {
-        if (!isPaused.value && remaining.value.inSeconds > 0) {
-          remaining.value -= const Duration(seconds: 1);
-        }
-        if (remaining.value.inSeconds <= 0) {
-          timer.value?.cancel();
-        }
-      });
-
-      return () => timer.value?.cancel();
-    }, []);
-
-    String formatDuration(Duration duration) {
-      final minutes = duration.inMinutes
-          .remainder(60)
-          .toString()
-          .padLeft(2, '0');
-      final seconds = duration.inSeconds
-          .remainder(60)
-          .toString()
-          .padLeft(2, '0');
-      return "$minutes:$seconds";
-    }
-
     return WillPopScope(
       onWillPop: () async {
-        if (!isPaused.value) {
+        if (!isPaused) {
           showToast(
             context,
             alignment: Alignment.topCenter,
@@ -131,10 +105,7 @@ class _TaskInProgressScreenState extends ConsumerState<TaskInProgressScreen>
         Navigator.pop(
           context,
           ResultOnTaskInProgressModel(
-            model.copyWith(
-              startedAt: model.startedAt ?? taskInProgressState.startedAt,
-              pausedAt: DateTime.now(),
-            ),
+            model.copyWith(durationInSeconds: remaining.value.inSeconds),
             isPaused: true,
           ),
         );
@@ -159,7 +130,7 @@ class _TaskInProgressScreenState extends ConsumerState<TaskInProgressScreen>
                       children: [
                         GestureDetector(
                           onTap: () {
-                            if (!isPaused.value) {
+                            if (!isPaused) {
                               showToast(
                                 context,
                                 alignment: Alignment.topCenter,
@@ -169,14 +140,12 @@ class _TaskInProgressScreenState extends ConsumerState<TaskInProgressScreen>
                               );
                               return;
                             }
+
                             Navigator.pop(
                               context,
                               ResultOnTaskInProgressModel(
                                 model.copyWith(
-                                  startedAt:
-                                      model.startedAt ??
-                                      taskInProgressState.startedAt,
-                                  pausedAt: DateTime.now(),
+                                  durationInSeconds: remaining.value.inSeconds,
                                 ),
                                 isPaused: true,
                               ),
@@ -205,43 +174,43 @@ class _TaskInProgressScreenState extends ConsumerState<TaskInProgressScreen>
                     Gap(16),
                     ExpandableBlurText(text: model.title),
                     Spacer(),
-                    Container(
-                      height: 318,
-                      width: 318,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 1,
-                          color: Color.fromRGBO(255, 255, 255, 1),
-                        ),
-                        shape: BoxShape.circle,
-                      ),
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(7.5),
-                      child: Container(
-                        width: 303,
-                        height: 303,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 1,
-                            color: Color.fromRGBO(255, 255, 255, 1),
+                    ValueListenableBuilder<Duration>(
+                      valueListenable: remaining,
+                      builder: (context, value, _) {
+                        return Container(
+                          height: 318,
+                          width: 318,
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 1, color: Colors.white),
+                            shape: BoxShape.circle,
                           ),
-                          shape: BoxShape.circle,
-                        ),
-                        padding: EdgeInsets.all(8),
-                        alignment: Alignment.center,
-                        child: AnimatedTimerRing(
-                          remaining: remaining.value,
-                          total: Duration(seconds: model.durationInSeconds),
-                          child: Text(
-                            formatDuration(remaining.value),
-                            style: TextStyle(
-                              fontSize: 54,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(7.5),
+                          child: Container(
+                            width: 303,
+                            height: 303,
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 1, color: Colors.white),
+                              shape: BoxShape.circle,
+                            ),
+                            padding: EdgeInsets.all(8),
+                            alignment: Alignment.center,
+                            child: AnimatedTimerRing(
+                              remaining:
+                                  value, // <<<<< теперь правильное значение
+                              total: Duration(seconds: model.durationInSeconds),
+                              child: Text(
+                                formatDuration(value),
+                                style: const TextStyle(
+                                  fontSize: 54,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     ),
                     Spacer(),
                     Row(
@@ -261,11 +230,17 @@ class _TaskInProgressScreenState extends ConsumerState<TaskInProgressScreen>
                               if (result == true) {
                                 ref
                                     .read(taskInProgressProvider.notifier)
-                                    .completeTask(model.id);
+                                    .completeTask(
+                                      model.id,
+                                      remaining.value.inSeconds,
+                                    );
                                 Navigator.pop(
                                   context,
                                   ResultOnTaskInProgressModel(
-                                    model,
+                                    model.copyWith(
+                                      durationInSeconds:
+                                          remaining.value.inSeconds,
+                                    ),
                                     isPaused: false,
                                   ),
                                 );
@@ -276,14 +251,19 @@ class _TaskInProgressScreenState extends ConsumerState<TaskInProgressScreen>
                         Expanded(
                           child: PausePlayButton(
                             onTap: () {
-                              if (!isPaused.value) {
+                              if (!isPaused) {
                                 ref
                                     .read(taskInProgressProvider.notifier)
-                                    .pauseTask(model.id);
+                                    .pauseTask(
+                                      model.id,
+                                      remaining.value.inSeconds,
+                                    );
                               }
-                              isPaused.value = !isPaused.value;
+                              setState(() {
+                                isPaused = !isPaused;
+                              });
                             },
-                            isPause: isPaused.value,
+                            isPause: isPaused,
                           ),
                         ),
                       ],

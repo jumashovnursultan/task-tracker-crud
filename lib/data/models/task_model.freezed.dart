@@ -16,8 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TaskModel {
 
- int get id; String get title;@JsonKey(name: 'image') String? get backgroundImage;@JsonKey(includeToJson: false, includeFromJson: false) File? get imageFile; DateTime get date;@JsonKey(name: 'created_at') DateTime? get createdAt; int get priority;//
-@JsonKey(name: 'duration_in_seconds') int get durationInSeconds;@JsonKey(name: 'started_at') DateTime? get startedAt;@JsonKey(name: 'paused_at') DateTime? get pausedAt;
+ int get id; String get title;@JsonKey(name: 'image') String? get backgroundImage;@JsonKey(includeToJson: false, includeFromJson: false) File? get imageFile; DateTime get date;@JsonKey(name: 'created_at') DateTime? get createdAt; int get priority;@JsonKey(name: 'duration_in_seconds') int get durationInSeconds;
 /// Create a copy of TaskModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,16 +29,16 @@ $TaskModelCopyWith<TaskModel> get copyWith => _$TaskModelCopyWithImpl<TaskModel>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TaskModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.backgroundImage, backgroundImage) || other.backgroundImage == backgroundImage)&&(identical(other.imageFile, imageFile) || other.imageFile == imageFile)&&(identical(other.date, date) || other.date == date)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.priority, priority) || other.priority == priority)&&(identical(other.durationInSeconds, durationInSeconds) || other.durationInSeconds == durationInSeconds)&&(identical(other.startedAt, startedAt) || other.startedAt == startedAt)&&(identical(other.pausedAt, pausedAt) || other.pausedAt == pausedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TaskModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.backgroundImage, backgroundImage) || other.backgroundImage == backgroundImage)&&(identical(other.imageFile, imageFile) || other.imageFile == imageFile)&&(identical(other.date, date) || other.date == date)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.priority, priority) || other.priority == priority)&&(identical(other.durationInSeconds, durationInSeconds) || other.durationInSeconds == durationInSeconds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,backgroundImage,imageFile,date,createdAt,priority,durationInSeconds,startedAt,pausedAt);
+int get hashCode => Object.hash(runtimeType,id,title,backgroundImage,imageFile,date,createdAt,priority,durationInSeconds);
 
 @override
 String toString() {
-  return 'TaskModel(id: $id, title: $title, backgroundImage: $backgroundImage, imageFile: $imageFile, date: $date, createdAt: $createdAt, priority: $priority, durationInSeconds: $durationInSeconds, startedAt: $startedAt, pausedAt: $pausedAt)';
+  return 'TaskModel(id: $id, title: $title, backgroundImage: $backgroundImage, imageFile: $imageFile, date: $date, createdAt: $createdAt, priority: $priority, durationInSeconds: $durationInSeconds)';
 }
 
 
@@ -50,7 +49,7 @@ abstract mixin class $TaskModelCopyWith<$Res>  {
   factory $TaskModelCopyWith(TaskModel value, $Res Function(TaskModel) _then) = _$TaskModelCopyWithImpl;
 @useResult
 $Res call({
- int id, String title,@JsonKey(name: 'image') String? backgroundImage,@JsonKey(includeToJson: false, includeFromJson: false) File? imageFile, DateTime date,@JsonKey(name: 'created_at') DateTime? createdAt, int priority,@JsonKey(name: 'duration_in_seconds') int durationInSeconds,@JsonKey(name: 'started_at') DateTime? startedAt,@JsonKey(name: 'paused_at') DateTime? pausedAt
+ int id, String title,@JsonKey(name: 'image') String? backgroundImage,@JsonKey(includeToJson: false, includeFromJson: false) File? imageFile, DateTime date,@JsonKey(name: 'created_at') DateTime? createdAt, int priority,@JsonKey(name: 'duration_in_seconds') int durationInSeconds
 });
 
 
@@ -67,7 +66,7 @@ class _$TaskModelCopyWithImpl<$Res>
 
 /// Create a copy of TaskModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? backgroundImage = freezed,Object? imageFile = freezed,Object? date = null,Object? createdAt = freezed,Object? priority = null,Object? durationInSeconds = null,Object? startedAt = freezed,Object? pausedAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? backgroundImage = freezed,Object? imageFile = freezed,Object? date = null,Object? createdAt = freezed,Object? priority = null,Object? durationInSeconds = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
@@ -77,9 +76,7 @@ as File?,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_
 as DateTime,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,priority: null == priority ? _self.priority : priority // ignore: cast_nullable_to_non_nullable
 as int,durationInSeconds: null == durationInSeconds ? _self.durationInSeconds : durationInSeconds // ignore: cast_nullable_to_non_nullable
-as int,startedAt: freezed == startedAt ? _self.startedAt : startedAt // ignore: cast_nullable_to_non_nullable
-as DateTime?,pausedAt: freezed == pausedAt ? _self.pausedAt : pausedAt // ignore: cast_nullable_to_non_nullable
-as DateTime?,
+as int,
   ));
 }
 
@@ -90,7 +87,7 @@ as DateTime?,
 @JsonSerializable()
 
 class _TaskModel extends TaskModel {
-  const _TaskModel({required this.id, required this.title, @JsonKey(name: 'image') this.backgroundImage, @JsonKey(includeToJson: false, includeFromJson: false) this.imageFile, required this.date, @JsonKey(name: 'created_at') this.createdAt, required this.priority, @JsonKey(name: 'duration_in_seconds') required this.durationInSeconds, @JsonKey(name: 'started_at') this.startedAt, @JsonKey(name: 'paused_at') this.pausedAt}): super._();
+  const _TaskModel({required this.id, required this.title, @JsonKey(name: 'image') this.backgroundImage, @JsonKey(includeToJson: false, includeFromJson: false) this.imageFile, required this.date, @JsonKey(name: 'created_at') this.createdAt, required this.priority, @JsonKey(name: 'duration_in_seconds') required this.durationInSeconds}): super._();
   factory _TaskModel.fromJson(Map<String, dynamic> json) => _$TaskModelFromJson(json);
 
 @override final  int id;
@@ -100,10 +97,7 @@ class _TaskModel extends TaskModel {
 @override final  DateTime date;
 @override@JsonKey(name: 'created_at') final  DateTime? createdAt;
 @override final  int priority;
-//
 @override@JsonKey(name: 'duration_in_seconds') final  int durationInSeconds;
-@override@JsonKey(name: 'started_at') final  DateTime? startedAt;
-@override@JsonKey(name: 'paused_at') final  DateTime? pausedAt;
 
 /// Create a copy of TaskModel
 /// with the given fields replaced by the non-null parameter values.
@@ -118,16 +112,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TaskModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.backgroundImage, backgroundImage) || other.backgroundImage == backgroundImage)&&(identical(other.imageFile, imageFile) || other.imageFile == imageFile)&&(identical(other.date, date) || other.date == date)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.priority, priority) || other.priority == priority)&&(identical(other.durationInSeconds, durationInSeconds) || other.durationInSeconds == durationInSeconds)&&(identical(other.startedAt, startedAt) || other.startedAt == startedAt)&&(identical(other.pausedAt, pausedAt) || other.pausedAt == pausedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TaskModel&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.backgroundImage, backgroundImage) || other.backgroundImage == backgroundImage)&&(identical(other.imageFile, imageFile) || other.imageFile == imageFile)&&(identical(other.date, date) || other.date == date)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.priority, priority) || other.priority == priority)&&(identical(other.durationInSeconds, durationInSeconds) || other.durationInSeconds == durationInSeconds));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,backgroundImage,imageFile,date,createdAt,priority,durationInSeconds,startedAt,pausedAt);
+int get hashCode => Object.hash(runtimeType,id,title,backgroundImage,imageFile,date,createdAt,priority,durationInSeconds);
 
 @override
 String toString() {
-  return 'TaskModel(id: $id, title: $title, backgroundImage: $backgroundImage, imageFile: $imageFile, date: $date, createdAt: $createdAt, priority: $priority, durationInSeconds: $durationInSeconds, startedAt: $startedAt, pausedAt: $pausedAt)';
+  return 'TaskModel(id: $id, title: $title, backgroundImage: $backgroundImage, imageFile: $imageFile, date: $date, createdAt: $createdAt, priority: $priority, durationInSeconds: $durationInSeconds)';
 }
 
 
@@ -138,7 +132,7 @@ abstract mixin class _$TaskModelCopyWith<$Res> implements $TaskModelCopyWith<$Re
   factory _$TaskModelCopyWith(_TaskModel value, $Res Function(_TaskModel) _then) = __$TaskModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String title,@JsonKey(name: 'image') String? backgroundImage,@JsonKey(includeToJson: false, includeFromJson: false) File? imageFile, DateTime date,@JsonKey(name: 'created_at') DateTime? createdAt, int priority,@JsonKey(name: 'duration_in_seconds') int durationInSeconds,@JsonKey(name: 'started_at') DateTime? startedAt,@JsonKey(name: 'paused_at') DateTime? pausedAt
+ int id, String title,@JsonKey(name: 'image') String? backgroundImage,@JsonKey(includeToJson: false, includeFromJson: false) File? imageFile, DateTime date,@JsonKey(name: 'created_at') DateTime? createdAt, int priority,@JsonKey(name: 'duration_in_seconds') int durationInSeconds
 });
 
 
@@ -155,7 +149,7 @@ class __$TaskModelCopyWithImpl<$Res>
 
 /// Create a copy of TaskModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? backgroundImage = freezed,Object? imageFile = freezed,Object? date = null,Object? createdAt = freezed,Object? priority = null,Object? durationInSeconds = null,Object? startedAt = freezed,Object? pausedAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? backgroundImage = freezed,Object? imageFile = freezed,Object? date = null,Object? createdAt = freezed,Object? priority = null,Object? durationInSeconds = null,}) {
   return _then(_TaskModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
@@ -165,9 +159,7 @@ as File?,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_
 as DateTime,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,priority: null == priority ? _self.priority : priority // ignore: cast_nullable_to_non_nullable
 as int,durationInSeconds: null == durationInSeconds ? _self.durationInSeconds : durationInSeconds // ignore: cast_nullable_to_non_nullable
-as int,startedAt: freezed == startedAt ? _self.startedAt : startedAt // ignore: cast_nullable_to_non_nullable
-as DateTime?,pausedAt: freezed == pausedAt ? _self.pausedAt : pausedAt // ignore: cast_nullable_to_non_nullable
-as DateTime?,
+as int,
   ));
 }
 
