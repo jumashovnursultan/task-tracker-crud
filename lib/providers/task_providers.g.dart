@@ -267,7 +267,7 @@ class _EditTaskProviderElement
   TaskModel get model => (origin as EditTaskProvider).model;
 }
 
-String _$taskListHash() => r'2576507e2eb0b64b54b70afe6e9ba639de634a90';
+String _$taskListHash() => r'770ad3881f78aecc7a9d0494c194d7a6fd912073';
 
 abstract class _$TaskList extends BuildlessAutoDisposeNotifier<TaskListState> {
   late final TaskParamsModel? initialParams;

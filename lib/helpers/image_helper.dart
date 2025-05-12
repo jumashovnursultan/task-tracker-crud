@@ -9,10 +9,11 @@ class ImageHelper {
   }) async {
     final pickedFile = await ImagePicker().pickImage(source: source);
     if (pickedFile != null) {
-      return await cropImage(
-        File(pickedFile.path),
-        compressFormat: compressFormat,
-      );
+      return File(pickedFile.path);
+      // await cropImage(
+      //   File(pickedFile.path),
+      //   compressFormat: compressFormat,
+      // );
     }
 
     return null;

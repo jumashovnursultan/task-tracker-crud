@@ -1,4 +1,5 @@
 import 'package:adhdo_it_mob/config/router/app_route.dart';
+import 'package:adhdo_it_mob/data/models/task_model.dart';
 import 'package:adhdo_it_mob/l10n/strings.dart';
 import 'package:adhdo_it_mob/providers/task_providers.dart';
 import 'package:adhdo_it_mob/ui/dialogs/add_task_bottom_sheet.dart';
@@ -120,12 +121,12 @@ class HomeScreen extends HookConsumerWidget {
                               !result.isPaused) {
                             ref
                                 .read(taskListProvider().notifier)
-                                .deleteTask(result.model.id);
-                            final index = swipeHistory.value.firstWhereOrNull(
+                                .removeTaskInList(result.model.id);
+                            final swipeIndex = swipeHistory.value.indexWhere(
                               (e) => e == result.model.id,
                             );
-                            if (index != -1 && index != null) {
-                              swipeHistory.value.removeAt(index);
+                            if (swipeIndex != -1) {
+                              swipeHistory.value.removeAt(swipeIndex);
                             }
                           } else if (result is ResultOnTaskInProgressModel &&
                               result.isPaused) {
@@ -163,8 +164,20 @@ class HomeScreen extends HookConsumerWidget {
                                 .read(taskListProvider().notifier)
                                 .deleteTask(task.id);
                           },
-                          onEditTap: () {
-                            context.push(Routes.editTask(), extra: task);
+                          onEditTap: () async {
+                            final result = await context.push(
+                              Routes.editTask(),
+                              extra: task,
+                            );
+                            if (result is int) {
+                              ref
+                                  .read(taskListProvider().notifier)
+                                  .deleteTask(result);
+                            } else if (result is TaskModel) {
+                              ref
+                                  .read(taskListProvider().notifier)
+                                  .updateTask(result);
+                            }
                           },
                           canUndo: swipeHistory.value.isNotEmpty,
                         );

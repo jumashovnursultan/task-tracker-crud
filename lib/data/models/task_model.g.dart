@@ -17,6 +17,8 @@ _TaskModel _$TaskModelFromJson(Map<String, dynamic> json) => _TaskModel(
           : DateTime.parse(json['created_at'] as String),
   priority: (json['priority'] as num).toInt(),
   durationInSeconds: (json['duration_in_seconds'] as num).toInt(),
+  updatedDurationInSeconds:
+      (json['updated_duration_in_seconds'] as num?)?.toInt(),
 );
 
 Map<String, dynamic> _$TaskModelToJson(_TaskModel instance) =>
@@ -28,6 +30,7 @@ Map<String, dynamic> _$TaskModelToJson(_TaskModel instance) =>
       'created_at': instance.createdAt?.toIso8601String(),
       'priority': instance.priority,
       'duration_in_seconds': instance.durationInSeconds,
+      'updated_duration_in_seconds': instance.updatedDurationInSeconds,
     };
 
 _TaskParamsModel _$TaskParamsModelFromJson(Map<String, dynamic> json) =>
@@ -37,7 +40,7 @@ _TaskParamsModel _$TaskParamsModelFromJson(Map<String, dynamic> json) =>
           json['byDate'] == null
               ? null
               : DateTime.parse(json['byDate'] as String),
-      byTime: (json['byTime'] as num?)?.toInt(),
+      byTime: json['byTime'] as bool?,
       filterType:
           $enumDecodeNullable(_$TaskFilterEnumMap, json['filterType']) ??
           TaskFilter.all,

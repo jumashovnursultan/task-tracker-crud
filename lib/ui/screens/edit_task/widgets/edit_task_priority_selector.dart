@@ -46,11 +46,7 @@ class EditTaskPrioritySelector extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      if (priority.value == index + 1) {
-                        priority.value = 0;
-                      } else {
-                        priority.value = index + 1;
-                      }
+                      priority.value = index + 1;
                     },
                     child:
                         index < priority.value

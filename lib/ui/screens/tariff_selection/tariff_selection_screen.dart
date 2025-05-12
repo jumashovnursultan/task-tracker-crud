@@ -1,18 +1,75 @@
 import 'package:adhdo_it_mob/config/router/app_route.dart';
+import 'package:adhdo_it_mob/helpers/toast_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:loading_indicator/loading_indicator.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class TariffSelectionScreen extends HookWidget {
+import 'package:adhdo_it_mob/providers/purchase_providers.dart';
+
+class TariffSelectionScreen extends HookConsumerWidget {
   const TariffSelectionScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final selectedTariff = useState('year'); // 'year' or 'month'
+    final isLoading = useState(false);
+
+    final purchaseState = ref.watch(purchaseNotifierProvider);
+    final purchaseNotifier = ref.read(purchaseNotifierProvider.notifier);
+
+    useEffect(() {
+      purchaseNotifier.loadProducts();
+
+      purchaseNotifier.setupCallbacks(
+        onSuccess: (productId) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Покупка успешна: $productId'),
+              backgroundColor: Colors.green,
+            ),
+          );
+
+          // Например, перенаправить на главный экран:
+          context.go(Routes.intro());
+        },
+        onError: (errorMessage) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Ошибка покупки: $errorMessage'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        },
+      );
+
+      return null;
+    }, []);
+
+    purchaseNotifier.setupCallbacks(
+      onSuccess: (productId) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Покупка успешна!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+
+        Future.delayed(const Duration(seconds: 2), () {
+          context.go(Routes.intro());
+        });
+      },
+      onError: (errorMessage) {
+        showToast(
+          context,
+          msg: 'Ошибка покупки: $errorMessage',
+          type: ToastificationType.error,
+        );
+      },
+    );
 
     return SafeArea(
       child: Scaffold(
@@ -86,8 +143,26 @@ class TariffSelectionScreen extends HookWidget {
 
                   Bounceable(
                     onTap: () async {
-                      context.go(Routes.intro());
+                      try {
+                        isLoading.value = true; // Показываем лоадер
+
+                        final selectedProduct = purchaseState.products
+                            .firstWhere(
+                              (p) =>
+                                  selectedTariff.value == 'year'
+                                      ? p.id == 'adhdoit_yearly'
+                                      : p.id == 'adhdoit_monthly',
+                            );
+
+                        await purchaseNotifier.buy(selectedProduct);
+                      } catch (e) {
+                        print('Ошибка покупки: $e');
+                      } finally {
+                        isLoading.value =
+                            false; // Скрываем лоадер после завершения
+                      }
                     },
+
                     child: Container(
                       alignment: Alignment.center,
                       height: 54,
@@ -96,14 +171,24 @@ class TariffSelectionScreen extends HookWidget {
                         color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.circular(100),
                       ),
-                      child: const Text(
-                        'Try for free',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
+                      child:
+                          isLoading.value
+                              ? const SizedBox(
+                                height: 24,
+                                width: 24,
+                                child: CircularProgressIndicator(
+                                  color: Colors.black,
+                                  strokeWidth: 2,
+                                ),
+                              )
+                              : const Text(
+                                'Try for free',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
                     ),
                   ),
                   const Gap(32),

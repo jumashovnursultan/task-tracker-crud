@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:adhdo_it_mob/data/models/api_response.dart';
 import 'package:adhdo_it_mob/data/models/task_model.dart';
 import 'package:dio/dio.dart';
@@ -80,8 +82,10 @@ base class TaskAPIRepo implements TaskRepo {
     //     ),
     //   ],
     // );
+    print(params?.toMap());
     return _client.get(
       '/tasks/task_list/',
+      params: params?.toMap(),
       decoder: (data) => List.from(data.map((e) => TaskModel.fromJson(e))),
     );
   }
@@ -90,7 +94,7 @@ base class TaskAPIRepo implements TaskRepo {
   Future<ApiResponse<TaskModel>> createTask(TaskModel model) async {
     final data = {
       ...model.toMap(),
-      if (model.imageFile != null)
+      if (model.imageFile is File)
         'image': await MultipartFile.fromFile(
           model.imageFile!.path,
           filename: model.imageFile!.path.split('/').last,
@@ -109,13 +113,14 @@ base class TaskAPIRepo implements TaskRepo {
   Future<ApiResponse<TaskModel>> editTask(TaskModel model) async {
     final data = {
       ...model.toMap(),
-      'image':
-          model.imageFile != null
-              ? await MultipartFile.fromFile(
-                model.imageFile!.path,
-                filename: model.imageFile!.path.split('/').last,
-              )
-              : null,
+      if (model.imageFile is File || model.imageFile == null)
+        'image':
+            model.imageFile != null
+                ? await MultipartFile.fromFile(
+                  model.imageFile!.path,
+                  filename: model.imageFile!.path.split('/').last,
+                )
+                : null,
     };
     return await _client.patch(
       '/tasks/task_update/${model.id}/',
@@ -155,10 +160,9 @@ base class TaskAPIRepo implements TaskRepo {
 
   @override
   Future<ApiResponse> startTask(int id) async {
-    // return _client.post(
-    //   '/tasks/change_status_task/$id/',
-    //   data: {"status": "started"},
-    // );
-    return ApiResponse(result: 200);
+    return _client.post(
+      '/tasks/change_status_task/$id/',
+      data: {"status": "started"},
+    );
   }
 }

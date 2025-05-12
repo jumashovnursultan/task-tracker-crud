@@ -80,7 +80,7 @@ class ReminderBottomSheet extends HookWidget {
               child: CupertinoDatePicker(
                 use24hFormat: true,
                 mode: CupertinoDatePickerMode.time,
-                minuteInterval: 15,
+                minuteInterval: 1,
                 initialDateTime: selectedTime.value,
                 onDateTimeChanged: (value) {
                   selectedTime.value = value;

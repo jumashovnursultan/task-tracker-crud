@@ -14,11 +14,13 @@ abstract class TaskModel with _$TaskModel {
     required String title,
     @JsonKey(name: 'image') final String? backgroundImage,
     @JsonKey(includeToJson: false, includeFromJson: false)
-    final File? imageFile,
+    final dynamic imageFile,
     required DateTime date,
     @JsonKey(name: 'created_at') final DateTime? createdAt,
     required int priority,
     @JsonKey(name: 'duration_in_seconds') required int durationInSeconds,
+    @JsonKey(name: 'updated_duration_in_seconds')
+    final int? updatedDurationInSeconds,
   }) = _TaskModel;
   factory TaskModel.fromJson(Map<String, dynamic> json) =>
       _$TaskModelFromJson(json);
@@ -29,6 +31,7 @@ abstract class TaskModel with _$TaskModel {
       'date': date,
       'priority': priority,
       'duration_in_seconds': durationInSeconds,
+      'updated_duration_in_seconds': durationInSeconds,
     };
   }
 }
@@ -41,7 +44,7 @@ abstract class TaskParamsModel with _$TaskParamsModel {
     @Default(0) final int page,
 
     final DateTime? byDate,
-    final int? byTime,
+    final bool? byTime,
     @Default(TaskFilter.all) final TaskFilter filterType,
   }) = _TaskParamsModel;
 

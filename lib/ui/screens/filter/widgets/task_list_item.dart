@@ -1,19 +1,25 @@
 import 'package:adhdo_it_mob/data/models/task_model.dart';
 import 'package:adhdo_it_mob/helpers/date_helpers.dart';
+import 'package:adhdo_it_mob/providers/task_providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class TaskListItem extends StatelessWidget {
+import '../../../../config/router/app_route.dart';
+
+class TaskListItem extends HookConsumerWidget {
   const TaskListItem({super.key, required this.model, this.onDelete});
 
   final TaskModel model;
   final Function(int)? onDelete;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Stack(
       children: [
         Positioned.fill(
@@ -74,57 +80,96 @@ class TaskListItem extends StatelessWidget {
                     right: Radius.circular(value == -1 ? 20 : 20),
                     left: Radius.circular(value == 1 ? 20 : 20),
                   );
-                  return Container(
-                    height: 90,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
+                  return Bounceable(
+                    onTap: () async {
+                      final result = await context.push(
+                        Routes.editTask(),
+                        extra: model,
+                      );
+                      if (result is int) {
+                        ref
+                            .read(
+                              taskListProvider(
+                                initialParams: TaskParamsModel(),
+                              ).notifier,
+                            )
+                            .deleteTask(result);
+                        ref
+                            .read(taskListProvider().notifier)
+                            .deleteTask(result);
+                      } else if (result is TaskModel) {
+                        ref
+                            .read(taskListProvider().notifier)
+                            .updateTask(result);
+                        ref
+                            .read(
+                              taskListProvider(
+                                initialParams: TaskParamsModel(),
+                              ).notifier,
+                            )
+                            .updateTask(result);
+                      }
+                    },
+                    child: Container(
+                      height: 90,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
 
-                      borderRadius: _borderRadius,
-                    ),
-                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(model.title),
-                        Spacer(),
-                        Row(
-                          children: [
-                            PriorityStars(
-                              filledCount: model.priority,
-                              filledColor: getColorByPriority(model.priority),
-                            ),
-                            Gap(22),
-                            SvgPicture.asset(
-                              'assets/svg/calendar.svg',
-                              height: 16,
-                              width: 16,
-                            ),
-                            Gap(4),
-                            Text(
-                              formatDate(model.date),
-                              style: TextStyle(color: Color(0xFF92918A)),
-                            ),
-                            Gap(22),
-                            SvgPicture.asset(
-                              'assets/svg/watch.svg',
-                              height: 16,
-                              width: 16,
-                            ),
-                            Gap(4),
-                            Text(
-                              'At ${DateFormat('HH:mm').format(model.date)}',
-                              style: TextStyle(color: Color(0xFF92918A)),
-                            ),
-                            Spacer(),
-                            SvgPicture.asset(
-                              'assets/svg/arrow_forward.svg',
-                              height: 24,
-                              width: 24,
-                            ),
-                          ],
-                        ),
-                      ],
+                        borderRadius: _borderRadius,
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        vertical: 16,
+                        horizontal: 12,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(model.title),
+                          Spacer(),
+                          Row(
+                            children: [
+                              PriorityStars(
+                                filledCount: model.priority,
+                                filledColor: getColorByPriority(model.priority),
+                              ),
+                              Gap(22),
+                              SvgPicture.asset(
+                                'assets/svg/calendar.svg',
+                                height: 16,
+                                width: 16,
+                              ),
+                              Gap(4),
+                              Text(
+                                formatDate(
+                                  model.date,
+                                  isHasDayafterTomorrow: false,
+                                ),
+                                style: TextStyle(color: Color(0xFF92918A)),
+                              ),
+                              Gap(22),
+                              SvgPicture.asset(
+                                'assets/svg/watch.svg',
+                                height: 16,
+                                width: 16,
+                              ),
+                              Gap(4),
+                              Text(
+                                'At ${DateFormat('HH:mm').format(model.date)}',
+                                style: TextStyle(color: Color(0xFF92918A)),
+                              ),
+                              Spacer(),
+                              Flexible(
+                                child: SvgPicture.asset(
+                                  'assets/svg/arrow_forward.svg',
+                                  height: 24,
+                                  width: 24,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },

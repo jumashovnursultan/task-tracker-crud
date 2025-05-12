@@ -48,7 +48,9 @@ class _TaskInProgressScreenState extends ConsumerState<TaskInProgressScreen>
   void initState() {
     WidgetsBinding.instance.addObserver(this);
 
-    remaining.value = Duration(seconds: model.durationInSeconds);
+    remaining.value = Duration(
+      seconds: model.updatedDurationInSeconds ?? model.durationInSeconds,
+    );
 
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (!isPaused && remaining.value.inSeconds > 0) {
@@ -75,17 +77,26 @@ class _TaskInProgressScreenState extends ConsumerState<TaskInProgressScreen>
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
     if (state == AppLifecycleState.paused ||
-        state == AppLifecycleState.detached) {
-      // Можно здесь тоже паузить задачу, если нужно
+        state == AppLifecycleState.detached ||
+        state == AppLifecycleState.resumed) {
+      if (!isPaused) {
+        ref
+            .read(taskInProgressProvider.notifier)
+            .pauseTask(model.id, remaining.value.inSeconds);
+      }
+      setState(() {
+        isPaused = !isPaused;
+      });
     }
   }
 
   String formatDuration(Duration duration) {
+    final hours = duration.inHours.toString().padLeft(2, '0');
     final minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
     final seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
-    return "$minutes:$seconds";
+    return "$hours:$minutes:$seconds";
   }
 
   @override
@@ -105,7 +116,7 @@ class _TaskInProgressScreenState extends ConsumerState<TaskInProgressScreen>
         Navigator.pop(
           context,
           ResultOnTaskInProgressModel(
-            model.copyWith(durationInSeconds: remaining.value.inSeconds),
+            model.copyWith(updatedDurationInSeconds: remaining.value.inSeconds),
             isPaused: true,
           ),
         );
@@ -145,7 +156,8 @@ class _TaskInProgressScreenState extends ConsumerState<TaskInProgressScreen>
                               context,
                               ResultOnTaskInProgressModel(
                                 model.copyWith(
-                                  durationInSeconds: remaining.value.inSeconds,
+                                  updatedDurationInSeconds:
+                                      remaining.value.inSeconds,
                                 ),
                                 isPaused: true,
                               ),
@@ -196,8 +208,7 @@ class _TaskInProgressScreenState extends ConsumerState<TaskInProgressScreen>
                             padding: EdgeInsets.all(8),
                             alignment: Alignment.center,
                             child: AnimatedTimerRing(
-                              remaining:
-                                  value, // <<<<< теперь правильное значение
+                              remaining: value,
                               total: Duration(seconds: model.durationInSeconds),
                               child: Text(
                                 formatDuration(value),
@@ -237,10 +248,7 @@ class _TaskInProgressScreenState extends ConsumerState<TaskInProgressScreen>
                                 Navigator.pop(
                                   context,
                                   ResultOnTaskInProgressModel(
-                                    model.copyWith(
-                                      durationInSeconds:
-                                          remaining.value.inSeconds,
-                                    ),
+                                    model,
                                     isPaused: false,
                                   ),
                                 );

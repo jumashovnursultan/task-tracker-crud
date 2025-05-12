@@ -69,13 +69,14 @@ class AddTaskBottomSheet extends HookConsumerWidget {
                         onFieldSubmitted: (v) async {
                           if (selectedDate.value == null ||
                               selectedDuration.value == null ||
-                              selectedReminderTime.value == null) {
+                              selectedReminderTime.value == null ||
+                              priority.value == 0) {
                             showToast(
                               context,
                               type: ToastificationType.warning,
                               alignment: Alignment.topCenter,
                               msg:
-                                  'Please fill in all required fields: title, date, duration, and reminder.',
+                                  'Please complete all required fields: title, date, duration, reminder, and select a priority level.',
                             );
                             focusNode.requestFocus();
                             return;
@@ -150,11 +151,7 @@ class AddTaskBottomSheet extends HookConsumerWidget {
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
-                                if (priority.value == index + 1) {
-                                  priority.value = 0;
-                                } else {
-                                  priority.value = index + 1;
-                                }
+                                priority.value = index + 1;
                               },
                               child:
                                   index < priority.value
@@ -398,7 +395,7 @@ class AddTaskBottomSheet extends HookConsumerWidget {
                             ),
                             builder: (_) => AttachFileBottomSheet(),
                           );
-                          focusNode.requestFocus();
+
                           if (image is File) {
                             selectedImage.value = image;
                           }
@@ -439,7 +436,7 @@ class AddTaskBottomSheet extends HookConsumerWidget {
                                 Gap(12),
                                 Bounceable(
                                   onTap: () {
-                                    selectedReminderTime.value = null;
+                                    selectedImage.value = null;
                                   },
                                   child: Container(
                                     height: 24,

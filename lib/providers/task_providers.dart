@@ -145,6 +145,14 @@ class TaskList extends _$TaskList {
     return resopnse;
   }
 
+  void removeTaskInList(int id) {
+    state = state.copyWith(
+      list: AsyncValue.data(
+        state.list.value!.where((element) => element.id != id).toList(),
+      ),
+    );
+  }
+
   void updateTask(TaskModel model) {
     state = state.copyWith(
       list: AsyncValue.data(

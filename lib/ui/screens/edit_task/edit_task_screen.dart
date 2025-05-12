@@ -27,7 +27,7 @@ class EditTaskScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textEditController = useTextEditingController(text: model.title);
-    final priority = useState(0);
+    final priority = useState(model.priority);
     final selectedDate = useState<DateTime?>(model.date);
     final selectedDuration = useState<Duration?>(
       Duration(seconds: model.durationInSeconds),
@@ -60,6 +60,18 @@ class EditTaskScreen extends HookConsumerWidget {
                   ),
                   GestureDetector(
                     onTap: () async {
+                      if (selectedDate.value == null ||
+                          selectedDuration.value == null ||
+                          selectedReminderTime.value == null) {
+                        showToast(
+                          context,
+                          type: ToastificationType.warning,
+                          alignment: Alignment.topCenter,
+                          msg:
+                              'Please complete all required fields: title, date, duration, reminder',
+                        );
+                        return;
+                      }
                       showDialog(
                         context: context,
                         barrierDismissible: false,
@@ -75,16 +87,16 @@ class EditTaskScreen extends HookConsumerWidget {
                             date: selectedDate.value!,
                             durationInSeconds:
                                 selectedDuration.value!.inSeconds,
+                            updatedDurationInSeconds:
+                                selectedDuration.value!.inSeconds,
                             priority: priority.value,
                             imageFile: selectedImage.value,
                           ),
                         ).future,
                       );
                       if (response.isSuccessful) {
-                        ref
-                            .read(taskListProvider().notifier)
-                            .updateTask(response.result!);
                         Navigator.pop(context);
+                        Navigator.pop(context, response.result!);
                       } else {
                         if (response.statusCode == 413) {
                           showToast(
@@ -141,10 +153,7 @@ class EditTaskScreen extends HookConsumerWidget {
                       },
                     );
                     if (result == true) {
-                      Navigator.pop(context);
-                      ref
-                          .read(taskListProvider().notifier)
-                          .deleteTask(model.id);
+                      Navigator.pop(context, model.id);
                     }
                   },
                   child: SizedBox(

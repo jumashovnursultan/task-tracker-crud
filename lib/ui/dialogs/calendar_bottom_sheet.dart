@@ -118,7 +118,7 @@ class CalendarBottomSheet extends HookWidget {
               onDaySelected: (selected, focused) {
                 selectedDay.value = selected;
                 focusedDay.value = focused;
-                print(selected);
+
                 Navigator.pop(context, selected);
               },
 

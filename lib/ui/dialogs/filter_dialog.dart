@@ -166,7 +166,6 @@ class FilterDialog extends StatelessWidget {
                   final date = await showModalBottomSheet(
                     context: context,
                     backgroundColor: Colors.transparent,
-                    barrierColor: Colors.transparent,
 
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.vertical(
@@ -208,22 +207,7 @@ class FilterDialog extends StatelessWidget {
               ),
               Bounceable(
                 onTap: () async {
-                  final time = await showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    barrierColor: Colors.transparent,
-                    backgroundColor: Colors.transparent,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(30),
-                      ),
-                    ),
-                    builder: (_) => ReminderBottomSheet(null),
-                  );
-
-                  if (time is DateTime) {
-                    Navigator.pop(context, MapEntry(TaskFilter.byTime, time));
-                  }
+                  Navigator.pop(context, MapEntry(TaskFilter.byTime, true));
                 },
                 child: Container(
                   height: 44,

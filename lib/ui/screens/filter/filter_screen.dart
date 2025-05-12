@@ -19,7 +19,6 @@ class FilterScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final initialParams = TaskParamsModel();
     final taskState = ref.watch(taskListProvider(initialParams: initialParams));
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -142,11 +141,9 @@ class _HeaderSection extends HookConsumerWidget {
                     notifier.filter(
                       TaskParamsModel(filterType: filter, byDate: value),
                     );
-                  } else {
-                    final time = value as DateTime;
-                    final seconds = time.hour * 3600 + time.minute * 60;
+                  } else if (filter.isByTime) {
                     notifier.filter(
-                      TaskParamsModel(filterType: filter, byTime: seconds),
+                      TaskParamsModel(filterType: filter, byTime: value),
                     );
                   }
                 }
