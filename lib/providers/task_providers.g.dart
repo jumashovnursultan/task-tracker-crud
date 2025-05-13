@@ -6,7 +6,7 @@ part of 'task_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$createTaskHash() => r'fd768a4dcb06bf33eea1a9844d9feac7eb95ffb4';
+String _$createTaskHash() => r'8e44776db1a0b9b899efd1eee3c18f42805e212e';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -148,7 +148,7 @@ class _CreateTaskProviderElement
   TaskModel get model => (origin as CreateTaskProvider).model;
 }
 
-String _$editTaskHash() => r'2f564afb22147ee00e6f17c07a09faae63d04125';
+String _$editTaskHash() => r'6603f0ae8ffc4f76ea174f7997fa1edb7662eca2';
 
 /// See also [editTask].
 @ProviderFor(editTask)

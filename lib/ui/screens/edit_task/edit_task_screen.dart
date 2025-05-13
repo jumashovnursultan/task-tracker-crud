@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:adhdo_it_mob/data/models/task_model.dart';
 import 'package:adhdo_it_mob/helpers/date_helpers.dart';
 import 'package:adhdo_it_mob/helpers/toast_helper.dart';
@@ -30,7 +28,9 @@ class EditTaskScreen extends HookConsumerWidget {
     final priority = useState(model.priority);
     final selectedDate = useState<DateTime?>(model.date);
     final selectedDuration = useState<Duration?>(
-      Duration(seconds: model.durationInSeconds),
+      model.durationInSeconds != null
+          ? Duration(seconds: model.durationInSeconds!)
+          : null,
     );
     final selectedReminderTime = useState<DateTime?>(model.date);
     final selectedImage = useState<dynamic>(model.backgroundImage);
@@ -60,18 +60,6 @@ class EditTaskScreen extends HookConsumerWidget {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      if (selectedDate.value == null ||
-                          selectedDuration.value == null ||
-                          selectedReminderTime.value == null) {
-                        showToast(
-                          context,
-                          type: ToastificationType.warning,
-                          alignment: Alignment.topCenter,
-                          msg:
-                              'Please complete all required fields: title, date, duration, reminder',
-                        );
-                        return;
-                      }
                       showDialog(
                         context: context,
                         barrierDismissible: false,
@@ -84,11 +72,10 @@ class EditTaskScreen extends HookConsumerWidget {
                           TaskModel(
                             id: model.id,
                             title: textEditController.text,
-                            date: selectedDate.value!,
+                            date: selectedDate.value,
                             durationInSeconds:
-                                selectedDuration.value!.inSeconds,
-                            updatedDurationInSeconds:
-                                selectedDuration.value!.inSeconds,
+                                selectedDuration.value?.inSeconds,
+                            updatedSeconds: selectedDuration.value?.inSeconds,
                             priority: priority.value,
                             imageFile: selectedImage.value,
                           ),
@@ -102,6 +89,7 @@ class EditTaskScreen extends HookConsumerWidget {
                           showToast(
                             context,
                             type: ToastificationType.error,
+                            alignment: Alignment.topCenter,
                             msg:
                                 'Image is too large. Please choose a smaller one.',
                           );
@@ -109,6 +97,7 @@ class EditTaskScreen extends HookConsumerWidget {
                           showToast(
                             context,
                             type: ToastificationType.error,
+                            alignment: Alignment.topCenter,
                             msg: response.errorData.toString(),
                           );
                         }

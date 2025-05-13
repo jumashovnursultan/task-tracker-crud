@@ -67,20 +67,6 @@ class AddTaskBottomSheet extends HookConsumerWidget {
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.done,
                         onFieldSubmitted: (v) async {
-                          if (selectedDate.value == null ||
-                              selectedDuration.value == null ||
-                              selectedReminderTime.value == null ||
-                              priority.value == 0) {
-                            showToast(
-                              context,
-                              type: ToastificationType.warning,
-                              alignment: Alignment.topCenter,
-                              msg:
-                                  'Please complete all required fields: title, date, duration, reminder, and select a priority level.',
-                            );
-                            focusNode.requestFocus();
-                            return;
-                          }
                           showDialog(
                             context: context,
                             barrierDismissible: false,
@@ -93,9 +79,9 @@ class AddTaskBottomSheet extends HookConsumerWidget {
                               TaskModel(
                                 id: -1,
                                 title: v,
-                                date: selectedDate.value!,
+                                date: selectedDate.value,
                                 durationInSeconds:
-                                    selectedDuration.value!.inSeconds,
+                                    selectedDuration.value?.inSeconds,
                                 priority: priority.value,
                                 imageFile: selectedImage.value,
                               ),
@@ -109,6 +95,7 @@ class AddTaskBottomSheet extends HookConsumerWidget {
                             if (response.statusCode == 413) {
                               showToast(
                                 context,
+                                alignment: Alignment.topCenter,
                                 type: ToastificationType.error,
                                 msg:
                                     'Image is too large. Please choose a smaller one.',
@@ -117,10 +104,13 @@ class AddTaskBottomSheet extends HookConsumerWidget {
                               showToast(
                                 context,
                                 type: ToastificationType.error,
+                                alignment: Alignment.topCenter,
                                 msg: response.errorData.toString(),
                               );
                             }
+
                             Navigator.of(context).pop();
+                            focusNode.requestFocus();
                           }
                         },
                         decoration: InputDecoration(

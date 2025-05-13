@@ -143,24 +143,25 @@ class TariffSelectionScreen extends HookConsumerWidget {
 
                   Bounceable(
                     onTap: () async {
-                      try {
-                        isLoading.value = true; // Показываем лоадер
+                      context.go(Routes.intro());
+                      // try {
+                      //   isLoading.value = true; // Показываем лоадер
 
-                        final selectedProduct = purchaseState.products
-                            .firstWhere(
-                              (p) =>
-                                  selectedTariff.value == 'year'
-                                      ? p.id == 'adhdoit_yearly'
-                                      : p.id == 'adhdoit_monthly',
-                            );
+                      //   final selectedProduct = purchaseState.products
+                      //       .firstWhere(
+                      //         (p) =>
+                      //             selectedTariff.value == 'year'
+                      //                 ? p.id == 'adhdoit_yearly'
+                      //                 : p.id == 'adhdoit_monthly',
+                      //       );
 
-                        await purchaseNotifier.buy(selectedProduct);
-                      } catch (e) {
-                        print('Ошибка покупки: $e');
-                      } finally {
-                        isLoading.value =
-                            false; // Скрываем лоадер после завершения
-                      }
+                      //   await purchaseNotifier.buy(selectedProduct);
+                      // } catch (e) {
+                      //   print('Ошибка покупки: $e');
+                      // } finally {
+                      //   isLoading.value =
+                      //       false; // Скрываем лоадер после завершения
+                      // }
                     },
 
                     child: Container(

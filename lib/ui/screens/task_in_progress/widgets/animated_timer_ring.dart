@@ -6,21 +6,23 @@ class AnimatedTimerRing extends StatelessWidget {
   const AnimatedTimerRing({
     super.key,
     required this.remaining,
-    required this.total,
+    this.total,
     required this.child,
   });
 
   final Duration remaining;
-  final Duration total;
+  final Duration? total; // Теперь может быть null
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
+    double progress = 0.0;
+    if (total != null && total!.inSeconds > 0) {
+      progress = 1.0 - (remaining.inSeconds / total!.inSeconds);
+    }
+
     return TweenAnimationBuilder<double>(
-      tween: Tween<double>(
-        begin: 0.0,
-        end: 1.0 - (remaining.inSeconds / total.inSeconds),
-      ),
+      tween: Tween<double>(begin: 0.0, end: progress.clamp(0.0, 1.0)),
       duration: const Duration(milliseconds: 500),
       builder: (context, value, _) {
         return CustomPaint(

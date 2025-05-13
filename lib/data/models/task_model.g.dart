@@ -10,15 +10,14 @@ _TaskModel _$TaskModelFromJson(Map<String, dynamic> json) => _TaskModel(
   id: (json['id'] as num).toInt(),
   title: json['title'] as String,
   backgroundImage: json['image'] as String?,
-  date: DateTime.parse(json['date'] as String),
+  date: json['date'] == null ? null : DateTime.parse(json['date'] as String),
   createdAt:
       json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
-  priority: (json['priority'] as num).toInt(),
-  durationInSeconds: (json['duration_in_seconds'] as num).toInt(),
-  updatedDurationInSeconds:
-      (json['updated_duration_in_seconds'] as num?)?.toInt(),
+  priority: (json['priority'] as num?)?.toInt() ?? 0,
+  durationInSeconds: (json['duration_in_seconds'] as num?)?.toInt(),
+  updatedSeconds: (json['updated_duration_in_seconds'] as num?)?.toInt(),
 );
 
 Map<String, dynamic> _$TaskModelToJson(_TaskModel instance) =>
@@ -26,11 +25,11 @@ Map<String, dynamic> _$TaskModelToJson(_TaskModel instance) =>
       'id': instance.id,
       'title': instance.title,
       'image': instance.backgroundImage,
-      'date': instance.date.toIso8601String(),
+      'date': instance.date?.toIso8601String(),
       'created_at': instance.createdAt?.toIso8601String(),
       'priority': instance.priority,
       'duration_in_seconds': instance.durationInSeconds,
-      'updated_duration_in_seconds': instance.updatedDurationInSeconds,
+      'updated_duration_in_seconds': instance.updatedSeconds,
     };
 
 _TaskParamsModel _$TaskParamsModelFromJson(Map<String, dynamic> json) =>

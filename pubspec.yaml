@@ -1,7 +1,7 @@
 name: adhdo_it_mob
 description: "A new Flutter project."
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.0+1
+version: 1.0.3+3
 
 environment:
   sdk: ^3.7.2
@@ -82,7 +82,7 @@ dev_dependencies:
   flutter_launcher_icons: ^0.14.3
 
 flutter_icons:
-  image_path: "assets/images/logo.png"  
+  image_path: "assets/images/flutter_logo.png"  
   android: true
   ios: true  
 

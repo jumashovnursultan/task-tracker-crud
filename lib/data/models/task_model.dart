@@ -15,12 +15,11 @@ abstract class TaskModel with _$TaskModel {
     @JsonKey(name: 'image') final String? backgroundImage,
     @JsonKey(includeToJson: false, includeFromJson: false)
     final dynamic imageFile,
-    required DateTime date,
+    final DateTime? date,
     @JsonKey(name: 'created_at') final DateTime? createdAt,
-    required int priority,
-    @JsonKey(name: 'duration_in_seconds') required int durationInSeconds,
-    @JsonKey(name: 'updated_duration_in_seconds')
-    final int? updatedDurationInSeconds,
+    @Default(0) final int priority,
+    @JsonKey(name: 'duration_in_seconds') final int? durationInSeconds,
+    @JsonKey(name: 'updated_duration_in_seconds') final int? updatedSeconds,
   }) = _TaskModel;
   factory TaskModel.fromJson(Map<String, dynamic> json) =>
       _$TaskModelFromJson(json);

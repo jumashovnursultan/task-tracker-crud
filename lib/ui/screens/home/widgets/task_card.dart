@@ -49,47 +49,51 @@ class TaskCard extends StatelessWidget {
             style: TextStyle(fontSize: 32, fontWeight: FontWeight.w700),
           ),
           Spacer(),
-          Container(
-            height: 44,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              color: Colors.white,
+          if (model.date != null) ...[
+            Container(
+              height: 44,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                color: Colors.white,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Gap(12),
+                  SvgPicture.asset('assets/svg/calendar.svg'),
+                  Gap(8),
+                  Text(formatDate(model.date!), style: TextStyle(fontSize: 16)),
+                  Gap(16),
+                ],
+              ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Gap(12),
-                SvgPicture.asset('assets/svg/calendar.svg'),
-                Gap(8),
-                Text(formatDate(model.date), style: TextStyle(fontSize: 16)),
-                Gap(16),
-              ],
+            Gap(12),
+          ],
+          if (model.durationInSeconds != null) ...[
+            Container(
+              height: 44,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                color: Colors.white,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Gap(12),
+                  SvgPicture.asset('assets/svg/watch.svg'),
+                  Gap(8),
+                  Text(
+                    formatDuration(model.durationInSeconds!),
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  Gap(16),
+                ],
+              ),
             ),
-          ),
-          Gap(12),
-          Container(
-            height: 44,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              color: Colors.white,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Gap(12),
-                SvgPicture.asset('assets/svg/watch.svg'),
-                Gap(8),
-                Text(
-                  formatDuration(model.durationInSeconds),
-                  style: TextStyle(fontSize: 16),
-                ),
-                Gap(16),
-              ],
-            ),
-          ),
-          Gap(12),
+            Gap(12),
+          ],
           Container(
             height: 44,
             decoration: BoxDecoration(
@@ -119,7 +123,6 @@ class TaskCard extends StatelessWidget {
             children: [
               Bounceable(
                 onTap: onUndoTap,
-
                 child: Opacity(
                   opacity: canUndo ? 1 : 0.5,
                   child: Container(

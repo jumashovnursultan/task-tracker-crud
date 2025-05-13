@@ -39,6 +39,7 @@ class TaskInProgressScreen extends StatefulHookConsumerWidget {
 class _TaskInProgressScreenState extends ConsumerState<TaskInProgressScreen>
     with WidgetsBindingObserver {
   late TaskModel model = widget.model;
+  late final bool isStopwatchMode = model.durationInSeconds == null;
 
   bool isPaused = false;
   final remaining = ValueNotifier<Duration>(Duration.zero);
@@ -49,15 +50,21 @@ class _TaskInProgressScreenState extends ConsumerState<TaskInProgressScreen>
     WidgetsBinding.instance.addObserver(this);
 
     remaining.value = Duration(
-      seconds: model.updatedDurationInSeconds ?? model.durationInSeconds,
+      seconds: model.updatedSeconds ?? model.durationInSeconds ?? 0,
     );
 
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
-      if (!isPaused && remaining.value.inSeconds > 0) {
-        remaining.value = remaining.value - const Duration(seconds: 1);
-      }
-      if (remaining.value.inSeconds <= 0) {
-        timer?.cancel();
+      if (!isPaused) {
+        if (isStopwatchMode) {
+          remaining.value = remaining.value + const Duration(seconds: 1);
+        } else {
+          if (remaining.value.inSeconds > 0) {
+            remaining.value = remaining.value - const Duration(seconds: 1);
+          }
+          if (remaining.value.inSeconds <= 0) {
+            timer?.cancel();
+          }
+        }
       }
     });
 
@@ -116,7 +123,7 @@ class _TaskInProgressScreenState extends ConsumerState<TaskInProgressScreen>
         Navigator.pop(
           context,
           ResultOnTaskInProgressModel(
-            model.copyWith(updatedDurationInSeconds: remaining.value.inSeconds),
+            model.copyWith(updatedSeconds: remaining.value.inSeconds),
             isPaused: true,
           ),
         );
@@ -156,8 +163,7 @@ class _TaskInProgressScreenState extends ConsumerState<TaskInProgressScreen>
                               context,
                               ResultOnTaskInProgressModel(
                                 model.copyWith(
-                                  updatedDurationInSeconds:
-                                      remaining.value.inSeconds,
+                                  updatedSeconds: remaining.value.inSeconds,
                                 ),
                                 isPaused: true,
                               ),
@@ -209,7 +215,12 @@ class _TaskInProgressScreenState extends ConsumerState<TaskInProgressScreen>
                             alignment: Alignment.center,
                             child: AnimatedTimerRing(
                               remaining: value,
-                              total: Duration(seconds: model.durationInSeconds),
+                              total:
+                                  isStopwatchMode
+                                      ? null
+                                      : Duration(
+                                        seconds: model.durationInSeconds ?? 0,
+                                      ),
                               child: Text(
                                 formatDuration(value),
                                 style: const TextStyle(

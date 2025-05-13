@@ -134,30 +134,32 @@ class TaskListItem extends HookConsumerWidget {
                                 filledColor: getColorByPriority(model.priority),
                               ),
                               Gap(22),
-                              SvgPicture.asset(
-                                'assets/svg/calendar.svg',
-                                height: 16,
-                                width: 16,
-                              ),
-                              Gap(4),
-                              Text(
-                                formatDate(
-                                  model.date,
-                                  isHasDayafterTomorrow: false,
+                              if (model.date != null) ...[
+                                SvgPicture.asset(
+                                  'assets/svg/calendar.svg',
+                                  height: 16,
+                                  width: 16,
                                 ),
-                                style: TextStyle(color: Color(0xFF92918A)),
-                              ),
-                              Gap(22),
-                              SvgPicture.asset(
-                                'assets/svg/watch.svg',
-                                height: 16,
-                                width: 16,
-                              ),
-                              Gap(4),
-                              Text(
-                                'At ${DateFormat('HH:mm').format(model.date)}',
-                                style: TextStyle(color: Color(0xFF92918A)),
-                              ),
+                                Gap(4),
+                                Text(
+                                  formatDate(
+                                    model.date!,
+                                    isHasDayafterTomorrow: false,
+                                  ),
+                                  style: TextStyle(color: Color(0xFF92918A)),
+                                ),
+                                Gap(22),
+                                SvgPicture.asset(
+                                  'assets/svg/watch.svg',
+                                  height: 16,
+                                  width: 16,
+                                ),
+                                Gap(4),
+                                Text(
+                                  'At ${DateFormat('HH:mm').format(model.date!)}',
+                                  style: TextStyle(color: Color(0xFF92918A)),
+                                ),
+                              ],
                               Spacer(),
                               Flexible(
                                 child: SvgPicture.asset(

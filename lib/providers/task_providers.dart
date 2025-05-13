@@ -172,11 +172,36 @@ class TaskList extends _$TaskList {
 Future<ApiResponse<TaskModel>> createTask(Ref ref, TaskModel model) async {
   final response = await ref.read(taskRepoProvider).createTask(model);
 
+  if (!response.isSuccessful) {
+    final errorTitle = response.errorData?['title'];
+    if (errorTitle is List &&
+        errorTitle.contains('This field may not be blank.')) {
+      // Здесь мы перехватываем именно эту ошибку
+      return ApiResponse(
+        statusCode: response.statusCode,
+        errorData: 'Title cannot be blank',
+      );
+    }
+  }
+
   return response;
 }
 
 @riverpod
 Future<ApiResponse<TaskModel>> editTask(Ref ref, TaskModel model) async {
   final response = await ref.read(taskRepoProvider).editTask(model);
+
+  if (!response.isSuccessful) {
+    final errorTitle = response.errorData?['title'];
+    if (errorTitle is List &&
+        errorTitle.contains('This field may not be blank.')) {
+      // Здесь мы перехватываем именно эту ошибку
+      return ApiResponse(
+        statusCode: response.statusCode,
+        errorData: 'Title cannot be blank',
+      );
+    }
+  }
+
   return response;
 }
