@@ -288,7 +288,7 @@ class _TaskInProgressScreenState extends ConsumerState<TaskInProgressScreen>
                       ],
                     ),
                     Gap(59),
-                    NotificationToggle(),
+                    // NotificationToggle(),
                     Gap(32),
                   ],
                 ),

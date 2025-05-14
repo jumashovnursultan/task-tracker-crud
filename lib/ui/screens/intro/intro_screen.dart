@@ -40,7 +40,7 @@ final List<IntroModel> introPages = [
     backgroundColor: const Color(0xFFB5DAF6),
     titleSpans: [
       const TextSpan(
-        text: 'Swit ',
+        text: 'Swipe ',
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
       const TextSpan(text: 'tasks'),

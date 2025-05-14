@@ -175,7 +175,7 @@ class TaskCard extends StatelessWidget {
   Color getColorByPriority(int priority) {
     switch (priority) {
       case 5:
-        return Color(0xFFC894C4);
+        return Color(0xFFF09A9B);
       case 4:
         return Color(0xFFFECD81);
       case 3:
@@ -185,7 +185,7 @@ class TaskCard extends StatelessWidget {
       case 1:
         return Color(0xFF96C8ED);
       case 0:
-        return Color(0xFFF09A9B);
+        return Color(0xFFC894C4);
       default:
         return Colors.cyanAccent;
     }
