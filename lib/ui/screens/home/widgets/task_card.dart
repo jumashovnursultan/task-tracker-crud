@@ -24,150 +24,182 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
-        image:
-            model.backgroundImage != null
-                ? DecorationImage(
-                  image: NetworkImage(model.backgroundImage!),
-                  fit: BoxFit.cover,
-                )
-                : null,
-        color:
-            model.backgroundImage == null
-                ? getColorByPriority(model.priority)
-                : Colors.white,
+        color: getColorByPriority(model.priority),
+
         borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          width: 12,
+          color: getColorByPriority(model.priority),
+        ),
       ),
       alignment: Alignment.center,
 
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            model.title,
-            style: TextStyle(fontSize: 32, fontWeight: FontWeight.w700),
-          ),
-          Spacer(),
-          if (model.date != null) ...[
-            Container(
-              height: 44,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                color: Colors.white,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Gap(12),
-                  SvgPicture.asset('assets/svg/calendar.svg'),
-                  Gap(8),
-                  Text(formatDate(model.date!), style: TextStyle(fontSize: 16)),
-                  Gap(16),
-                ],
-              ),
-            ),
-            Gap(12),
-          ],
-          if (model.durationInSeconds != null) ...[
-            Container(
-              height: 44,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                color: Colors.white,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Gap(12),
-                  SvgPicture.asset('assets/svg/watch.svg'),
-                  Gap(8),
-                  Text(
-                    formatDuration(model.durationInSeconds!),
-                    style: TextStyle(fontSize: 16),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            if (model.backgroundImage != null) ...[
+              Image.network(model.backgroundImage!, fit: BoxFit.cover),
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.black.withOpacity(0.95),
+                      Colors.transparent,
+                      Colors.black.withOpacity(0.95),
+                    ],
+                    stops: [0.0, 0.5, 1.0],
                   ),
-                  Gap(16),
-                ],
-              ),
-            ),
-            Gap(12),
-          ],
-          Container(
-            height: 44,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              color: Colors.white,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Gap(12),
-                ...List.generate(5, (index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: SvgPicture.asset(
-                      'assets/svg/star_${index < model.priority ? 'filled' : 'outline'}.svg',
-                    ),
-                  );
-                }),
-                Gap(16),
-              ],
-            ),
-          ),
-          Gap(40),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Bounceable(
-                onTap: onUndoTap,
-                child: Opacity(
-                  opacity: canUndo ? 1 : 0.5,
-                  child: Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                    ),
-                    alignment: Alignment.center,
-                    child: SvgPicture.asset('assets/svg/undo_icon.svg'),
-                  ),
-                ),
-              ),
-              Gap(16),
-              Bounceable(
-                onTap: onEditTap,
-                child: Container(
-                  height: 56,
-                  width: 56,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                  ),
-                  alignment: Alignment.center,
-                  child: SvgPicture.asset('assets/svg/pencil.svg'),
-                ),
-              ),
-              Gap(16),
-              Bounceable(
-                onTap: onDeleteTap,
-                child: Container(
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                  ),
-                  alignment: Alignment.center,
-                  child: SvgPicture.asset('assets/svg/delete.svg'),
                 ),
               ),
             ],
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    model.title,
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                      color:
+                          model.backgroundImage != null ? Colors.white : null,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                  ),
+                  Spacer(),
+                  if (model.date != null) ...[
+                    Container(
+                      height: 44,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: Colors.white,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Gap(12),
+                          SvgPicture.asset('assets/svg/calendar.svg'),
+                          Gap(8),
+                          Text(
+                            formatDate(model.date!),
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          Gap(16),
+                        ],
+                      ),
+                    ),
+                    Gap(12),
+                  ],
+                  if (model.durationInSeconds != null) ...[
+                    Container(
+                      height: 44,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: Colors.white,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Gap(12),
+                          SvgPicture.asset('assets/svg/watch.svg'),
+                          Gap(8),
+                          Text(
+                            formatDuration(model.durationInSeconds!),
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          Gap(16),
+                        ],
+                      ),
+                    ),
+                    Gap(12),
+                  ],
+                  Container(
+                    height: 44,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: Colors.white,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Gap(12),
+                        ...List.generate(5, (index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 4),
+                            child: SvgPicture.asset(
+                              'assets/svg/star_${index < model.priority ? 'filled' : 'outline'}.svg',
+                            ),
+                          );
+                        }),
+                        Gap(16),
+                      ],
+                    ),
+                  ),
+                  Gap(40),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Bounceable(
+                        onTap: onUndoTap,
+                        child: Opacity(
+                          opacity: canUndo ? 1 : 0.5,
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.white,
+                            ),
+                            alignment: Alignment.center,
+                            child: SvgPicture.asset('assets/svg/undo_icon.svg'),
+                          ),
+                        ),
+                      ),
+                      Gap(16),
+                      Bounceable(
+                        onTap: onEditTap,
+                        child: Container(
+                          height: 56,
+                          width: 56,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white,
+                          ),
+                          alignment: Alignment.center,
+                          child: SvgPicture.asset('assets/svg/pencil.svg'),
+                        ),
+                      ),
+                      Gap(16),
+                      Bounceable(
+                        onTap: onDeleteTap,
+                        child: Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white,
+                          ),
+                          alignment: Alignment.center,
+                          child: SvgPicture.asset('assets/svg/delete.svg'),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

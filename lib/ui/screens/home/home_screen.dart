@@ -32,10 +32,10 @@ class HomeScreen extends HookConsumerWidget {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              const Gap(32),
+              // const Gap(22),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -104,6 +104,7 @@ class HomeScreen extends HookConsumerWidget {
                     }
 
                     return CardSwiper(
+                      maxAngle: 70,
                       controller: controller,
                       cardsCount: data.length,
                       numberOfCardsDisplayed: data.length < 3 ? data.length : 3,
@@ -112,7 +113,7 @@ class HomeScreen extends HookConsumerWidget {
                       onSwipe: (index, value, direction) async {
                         swipeHistory.value.add(index);
 
-                        if (direction.name == 'left') {
+                        if (direction.name == 'right') {
                           final result = await context.push(
                             Routes.taskInProgress(),
                             extra: data[index],
@@ -142,13 +143,16 @@ class HomeScreen extends HookConsumerWidget {
                         horizontal: true,
                       ),
 
-                      padding: EdgeInsets.only(top: 22),
+                      padding: EdgeInsets.only(top: 22, left: 10, right: 10),
                       cardBuilder: (
                         context,
                         index,
                         horizontalThresholdPercentage,
                         verticalThresholdPercentage,
                       ) {
+                        if (index >= data.length) {
+                          return const SizedBox.shrink();
+                        }
                         final task = data[index];
                         return TaskCard(
                           key: ValueKey(task.id),
@@ -261,7 +265,6 @@ class HomeScreen extends HookConsumerWidget {
                   ),
                 ],
               ),
-              Gap(16),
             ],
           ),
         ),
