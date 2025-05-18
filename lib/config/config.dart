@@ -1,5 +1,5 @@
 class Constants {
   Constants._();
 
-  static const String baseUrl = 'http://185.185.70.8/';
+  static const String baseUrl = 'https://adhdo.aqro.ai/';
 }

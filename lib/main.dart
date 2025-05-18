@@ -9,7 +9,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalStorage.init();
   print(LocalStorage().token?.access);
-
+  LocalStorage().token = null;
   initLoggerListener();
 
   SystemChrome.setSystemUIOverlayStyle(
