@@ -1,7 +1,7 @@
-import 'package:adhdo_it_mob/l10n/strings.dart';
+import 'package:adhdo_it_mob/l10n/app_localizations.dart';
+
 import 'package:adhdo_it_mob/ui/dialogs/calendar_bottom_sheet.dart';
-import 'package:adhdo_it_mob/ui/dialogs/date_picker_bottom_sheet.dart';
-import 'package:adhdo_it_mob/ui/dialogs/reminder_bottom_sheet.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_svg/flutter_svg.dart';

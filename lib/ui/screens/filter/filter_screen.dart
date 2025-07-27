@@ -1,6 +1,6 @@
 import 'package:adhdo_it_mob/data/models/task_model.dart';
 import 'package:adhdo_it_mob/helpers/toast_helper.dart';
-import 'package:adhdo_it_mob/l10n/strings.dart';
+import 'package:adhdo_it_mob/l10n/app_localizations.dart';
 import 'package:adhdo_it_mob/providers/task_providers.dart';
 import 'package:adhdo_it_mob/ui/dialogs/filter_dialog.dart';
 import 'package:adhdo_it_mob/ui/screens/filter/widgets/task_list_item.dart';

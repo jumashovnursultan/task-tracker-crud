@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:adhdo_it_mob/data/models/task_model.dart';
 import 'package:adhdo_it_mob/helpers/toast_helper.dart';
-import 'package:adhdo_it_mob/l10n/strings.dart';
+import 'package:adhdo_it_mob/l10n/app_localizations.dart';
 import 'package:adhdo_it_mob/providers/task_in_progress_providers.dart';
 import 'package:adhdo_it_mob/ui/screens/task_in_progress/widgets/%D1%81onfirm_%D1%81omplete_task_bottom_sheet.dart';
 import 'package:adhdo_it_mob/ui/screens/task_in_progress/widgets/animated_timer_ring.dart';

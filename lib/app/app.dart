@@ -12,7 +12,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:adhdo_it_mob/app/offline_indicator_widget.dart';
 import 'package:adhdo_it_mob/config/router/router.dart';
 import 'package:adhdo_it_mob/data/storage/local_storage.dart';
-import 'package:adhdo_it_mob/l10n/strings.dart';
+import 'package:adhdo_it_mob/l10n/app_localizations.dart';
 import 'package:adhdo_it_mob/providers/user_providers.dart';
 
 class App extends StatefulHookConsumerWidget {

@@ -1,6 +1,6 @@
 import 'package:adhdo_it_mob/config/router/app_route.dart';
 import 'package:adhdo_it_mob/helpers/toast_helper.dart';
-import 'package:adhdo_it_mob/l10n/strings.dart';
+import 'package:adhdo_it_mob/l10n/app_localizations.dart';
 import 'package:adhdo_it_mob/providers/login_providers.dart';
 import 'package:adhdo_it_mob/ui/widgets/email_form_field.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,6 @@
 import 'package:adhdo_it_mob/config/router/app_route.dart';
 import 'package:adhdo_it_mob/data/models/task_model.dart';
-import 'package:adhdo_it_mob/l10n/strings.dart';
+import 'package:adhdo_it_mob/l10n/app_localizations.dart';
 import 'package:adhdo_it_mob/providers/task_providers.dart';
 import 'package:adhdo_it_mob/ui/dialogs/add_task_bottom_sheet.dart';
 

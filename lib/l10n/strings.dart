@@ -1,1 +1,1 @@
-export 'package:flutter_gen/gen_l10n/app_localizations.dart';
+export 'package:adhdo_it_mob/l10n/strings.dart';
