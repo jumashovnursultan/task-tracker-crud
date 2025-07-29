@@ -71,7 +71,7 @@ class EditTaskImageSelector extends StatelessWidget {
                   SvgPicture.asset('assets/svg/attach.svg'),
                 selectedImage.value != null ? const Gap(10) : Gap(0.1),
                 const Text(
-                  'Foto',
+                  'File',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                 ),
               ],

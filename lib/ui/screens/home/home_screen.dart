@@ -248,21 +248,21 @@ class HomeScreen extends HookConsumerWidget {
                     ),
                   ),
 
-                  Gap(8),
-                  Container(
-                    height: 44,
-                    width: 44,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color(0xFFF5F5F5),
-                    ),
-                    alignment: Alignment.center,
-                    child: SizedBox(
-                      height: 23,
-                      width: 24,
-                      child: SvgPicture.asset('assets/svg/microphone.svg'),
-                    ),
-                  ),
+                  // Gap(8),
+                  // Container(
+                  //   height: 44,
+                  //   width: 44,
+                  //   decoration: BoxDecoration(
+                  //     shape: BoxShape.circle,
+                  //     color: Color(0xFFF5F5F5),
+                  //   ),
+                  //   alignment: Alignment.center,
+                  //   child: SizedBox(
+                  //     height: 23,
+                  //     width: 24,
+                  //     child: SvgPicture.asset('assets/svg/microphone.svg'),
+                  //   ),
+                  // ),
                 ],
               ),
             ],

@@ -105,9 +105,12 @@ class IntroScreen extends HookWidget {
                       ],
                     ),
                     const Spacer(flex: 2),
-                    Padding(
-                      padding: page.imagePadding,
-                      child: Image.asset(page.image),
+                    Flexible(
+                      flex: 100,
+                      child: Padding(
+                        padding: page.imagePadding,
+                        child: Image.asset(page.image),
+                      ),
                     ),
                     const Spacer(flex: 3),
                     Row(

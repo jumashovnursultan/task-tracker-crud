@@ -87,27 +87,18 @@ class AddTaskBottomSheet extends HookConsumerWidget {
                               ),
                             ).future,
                           );
+
                           if (response.isSuccessful) {
                             Navigator.of(context)
                               ..pop()
                               ..pop(response.result);
                           } else {
-                            if (response.statusCode == 413) {
-                              showToast(
-                                context,
-                                alignment: Alignment.topCenter,
-                                type: ToastificationType.error,
-                                msg:
-                                    'Image is too large. Please choose a smaller one.',
-                              );
-                            } else {
-                              showToast(
-                                context,
-                                type: ToastificationType.error,
-                                alignment: Alignment.topCenter,
-                                msg: response.errorData.toString(),
-                              );
-                            }
+                            showToast(
+                              context,
+                              type: ToastificationType.error,
+                              alignment: Alignment.topCenter,
+                              msg: response.errorData.toString(),
+                            );
 
                             Navigator.of(context).pop();
                             focusNode.requestFocus();
@@ -417,7 +408,7 @@ class AddTaskBottomSheet extends HookConsumerWidget {
                                 SvgPicture.asset('assets/svg/attach.svg'),
                               if (selectedImage.value != null) ...[
                                 Text(
-                                  'Foto',
+                                  'File',
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w700,

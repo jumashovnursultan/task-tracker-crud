@@ -173,10 +173,15 @@ Future<ApiResponse<TaskModel>> createTask(Ref ref, TaskModel model) async {
   final response = await ref.read(taskRepoProvider).createTask(model);
 
   if (!response.isSuccessful) {
+    if (response.statusCode == 413) {
+      return ApiResponse(
+        statusCode: response.statusCode,
+        errorData: 'Image is too large. Please choose a smaller one.',
+      );
+    }
     final errorTitle = response.errorData?['title'];
     if (errorTitle is List &&
         errorTitle.contains('This field may not be blank.')) {
-      // Здесь мы перехватываем именно эту ошибку
       return ApiResponse(
         statusCode: response.statusCode,
         errorData: 'Title cannot be blank',
@@ -195,7 +200,6 @@ Future<ApiResponse<TaskModel>> editTask(Ref ref, TaskModel model) async {
     final errorTitle = response.errorData?['title'];
     if (errorTitle is List &&
         errorTitle.contains('This field may not be blank.')) {
-      // Здесь мы перехватываем именно эту ошибку
       return ApiResponse(
         statusCode: response.statusCode,
         errorData: 'Title cannot be blank',

@@ -52,7 +52,7 @@ Future<void> showToast(
       dragToClose: true,
       showProgressBar: showProgressBar,
       borderRadius: BorderRadius.circular(20),
-      dismissDirection: DismissDirection.startToEnd,
+      dismissDirection: DismissDirection.up,
       autoCloseDuration: Duration(seconds: duration),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       foregroundColor: Colors.white,
