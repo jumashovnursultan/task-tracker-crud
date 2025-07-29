@@ -33,7 +33,6 @@ class TariffSelectionScreen extends HookConsumerWidget {
             ),
           );
 
-          // Например, перенаправить на главный экран:
           context.go(Routes.intro());
         },
         onError: (errorMessage) {
