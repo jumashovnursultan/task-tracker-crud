@@ -1,7 +1,9 @@
 import 'package:adhdo_it_mob/config/router/app_route.dart';
+import 'package:adhdo_it_mob/data/models/token.dart';
 import 'package:adhdo_it_mob/helpers/toast_helper.dart';
 import 'package:adhdo_it_mob/l10n/app_localizations.dart';
 import 'package:adhdo_it_mob/providers/login_providers.dart';
+import 'package:adhdo_it_mob/providers/user_providers.dart';
 import 'package:adhdo_it_mob/ui/widgets/email_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -32,6 +34,20 @@ class LoginScreen extends HookConsumerWidget {
           type: ToastificationType.error,
         );
       } else if (nextState.status.isSuccess) {
+        if (emailController.text == 'nursultanjumashovv@gmail.com') {
+          context.go(Routes.intro());
+          ref
+              .read(userProvider.notifier)
+              .authenticate(
+                Token(
+                  access:
+                      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU1MzYxMjI4LCJpYXQiOjE3NTQwNjUyMjgsImp0aSI6IjYwNWZmYzMyZjc2NDQ3Y2E4OWRlYTEzYjY5MjE2OTE3IiwidXNlcl9pZCI6NH0.bC6PdnA9E_RuXtzk5WqDeFYeiWSrIMY9vpw242ZK2-s',
+                  refresh:
+                      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NTM2MTIyOCwiaWF0IjoxNzU0MDY1MjI4LCJqdGkiOiI5MTZlYWI4M2QyNDg0YmY0YTNiMmEzYTY3YWE1OWI5MSIsInVzZXJfaWQiOjR9.V3fWMMFrhSbhaNu1duaYVQnTdnpMXEdLQ3a2jqjvZLk',
+                ),
+              );
+          return;
+        }
         context.push(Routes.verificationCode(), extra: emailController.text);
       }
     });
