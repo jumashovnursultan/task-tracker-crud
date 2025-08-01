@@ -1,3 +1,4 @@
+import 'package:adhdo_it_mob/providers/client_error.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:adhdo_it_mob/data/models/token.dart';
 import 'package:adhdo_it_mob/data/models/user_model.dart';
@@ -21,7 +22,6 @@ enum AuthStatus {
 abstract class UserState with _$UserState {
   factory UserState({
     @Default(AuthStatus.unauthenticated) AuthStatus authStatus,
-
     @Default(AsyncValue.loading()) final AsyncValue<UserModel> userProfile,
   }) = _UserState;
 
@@ -34,6 +34,11 @@ class User extends _$User {
 
   @override
   UserState build() {
+    ref.listen(clientErrorProvider, (prev, next) {
+      if (next.isUnauthorized && state.authStatus.isAuth) {
+        unauthenticate();
+      }
+    });
     if (localStorage.token != null) {
       // fetchUserProfile();
     }

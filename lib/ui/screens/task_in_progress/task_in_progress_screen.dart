@@ -135,20 +135,9 @@ class _TaskInProgressScreenState extends ConsumerState<TaskInProgressScreen>
         body: Stack(
           fit: StackFit.expand,
           children: [
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF0D0D0D), Color(0xFF1A1A1A)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
-              child: Image.asset(
-                'assets/images/focus_background_mountain_night.png',
-                fit: BoxFit.fitHeight,
-                width: double.infinity,
-                alignment: Alignment.center,
-              ),
+            Image.asset(
+              'assets/images/focus_background_mountain_night.png',
+              fit: BoxFit.cover,
             ),
             SafeArea(
               child: Padding(

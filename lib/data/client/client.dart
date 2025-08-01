@@ -121,7 +121,7 @@ class ApiClient {
       if ((statusCode == 401 || statusCode == 403) &&
           LocalStorage().token != null) {
         final refreshResponse = await _dio.post(
-          'accounts/token/refresh/',
+          'api/token/refresh/',
           data: {'refresh': LocalStorage().token!.refresh},
         );
 

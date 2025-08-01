@@ -57,7 +57,7 @@ class _AppState extends ConsumerState<App> {
     ref.listen(userProvider, (prevState, nextState) {
       if (prevState?.authStatus.isAuth == true &&
           nextState.authStatus.isUnauth) {
-        _router.go('');
+        _router.go(Routes.login());
       }
     });
     return ScaffoldMessenger(
