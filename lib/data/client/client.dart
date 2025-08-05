@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:logging/logging.dart';
-import 'package:adhdo_it_mob/data/client/interceptors/auth_interceptor.dart';
-import 'package:adhdo_it_mob/data/models/api_response.dart';
-import 'package:adhdo_it_mob/data/models/token.dart';
+import 'package:to_do/data/client/interceptors/auth_interceptor.dart';
+import 'package:to_do/data/models/api_response.dart';
+import 'package:to_do/data/models/token.dart';
 import 'package:tf_dio_cache/tf_dio_cache.dart';
 
 import '../storage/local_storage.dart';

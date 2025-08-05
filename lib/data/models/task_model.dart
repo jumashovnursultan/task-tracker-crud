@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:adhdo_it_mob/ui/dialogs/filter_dialog.dart';
+import 'package:to_do/ui/dialogs/filter_dialog.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'task_model.freezed.dart';

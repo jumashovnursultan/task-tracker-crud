@@ -1,5 +1,5 @@
-import 'package:adhdo_it_mob/providers/dependencies.dart';
-import 'package:adhdo_it_mob/providers/user_providers.dart';
+import 'package:to_do/providers/dependencies.dart';
+import 'package:to_do/providers/user_providers.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

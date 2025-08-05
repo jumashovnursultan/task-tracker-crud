@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:ui';
 
-import 'package:adhdo_it_mob/config/theme/theme_type.dart';
-import 'package:adhdo_it_mob/data/models/token.dart';
+import 'package:to_do/config/theme/theme_type.dart';
+import 'package:to_do/data/models/token.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class LocalStorage {

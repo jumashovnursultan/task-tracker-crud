@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:adhdo_it_mob/data/models/task_model.dart';
-import 'package:adhdo_it_mob/helpers/toast_helper.dart';
-import 'package:adhdo_it_mob/l10n/app_localizations.dart';
-import 'package:adhdo_it_mob/providers/task_in_progress_providers.dart';
-import 'package:adhdo_it_mob/ui/screens/task_in_progress/widgets/%D1%81onfirm_%D1%81omplete_task_bottom_sheet.dart';
-import 'package:adhdo_it_mob/ui/screens/task_in_progress/widgets/animated_timer_ring.dart';
-import 'package:adhdo_it_mob/ui/screens/task_in_progress/widgets/complete_button.dart';
-import 'package:adhdo_it_mob/ui/screens/task_in_progress/widgets/expandable_blur_text.dart';
-import 'package:adhdo_it_mob/ui/screens/task_in_progress/widgets/notification_toggle.dart';
-import 'package:adhdo_it_mob/ui/screens/task_in_progress/widgets/pause_play_button.dart';
+import 'package:to_do/data/models/task_model.dart';
+import 'package:to_do/helpers/toast_helper.dart';
+import 'package:to_do/l10n/app_localizations.dart';
+import 'package:to_do/providers/task_in_progress_providers.dart';
+import 'package:to_do/ui/screens/task_in_progress/widgets/%D1%81onfirm_%D1%81omplete_task_bottom_sheet.dart';
+import 'package:to_do/ui/screens/task_in_progress/widgets/animated_timer_ring.dart';
+import 'package:to_do/ui/screens/task_in_progress/widgets/complete_button.dart';
+import 'package:to_do/ui/screens/task_in_progress/widgets/expandable_blur_text.dart';
+import 'package:to_do/ui/screens/task_in_progress/widgets/notification_toggle.dart';
+import 'package:to_do/ui/screens/task_in_progress/widgets/pause_play_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
@@ -132,12 +132,14 @@ class _TaskInProgressScreenState extends ConsumerState<TaskInProgressScreen>
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
+
         body: Stack(
           fit: StackFit.expand,
           children: [
             Image.asset(
-              'assets/images/focus_background_mountain_night.png',
+              'assets/images/flutter_logo.png',
               fit: BoxFit.cover,
+              color: Colors.grey,
             ),
             SafeArea(
               child: Padding(

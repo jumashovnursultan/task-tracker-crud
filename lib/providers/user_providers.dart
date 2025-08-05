@@ -1,8 +1,8 @@
-import 'package:adhdo_it_mob/providers/client_error.dart';
+import 'package:to_do/providers/client_error.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:adhdo_it_mob/data/models/token.dart';
-import 'package:adhdo_it_mob/data/models/user_model.dart';
-import 'package:adhdo_it_mob/providers/dependencies.dart';
+import 'package:to_do/data/models/token.dart';
+import 'package:to_do/data/models/user_model.dart';
+import 'package:to_do/providers/dependencies.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../data/storage/local_storage.dart';

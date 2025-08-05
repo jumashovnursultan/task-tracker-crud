@@ -1,9 +1,9 @@
-import 'package:adhdo_it_mob/ui/dialogs/duration_time_bottom_sheet.dart';
+import 'package:to_do/ui/dialogs/duration_time_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:adhdo_it_mob/helpers/date_helpers.dart';
+import 'package:to_do/helpers/date_helpers.dart';
 
 class EditTaskDurationSelector extends StatelessWidget {
   const EditTaskDurationSelector({super.key, required this.selectedDuration});

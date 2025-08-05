@@ -1,4 +1,4 @@
-import 'package:adhdo_it_mob/data/services/purchase_service.dart';
+import 'package:to_do/data/services/purchase_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';

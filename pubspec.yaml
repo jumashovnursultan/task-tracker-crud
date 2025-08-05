@@ -1,4 +1,4 @@
-name: adhdo_it_mob
+name: to_do
 description: "A new Flutter project."
 publish_to: 'none'
 version: 1.0.16+16
@@ -82,7 +82,7 @@ dev_dependencies:
   flutter_launcher_icons: ^0.14.3
 
 flutter_icons:
-  image_path: "assets/images/app_icon.png"  
+  image_path: "assets/images/flutter_logo.png"  
   android: true
   ios: true  
 

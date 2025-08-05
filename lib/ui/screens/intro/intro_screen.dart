@@ -1,4 +1,4 @@
-import 'package:adhdo_it_mob/config/router/app_route.dart';
+import 'package:to_do/config/router/app_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -33,7 +33,7 @@ final List<IntroModel> introPages = [
       ),
     ],
     subTitle: 'Tap the plus button to add a new task',
-    image: 'assets/images/into_image1.png',
+    image: 'assets/images/flutter_logo.png',
     imagePadding: const EdgeInsets.symmetric(horizontal: 16),
   ),
   IntroModel(
@@ -46,7 +46,7 @@ final List<IntroModel> introPages = [
       const TextSpan(text: 'tasks'),
     ],
     subTitle: 'Swipe left to view the next task',
-    image: 'assets/images/into_image2.png',
+    image: 'assets/images/flutter_logo.png',
     imagePadding: const EdgeInsets.only(left: 12, right: 34),
   ),
   IntroModel(
@@ -59,7 +59,7 @@ final List<IntroModel> introPages = [
       const TextSpan(text: 'a task'),
     ],
     subTitle: 'Swipe right to start focusing on a task',
-    image: 'assets/images/into_image3.png',
+    image: 'assets/images/flutter_logo.png',
     imagePadding: const EdgeInsets.only(left: 33, right: 7),
   ),
 ];
@@ -91,7 +91,7 @@ class IntroScreen extends HookWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
-                          'ADHDo.it',
+                          'todo.it',
                           style: TextStyle(
                             fontSize: 32,
                             fontWeight: FontWeight.w700,

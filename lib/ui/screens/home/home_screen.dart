@@ -1,13 +1,13 @@
-import 'package:adhdo_it_mob/config/router/app_route.dart';
-import 'package:adhdo_it_mob/data/models/task_model.dart';
-import 'package:adhdo_it_mob/l10n/app_localizations.dart';
-import 'package:adhdo_it_mob/providers/task_providers.dart';
-import 'package:adhdo_it_mob/ui/dialogs/add_task_bottom_sheet.dart';
+import 'package:to_do/config/router/app_route.dart';
+import 'package:to_do/data/models/task_model.dart';
+import 'package:to_do/l10n/app_localizations.dart';
+import 'package:to_do/providers/task_providers.dart';
+import 'package:to_do/ui/dialogs/add_task_bottom_sheet.dart';
 
-import 'package:adhdo_it_mob/ui/screens/home/widgets/task_card.dart';
-import 'package:adhdo_it_mob/ui/screens/task_in_progress/task_in_progress_screen.dart';
-import 'package:adhdo_it_mob/ui/widgets/empty_task_view.dart';
-import 'package:adhdo_it_mob/ui/widgets/server_error_view.dart';
+import 'package:to_do/ui/screens/home/widgets/task_card.dart';
+import 'package:to_do/ui/screens/task_in_progress/task_in_progress_screen.dart';
+import 'package:to_do/ui/widgets/empty_task_view.dart';
+import 'package:to_do/ui/widgets/server_error_view.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';

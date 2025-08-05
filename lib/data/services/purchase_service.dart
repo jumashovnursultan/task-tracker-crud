@@ -22,7 +22,7 @@ class PurchaseService {
       throw Exception('Store is not available');
     }
 
-    const Set<String> ids = {'adhdoit_monthly', 'adhdoit_yearly'};
+    const Set<String> ids = {'todo_monthly', 'todo_yearly'};
     final ProductDetailsResponse response = await _iap.queryProductDetails(ids);
     if (response.error != null || response.productDetails.isEmpty) {
       throw Exception('Failed to load products');

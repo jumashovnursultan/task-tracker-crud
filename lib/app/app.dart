@@ -1,19 +1,17 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:adhdo_it_mob/config/router/app_route.dart';
-import 'package:adhdo_it_mob/config/theme/theme.dart';
-import 'package:adhdo_it_mob/core/push_notifications_manager.dart';
+import 'package:to_do/config/router/app_route.dart';
+import 'package:to_do/config/theme/theme.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:adhdo_it_mob/app/offline_indicator_widget.dart';
-import 'package:adhdo_it_mob/config/router/router.dart';
-import 'package:adhdo_it_mob/data/storage/local_storage.dart';
-import 'package:adhdo_it_mob/l10n/app_localizations.dart';
-import 'package:adhdo_it_mob/providers/user_providers.dart';
+import 'package:to_do/app/offline_indicator_widget.dart';
+import 'package:to_do/config/router/router.dart';
+import 'package:to_do/data/storage/local_storage.dart';
+import 'package:to_do/l10n/app_localizations.dart';
+import 'package:to_do/providers/user_providers.dart';
 
 class App extends StatefulHookConsumerWidget {
   const App({super.key});
@@ -62,7 +60,7 @@ class _AppState extends ConsumerState<App> {
     });
     return ScaffoldMessenger(
       child: MaterialApp.router(
-        title: 'ADHDo.it',
+        title: 'To do',
         debugShowCheckedModeBanner: false,
         locale: _locale,
         localizationsDelegates: Strings.localizationsDelegates,

@@ -1,7 +1,7 @@
-import 'package:adhdo_it_mob/data/client/client.dart';
-import 'package:adhdo_it_mob/data/repo/task_repo.dart';
-import 'package:adhdo_it_mob/data/repo/user_repo.dart';
-import 'package:adhdo_it_mob/providers/client_error.dart';
+import 'package:to_do/data/client/client.dart';
+import 'package:to_do/data/repo/task_repo.dart';
+import 'package:to_do/data/repo/user_repo.dart';
+import 'package:to_do/providers/client_error.dart';
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

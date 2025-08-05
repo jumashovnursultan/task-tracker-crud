@@ -1,6 +1,6 @@
-import 'package:adhdo_it_mob/l10n/app_localizations.dart';
+import 'package:to_do/l10n/app_localizations.dart';
 
-import 'package:adhdo_it_mob/ui/dialogs/calendar_bottom_sheet.dart';
+import 'package:to_do/ui/dialogs/calendar_bottom_sheet.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';

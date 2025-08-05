@@ -1,1 +1,1 @@
-export 'package:adhdo_it_mob/l10n/strings.dart';
+export 'package:to_do/l10n/strings.dart';

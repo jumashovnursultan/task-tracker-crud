@@ -1,6 +1,6 @@
-import 'package:adhdo_it_mob/data/models/task_model.dart';
-import 'package:adhdo_it_mob/helpers/date_helpers.dart';
-import 'package:adhdo_it_mob/providers/task_providers.dart';
+import 'package:to_do/data/models/task_model.dart';
+import 'package:to_do/helpers/date_helpers.dart';
+import 'package:to_do/providers/task_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';

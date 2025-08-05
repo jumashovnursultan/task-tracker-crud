@@ -1,4 +1,4 @@
-package dev.adhdo.dondone
+package dev.todocompany.todo
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,5 +1,5 @@
-import 'package:adhdo_it_mob/config/router/app_route.dart';
-import 'package:adhdo_it_mob/helpers/toast_helper.dart';
+import 'package:to_do/config/router/app_route.dart';
+import 'package:to_do/helpers/toast_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -8,7 +8,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:adhdo_it_mob/providers/purchase_providers.dart';
+import 'package:to_do/providers/purchase_providers.dart';
 
 class TariffSelectionScreen extends HookConsumerWidget {
   const TariffSelectionScreen({super.key});
@@ -107,13 +107,13 @@ class TariffSelectionScreen extends HookConsumerWidget {
                     style: TextStyle(fontSize: 32, fontWeight: FontWeight.w700),
                   ),
                   const Gap(20),
-                  Image.asset('assets/images/logo.png'),
+                  Image.asset('assets/images/flutter_logo.png'),
                   const Gap(30),
 
                   // Tariff Options
                   _TariffOption(
                     isYear: true,
-                    title: 'ADHDo.it',
+                    title: 'todo.it',
                     subtitle: '1 month free, then \$30/year',
                     selected: selectedTariff.value == 'year',
                     onTap: () => selectedTariff.value = 'year',
@@ -121,7 +121,7 @@ class TariffSelectionScreen extends HookConsumerWidget {
                   const Gap(8),
                   _TariffOption(
                     isYear: false,
-                    title: 'ADHDo.it',
+                    title: 'todo.it',
                     subtitle: '1 month free, then \$5/month',
                     selected: selectedTariff.value == 'month',
                     onTap: () => selectedTariff.value = 'month',
@@ -150,8 +150,8 @@ class TariffSelectionScreen extends HookConsumerWidget {
                       //       .firstWhere(
                       //         (p) =>
                       //             selectedTariff.value == 'year'
-                      //                 ? p.id == 'adhdoit_yearly'
-                      //                 : p.id == 'adhdoit_monthly',
+                      //                 ? p.id == 'todo_yearly'
+                      //                 : p.id == 'todo_monthly',
                       //       );
 
                       //   await purchaseNotifier.buy(selectedProduct);

@@ -1,4 +1,4 @@
-import 'package:adhdo_it_mob/data/storage/local_storage.dart';
+import 'package:to_do/data/storage/local_storage.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'dependencies.dart';

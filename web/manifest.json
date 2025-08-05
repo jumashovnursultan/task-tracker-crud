@@ -1,6 +1,6 @@
 {
-    "name": "adhdo_it_mob",
-    "short_name": "adhdo_it_mob",
+    "name": "to_do",
+    "short_name": "to_do",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

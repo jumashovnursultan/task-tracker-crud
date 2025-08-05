@@ -1,10 +1,10 @@
-import 'package:adhdo_it_mob/config/router/app_route.dart';
-import 'package:adhdo_it_mob/data/models/token.dart';
-import 'package:adhdo_it_mob/helpers/toast_helper.dart';
-import 'package:adhdo_it_mob/l10n/app_localizations.dart';
-import 'package:adhdo_it_mob/providers/login_providers.dart';
-import 'package:adhdo_it_mob/providers/user_providers.dart';
-import 'package:adhdo_it_mob/ui/widgets/email_form_field.dart';
+import 'package:to_do/config/router/app_route.dart';
+import 'package:to_do/data/models/token.dart';
+import 'package:to_do/helpers/toast_helper.dart';
+import 'package:to_do/l10n/app_localizations.dart';
+import 'package:to_do/providers/login_providers.dart';
+import 'package:to_do/providers/user_providers.dart';
+import 'package:to_do/ui/widgets/email_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
@@ -72,7 +72,7 @@ class LoginScreen extends HookConsumerWidget {
                         style: TextStyle(fontSize: 32, height: 1.1),
                       ),
                       Text(
-                        'ADHDo.it',
+                        'todo.it',
                         style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.w700,
@@ -80,7 +80,7 @@ class LoginScreen extends HookConsumerWidget {
                         ),
                       ),
                       Gap(20),
-                      Image.asset('assets/images/logo.png'),
+                      Image.asset('assets/images/flutter_logo.png'),
                       Gap(120),
                       Text(
                         Strings.of(context).loginToStart,
